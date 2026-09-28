@@ -253,6 +253,13 @@
           "delta": 0.34,
           "text": "Washer/dishwasher: 1.2 kWh, +0.3 kWh vs the previous 24 h"
         }
+      ],
+      "labelIndexes": [
+        0,
+        6,
+        12,
+        18,
+        23
       ]
     },
     "3d": {
@@ -366,6 +373,11 @@
           "delta": 0.65,
           "text": "Baseload: 6.2 kWh, +0.6 kWh vs the previous 3 days"
         }
+      ],
+      "labelIndexes": [
+        0,
+        6,
+        12
       ]
     },
     "7d": {
@@ -480,6 +492,15 @@
           "delta": -1.01,
           "text": "Washer/dishwasher: 2.5 kWh, -1.0 kWh vs the previous week"
         }
+      ],
+      "labelIndexes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
       ]
     }
   },

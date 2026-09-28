@@ -140,15 +140,16 @@
             <div class="stripes"></div>
             <canvas x-chart="profileSpec"></canvas>
           </div>
-          <div class="axis">
-            <template x-for="label in data?.labels"><span x-text="label"></span></template>
-          </div>
           <div class="legend bottom">
             <span><i class="dot" :class="pendingCount ? 'grey' : 'orange'"></i>Forecast (kWh)</span>
             <span x-show="pendingCount"><i class="dot green"></i>If shifted</span>
-            <span><i class="square faint"></i>Price</span>
+            <span x-show="(data?.stepHours ?? 1) < 24"><i class="square faint"></i>Price</span>
           </div>
           <p class="muted hint" x-show="pendingCount">Tap a green marker to schedule the device there.</p>
+          <template x-for="s in $store.shifts.confirmed" :key="s.id">
+            <p class="hint scheduled">✓ <span x-text="s.device"></span> scheduled <span x-text="$when(s.ideal)"></span> ·
+              <button @click="$store.shifts.undo(s)">Undo</button></p>
+          </template>
         </article>
 
         <article class="card why" x-show="data?.why?.length">
@@ -166,14 +167,14 @@
           </div>
           <p class="muted devices-sum" x-text="`${format(total)} · ${activeCount} of ${devices.length} running`"></p>
           <p class="muted empty" x-show="!groups.length">No devices are running at this time.</p>
-          <template x-for="group in groups">
+          <template x-for="group in groups" :key="group.model">
             <article class="card room">
               <div class="room-head">
                 <h2><i class="dot orange"></i><span x-text="group.title"></span></h2>
                 <span class="muted" x-text="format(groupTotal(group))"></span>
               </div>
               <p class="muted group-hint" x-text="group.hint"></p>
-              <template x-for="device in group.devices">
+              <template x-for="device in group.devices" :key="device.name">
                 <div class="device">
                   <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
                   <div class="device-info">

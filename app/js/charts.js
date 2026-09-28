@@ -84,7 +84,7 @@
      * while that alternative is on screen). `shifts` = { pending, confirmed }, `onPick(shift)` = marker clicked,
      * `onFocus(blockIndex)` = the pointer is over that block (the devices list follows it).
      */
-    profile({ values, highlights }, { start, stepHours, shifts = {}, onPick, onFocus } = {}) {
+    profile({ values, highlights, labels = [], labelIndexes }, { start, stepHours, shifts = {}, onPick, onFocus } = {}) {
       const t = theme();
       const green = token('--green');
       const step = stepHours || 1;
@@ -113,7 +113,7 @@
 
       // --- tariff per block (average over its hours), drawn as a step function behind the forecast ---
       const rate = (hour) => (HW.config.tariff.find((seg) => hour % 24 >= seg.from && hour % 24 < seg.to) ?? {}).price ?? 0;
-      const prices = start ? values.map((_, i) => {
+      const prices = start && step < 24 ? values.map((_, i) => {        // none on the daily (7d) view
         const first = start.getHours() + i * step;
         return Array.from({ length: step }, (_, k) => rate(first + k)).reduce((a, b) => a + b, 0) / step;
       }) : null;
@@ -132,6 +132,10 @@
         else lines.push(word);
         return lines;
       }, []);
+
+      // x-axis labels sit under the data points they belong to (index of each label in the series)
+      const labelAt = new Map(labels.map((text, i) =>
+        [labelIndexes?.[i] ?? Math.round((i * (count - 1)) / Math.max(labels.length - 1, 1)), text]));
 
       return {
         id: `profile-${count}-${step}`,        // same id = same chart: data changes animate instead of redrawing
@@ -158,7 +162,7 @@
             pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0,
           }] },
           options: base(t, {
-            layout: { padding: { top: 10, bottom: 4, left: 0, right: prices ? 0 : 12 } },
+            layout: { padding: 0 },
             interaction: { mode: 'hw', intersect: false },
             scales: {
               ...scales(t, {
@@ -167,6 +171,11 @@
                 ticks: { display: true, count: undefined, maxTicksLimit: 5, padding: 6, color: line,   // same color as the forecast line
                          font: { size: 11 }, callback: (v) => v.toFixed(v < 10 ? 1 : 0) },
               }),
+              x: {
+                display: true, grid: { display: false }, border: { display: false },
+                ticks: { autoSkip: false, maxRotation: 0, padding: 8, color: token('--muted'),
+                         font: { size: 12 }, callback: (_v, i) => labelAt.get(i) ?? '' },
+              },
               // right-hand price axis, 0–50 ct: markers show what the step background means
               price: {
                 display: !!prices, position: 'right', min: 0, max: 0.5,

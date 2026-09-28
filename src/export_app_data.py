@@ -234,6 +234,13 @@ def labels_for(rows, name):
     return [f"{rows[i]['timestamp']:%a}" for i in range(0, len(rows), 24)]
 
 
+def label_indexes(rows, size, name):
+    """Index (in the accumulated series) of each axis label, so the app can put them under their data points."""
+    if name == "24h":
+        return [0, 6, 12, 18, 23]
+    return [i // size for i in range(0, len(rows), 24)]
+
+
 FIRST_NOW, LAST_NOW = datetime(2026, 9, 20, 0, 0), datetime(2026, 10, 5, 23, 0)
 
 
@@ -247,6 +254,7 @@ def main(now, out=OUT):
         rows, runs, trips = forecast(now, hours, llm=llm)
         usage[name] = {
             "title": "Forecast Profile", "subtitle": subtitle, "stepHours": size, "labels": labels_for(rows, name),
+            "labelIndexes": label_indexes(rows, size, name),
             "values": [r1(v, 3) for v in accumulate([r["total_real_kwh"] for r in rows], size)],
             "highlights": highlights(rows, size, 2 if name != "7d" else 3, runs),
             "why": why(now, hours, rows),
