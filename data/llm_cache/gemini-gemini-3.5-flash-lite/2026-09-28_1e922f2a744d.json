@@ -1,0 +1,71 @@
+{
+  "date": "2026-09-28",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:52:16",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after returning from her parents' place the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up at home, has her usual morning routine, and prepares for the workday.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:20",
+      "reason": "She commutes from home to her office at Warsaw Spire.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "09:20",
+      "end": "18:15",
+      "reason": "She is working at the office in Warsaw Spire with meetings throughout the day.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:15",
+      "end": "18:30",
+      "reason": "She travels from the office towards the physio clinic on ul. Mokotowska.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "19:15",
+      "reason": "She is attending her physio appointment at the clinic.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:15",
+      "end": "20:30",
+      "reason": "She travels back home from the physio clinic.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "20:30",
+      "end": "21:00",
+      "reason": "She is doing laundry and packing at home for her upcoming trip to Berlin.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "21:00",
+      "end": "24:00",
+      "reason": "She relaxes at home for the rest of the evening before her early morning flight.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

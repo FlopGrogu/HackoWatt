@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-07",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:56:24",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:30",
+      "reason": "She is sleeping at home before her early flight to Stockholm.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:30",
+      "end": "06:40",
+      "reason": "She takes a taxi from home to the airport for her flight to Stockholm.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "06:40",
+      "end": "24:00",
+      "reason": "She is travelling and staying in Stockholm for the Nordvolt pilot review.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

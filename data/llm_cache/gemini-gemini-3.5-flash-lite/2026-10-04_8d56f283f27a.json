@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-04",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:55:28",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "20:50",
+      "reason": "She is staying in Berlin for the weekend as stated in the calendar.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "20:50",
+      "end": "22:10",
+      "reason": "She is on a flight from Berlin to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:10",
+      "end": "23:00",
+      "reason": "She is traveling from Chopin Airport back to her apartment in Warsaw.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She is back home in her apartment for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

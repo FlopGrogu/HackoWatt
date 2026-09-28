@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-08",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:56:42",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "24:00",
+      "reason": "The user is on a business trip in Stockholm staying at a hotel for the night.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

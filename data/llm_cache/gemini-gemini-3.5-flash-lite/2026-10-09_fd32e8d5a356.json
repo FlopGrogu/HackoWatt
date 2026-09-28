@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-09",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:57:24",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is staying overnight at her hotel in Stockholm.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "09:00",
+      "reason": "She travels from her hotel to the Nordvolt office in Stockholm.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "12:00",
+      "reason": "She attends work from the Nordvolt office in Stockholm.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "12:00",
+      "end": "17:45",
+      "reason": "She has free time in Stockholm before heading to the airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:45",
+      "end": "19:45",
+      "reason": "She travels to Stockholm Arlanda Airport and prepares for her flight.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:45",
+      "end": "21:30",
+      "reason": "She is on her flight from Stockholm to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:30",
+      "end": "22:30",
+      "reason": "She clears customs and travels from Warsaw Chopin Airport to her home.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She arrives back at her apartment and rests for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}
