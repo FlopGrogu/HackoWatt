@@ -6,7 +6,6 @@
 
   HW.icons = {
     home: svg('<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/>'),
-    search: svg('<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>'),
     devices: svg('<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/>' +
                  '<rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>'),
     profile: svg('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-3.5 3.8-5 7-5s6 1.5 7 5"/>'),
@@ -28,6 +27,7 @@
     charging: svg('<rect x="3" y="7" width="15" height="10" rx="2"/><path d="M21 11v2M11 8.5 8.5 12h3L9 15.5"/>'),
     washer: svg('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 7h16M7 5h.01"/><circle cx="12" cy="14" r="4.5"/>'),
     heatpump: svg('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="3.5"/><path d="M9 8.5v7M5.5 12h7M15 9h3M15 12h3M15 15h3"/>'),
+    power: svg('<path d="M12 3v8"/><path d="M7.2 6.6a7.5 7.5 0 1 0 9.6 0"/>'),
     laptop: svg('<rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 18.5h18"/>'),
     clock: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
     pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>'),

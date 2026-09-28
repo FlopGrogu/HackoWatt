@@ -1,7 +1,7 @@
 /* Global Alpine state (navigation) + magic helpers shared by all screens.
    The current screen is mirrored in the URL hash (#usage, #devices …): deep links + browser back work. */
 document.addEventListener('alpine:init', () => {
-  const screens = ['home', 'usage', 'devices', 'search', 'profile'];
+  const screens = ['home', 'usage', 'devices', 'profile'];
   const parentTab = { usage: 'home' };        // sub-screens highlight the tab they belong to
   const fromHash = () => {
     const id = location.hash.slice(1);

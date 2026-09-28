@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,10 +14,12 @@
 
   <!-- App scripts (order matters: namespace → helpers → data → service → state → screens), then Alpine -->
   <script defer src="vendor/leaflet/leaflet.js"></script>
+  <script defer src="vendor/chartjs/chart.umd.js"></script>
   <script defer src="js/config.js"></script>
   <script defer src="js/icons.js"></script>
   <script defer src="js/charts.js"></script>
   <script defer src="js/data/demo.js"></script>
+  <script defer src="js/power.js"></script>
   <script defer src="js/services/api.js"></script>
   <script defer src="js/store.js"></script>
   <script defer src="js/screens/home.js"></script>
@@ -25,260 +28,235 @@
   <script defer src="js/screens/settings.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
+
 <body>
-<div class="phone" x-data x-cloak>
-  <div class="statusbar">
-    <span>9:41</span>
-    <span x-html="$icon('status')"></span>
-  </div>
+  <div class="phone" x-data x-cloak>
+    <div class="statusbar">
+      <span>9:41</span>
+      <span x-html="$icon('status')"></span>
+    </div>
 
-  <main class="screen">
+    <main class="screen">
 
-    <!-- =============================== HOME =============================== -->
-    <section x-data="homeScreen" x-show="$store.nav.screen === 'home'">
-      <header class="welcome">
-        <div>
-          <h1>Welcome home, <span class="accent" x-text="$store.profile.name"></span></h1>
-          <p class="status-line"><i class="dot green"></i><span x-text="user.status"></span></p>
-        </div>
-        <div class="avatar" x-text="$store.profile.initials"></div>
-      </header>
-
-      <!-- Energy Usage -->
-      <article class="card tappable" @click="$store.nav.go('usage')">
-        <div class="card-head">
-          <h2>Energy Usage</h2>
-          <div class="legend">
-            <span><i class="dot orange"></i>Actual</span>
-            <span><i class="dot grey"></i>Forecast</span>
+      <!-- =============================== HOME =============================== -->
+      <section x-data="homeScreen" x-show="$store.nav.screen === 'home'">
+        <header class="welcome">
+          <div>
+            <h1>Welcome home, <span class="accent" x-text="$store.profile.name"></span></h1>
+            <p class="status-line"><i class="dot green"></i><span x-text="user.status"></span></p>
           </div>
-        </div>
-        <p class="muted">Active tracking &amp; forecast</p>
-        <div class="chart">
-          <svg viewBox="0 0 300 110" preserveAspectRatio="none">
-            <line class="grid" x1="0" x2="300" y1="18" y2="18"/>
-            <line class="grid" x1="0" x2="300" y1="55" y2="55"/>
-            <line class="grid" x1="0" x2="300" y1="92" y2="92"/>
-            <path class="line" :d="overviewChart.actual"/>
-            <path class="line forecast" :d="overviewChart.forecast"/>
-          </svg>
-          <span class="chart-dot" :style="overviewChart.nowStyle"></span>
-        </div>
-        <div class="axis">
-          <template x-for="label in overview?.labels"><span x-text="label"></span></template>
-          <span class="accent">Forecast</span>
-        </div>
-      </article>
+          <button class="avatar" @click="$store.nav.go('profile')" aria-label="Profile"><img src="assets/avatar.png"
+              alt=""></button>
+        </header>
 
-      <!-- Energy Prices -->
-      <article class="card">
-        <h2>Energy Prices</h2>
-        <p class="muted">Time-of-use rates</p>
-        <div class="tariff">
-          <template x-for="seg in tariff">
-            <div class="tariff-seg" :style="`flex:${seg.to - seg.from}`">
-              <div class="tariff-fill" :class="[seg.tone, { now: isNow(seg) }]">
-                <span class="now-label" x-show="isNow(seg) && seg.to - seg.from > 3">Now</span>
-                <span x-text="$euro(seg.price)"></span>
-              </div>
-            </div>
-          </template>
-          <span class="tariff-marker" :style="nowStyle"></span>
-        </div>
-        <div class="tariff-axis">
-          <template x-for="seg in tariff">
-            <span :style="`flex:${seg.to - seg.from}`" x-text="tariffLabel(seg)"></span>
-          </template>
-        </div>
-      </article>
-
-      <!-- Peak Demand Hours -->
-      <article class="card">
-        <h2>Peak Demand Hours</h2>
-        <p class="muted" x-text="peak?.text"></p>
-        <div class="bars">
-          <template x-for="(value, hour) in peak?.hours">
-            <div class="bar" :class="{ hot: isPeak(hour) }" :style="barStyle(value)"></div>
-          </template>
-        </div>
-        <div class="axis">
-          <span>00:00</span><span>06:00</span><span>12:00</span>
-          <span class="accent" x-text="peak && `${peak.from}–${peak.to}`"></span><span>23:00</span>
-        </div>
-        <div class="legend bottom">
-          <span><i class="square orange"></i><span x-text="peak && `Peak (${peak.from}–${peak.to + 1} h)`"></span></span>
-          <span><i class="square grey"></i>Off-peak</span>
-        </div>
-      </article>
-
-      <!-- Status tiles -->
-      <div class="tiles">
-        <template x-for="tile in tiles">
-          <div class="tile" :class="{ highlight: tile.highlight, tappable: tile.target }"
-               @click="tile.target && $store.nav.go(tile.target)">
-            <div class="tile-top">
-              <span class="icon-bubble" :class="{ warm: tile.highlight }" x-html="$icon(tile.icon)"></span>
-              <span class="tile-state" :class="{ accent: tile.highlight }" x-text="tile.state"></span>
-            </div>
-            <div class="tile-value" x-text="tile.value"></div>
-            <div class="muted" x-text="tile.label"></div>
-          </div>
-        </template>
-      </div>
-    </section>
-
-    <!-- ============================ ENERGY USAGE ============================ -->
-    <section x-data="usageScreen" x-show="$store.nav.screen === 'usage'">
-      <header class="topbar">
-        <button class="icon-btn" @click="$store.nav.go('home')" x-html="$icon('back')" aria-label="Back"></button>
-        <h1>Energy Usage</h1>
-        <button class="icon-btn" x-html="$icon('settings')" aria-label="Settings"></button>
-      </header>
-
-      <div class="segmented">
-        <template x-for="r in ranges">
-          <button :class="{ active: range === r }" @click="setRange(r)" x-text="r"></button>
-        </template>
-      </div>
-
-      <article class="card profile">
-        <h2 x-text="data?.title"></h2>
-        <p class="muted" x-text="data?.subtitle"></p>
-        <div class="chart tall">
-          <div class="stripes"></div>
-          <svg viewBox="0 0 300 150" preserveAspectRatio="none">
-            <line class="grid" x1="0" x2="300" y1="45" y2="45"/>
-            <line class="grid" x1="0" x2="300" y1="95" y2="95"/>
-            <line class="grid" x1="0" x2="300" y1="145" y2="145"/>
-            <path class="line" :d="chart.path"/>
-          </svg>
-          <template x-for="(m, i) in chart.markers">
-            <button class="chart-point" :class="{ selected: selected === i }" :style="m.style"
-                    @click="selected = i" :aria-label="m.title"></button>
-          </template>
-          <div class="tooltip" x-show="tooltip" :style="tooltip?.style">
-            <strong x-text="tooltip?.title"></strong>
-            <span x-text="tooltip?.detail"></span>
-          </div>
-        </div>
-        <div class="axis">
-          <template x-for="label in data?.labels"><span x-text="label"></span></template>
-        </div>
-      </article>
-
-      <h3 class="section-title">Logged Incidents</h3>
-      <div class="tiles">
-        <template x-for="inc in data?.incidents">
-          <div class="tile compact">
-            <div class="muted" x-text="inc.title"></div>
-            <div class="tile-value small" :class="inc.tone" x-text="inc.value"></div>
-            <div class="muted" x-text="inc.time"></div>
-          </div>
-        </template>
-      </div>
-
-      <h3 class="section-title" x-text="data?.summaryTitle"></h3>
-      <div class="tiles">
-        <template x-for="s in data?.summary">
-          <div class="tile compact">
-            <div class="caps muted" x-text="s.label"></div>
-            <div class="tile-value" :class="{ accent: s.accent }" x-text="s.value"></div>
-            <div class="delta" :class="s.good ? 'green' : 'red'">
-              <span x-text="s.good ? '↓' : '↑'"></span><span x-text="s.delta"></span>
+        <!-- Energy Usage -->
+        <article class="card tappable" @click="$store.nav.go('usage')">
+          <div class="card-head">
+            <h2>Energy Usage</h2>
+            <div class="legend">
+              <span><i class="dot orange"></i>Actual</span>
+              <span><i class="dot grey"></i>Forecast</span>
             </div>
           </div>
-        </template>
-      </div>
-    </section>
-
-    <!-- ============================== DEVICES ============================== -->
-    <section x-data="devicesScreen" x-show="$store.nav.screen === 'devices'">
-      <header class="topbar left">
-        <button class="icon-btn round" @click="$store.nav.go('home')" x-html="$icon('arrowLeft')" aria-label="Back"></button>
-        <div>
-          <h1>Active Devices</h1>
-          <p class="status-line"><i class="dot green"></i><span x-text="`${deviceCount} devices running normally`"></span></p>
-        </div>
-      </header>
-
-      <template x-for="room in rooms">
-        <article class="card room">
-          <div class="room-head">
-            <h2><i class="dot orange"></i><span x-text="room.name"></span></h2>
-            <span class="muted" x-text="`${roomTotal(room)}W total`"></span>
+          <p class="muted">Active tracking &amp; forecast</p>
+          <div class="chart"><canvas x-chart="overviewSpec"></canvas></div>
+          <div class="axis">
+            <template x-for="label in overview?.labels"><span x-text="label"></span></template>
           </div>
-          <template x-for="device in room.devices">
-            <div class="device">
-              <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
-              <div class="device-info">
-                <div class="device-name" x-text="device.name"></div>
-                <span class="badge" x-text="models[device.model]"></span>
-              </div>
-              <span class="watts" x-text="`${device.watts}W`"></span>
-            </div>
-          </template>
         </article>
-      </template>
-    </section>
 
-    <!-- =============================== PROFILE =============================== -->
-    <section x-data="settingsScreen" x-show="$store.nav.screen === 'profile'" class="settings">
-      <header class="profile-head">
-        <img class="profile-avatar" src="assets/avatar.png" alt="">
-        <div>
-          <input class="inline-edit name" x-model="$store.profile.name" @change="$store.profile.save()"
-                 aria-label="Name" autocomplete="off" spellcheck="false">
-          <input class="inline-edit email" type="email" x-model="$store.profile.email" @change="$store.profile.save()"
-                 aria-label="Email" autocomplete="off" spellcheck="false">
+        <!-- Energy Prices -->
+        <article class="card">
+          <h2>Energy Prices</h2>
+          <p class="muted">Time-of-use rates</p>
+          <div class="tariff">
+            <template x-for="seg in tariff">
+              <div class="tariff-seg" :style="`flex:${seg.to - seg.from}`">
+                <div class="tariff-fill" :class="[seg.tone, seg.to - seg.from <= 2 && 'narrow']">
+                  <span class="price" x-text="$euro(seg.price)"></span>
+                </div>
+              </div>
+            </template>
+            <span class="tariff-marker" :style="nowStyle"></span>
+          </div>
+          <div class="tariff-axis">
+            <template x-for="seg in tariff">
+              <span :style="`flex:${seg.to - seg.from}`" x-text="tariffLabel(seg)"></span>
+            </template>
+          </div>
+        </article>
+
+        <!-- Peak Demand Hours -->
+        <article class="card">
+          <h2>Your Peak Demand Hours</h2>
+          <p class="muted" x-text="peak?.text"></p>
+          <div class="chart bars"><canvas x-chart="peakSpec"></canvas></div>
+          <div class="axis">
+            <span>00:00</span><span>06:00</span><span>12:00</span>
+            <span class="accent" x-text="peak && `${peak.from}–${peak.to}`"></span><span>23:00</span>
+          </div>
+          <div class="legend bottom">
+            <span><i class="square orange"></i><span
+                x-text="peak && `Peak (${peak.from}–${peak.to + 1} h)`"></span></span>
+            <span><i class="square grey"></i>Off-peak</span>
+          </div>
+        </article>
+
+        <!-- Status tiles -->
+        <div class="tiles scroll" :class="{ 'fade-left': fade.left, 'fade-right': fade.right }"
+          x-init="$nextTick(() => onTilesScroll($el))" @scroll.passive="onTilesScroll($event.target)">
+          <template x-for="tile in tiles">
+            <div class="tile" :class="{ highlight: tile.highlight, tappable: tile.target }"
+              @click="tile.target && $store.nav.go(tile.target)">
+              <div class="tile-top">
+                <span class="icon-bubble" :class="{ warm: tile.highlight }" x-html="$icon(tile.icon)"></span>
+                <span class="tile-state" :class="{ accent: tile.highlight }" x-text="tile.state"></span>
+              </div>
+              <div class="tile-value" x-text="tile.value"></div>
+              <div class="muted" x-text="tile.label"></div>
+            </div>
+          </template>
         </div>
-      </header>
+      </section>
 
-      <h3 class="settings-title">Settings</h3>
-      <button class="setting-row" @click="editingTime = !editingTime">
-        <span class="setting-icon" x-html="$icon('clock')"></span>
-        <span class="setting-text"><strong>Current Time</strong><span x-text="clock.label"></span></span>
-        <span class="chevron" :class="{ open: editingTime }" x-html="$icon('chevron')"></span>
-      </button>
-      <input class="time-input" type="datetime-local" x-show="editingTime"
-             :value="clock.iso" @change="clock.set($event.target.value)" aria-label="Current time">
-      <button class="setting-row" @click="editingLocation = !editingLocation">
-        <span class="setting-icon" x-html="$icon('pin')"></span>
-        <span class="setting-text"><strong>Location</strong><span x-text="$store.profile.location.name"></span></span>
-        <span class="chevron" :class="{ open: editingLocation }" x-html="$icon('chevron')"></span>
-      </button>
-      <div class="location-editor" x-show="editingLocation">
-        <input class="time-input" type="search" placeholder="Search a city…" x-model="query"
-               @input.debounce.350ms="search()" aria-label="Search location">
-        <ul class="place-list" x-show="places.length || searchError">
-          <template x-for="p in places"><li><button @click="pick(p)" x-text="p.name"></button></li></template>
-          <li class="muted" x-show="searchError" x-text="searchError"></li>
-        </ul>
-        <div class="map" x-ref="map"></div>
-      </div>
+      <!-- ============================ ENERGY USAGE ============================ -->
+      <section x-data="usageScreen" x-show="$store.nav.screen === 'usage'">
+        <header class="topbar left">
+          <button class="icon-btn" @click="$store.nav.go('home')" x-html="$icon('back')" aria-label="Back"></button>
+          <h1>Energy Usage</h1>
+        </header>
 
-      <h3 class="settings-title data">Data Management</h3>
-      <button class="btn primary"><span x-html="$icon('refresh')"></span>Generate 30-Day Mock Data</button>
-      <button class="btn outline"><span x-html="$icon('upload')"></span>Upload Data</button>
-      <p class="settings-hint">Generate realistic energy consumption data or upload your own CSV file</p>
-    </section>
+        <div class="segmented" :style="`--i:${ranges.indexOf(range)};--n:${ranges.length}`">
+          <span class="thumb"></span>
+          <template x-for="r in ranges">
+            <button :class="{ active: range === r }" @click="setRange(r)" x-text="r"></button>
+          </template>
+        </div>
 
-    <!-- ========================= NOT IN THE DEMO YET ========================= -->
-    <section class="placeholder" x-show="$store.nav.screen === 'search'">
-      <span class="icon-bubble big" x-html="$icon('search')"></span>
-      <h2>Search</h2>
-      <p class="muted">Not part of the demo yet.</p>
-    </section>
-  </main>
+        <article class="card profile">
+          <h2 x-text="data?.title"></h2>
+          <p class="muted" x-text="data?.subtitle"></p>
+          <div class="chart tall">
+            <div class="stripes"></div>
+            <canvas x-chart="profileSpec"></canvas>
+          </div>
+          <div class="axis">
+            <template x-for="label in data?.labels"><span x-text="label"></span></template>
+          </div>
+        </article>
 
-  <nav class="tabbar">
-    <template x-for="tab in $store.nav.tabs">
-      <button :class="{ active: $store.nav.activeTab === tab.id }" @click="$store.nav.go(tab.id)">
-        <span x-html="$icon(tab.id)"></span>
-        <span x-text="tab.label"></span>
-      </button>
-    </template>
-    <div class="home-indicator"></div>
-  </nav>
-</div>
+        <h3 class="section-title">Logged Incidents</h3>
+        <div class="tiles">
+          <template x-for="inc in data?.incidents">
+            <div class="tile compact">
+              <div class="muted" x-text="inc.title"></div>
+              <div class="tile-value small" :class="inc.tone" x-text="inc.value"></div>
+              <div class="muted" x-text="inc.time"></div>
+            </div>
+          </template>
+        </div>
+
+        <h3 class="section-title" x-text="data?.summaryTitle"></h3>
+        <div class="tiles">
+          <template x-for="s in data?.summary">
+            <div class="tile compact">
+              <div class="caps muted" x-text="s.label"></div>
+              <div class="tile-value" :class="{ accent: s.accent }" x-text="s.value"></div>
+              <div class="delta" :class="s.good ? 'green' : 'red'">
+                <span x-text="s.good ? '↓' : '↑'"></span><span x-text="s.delta"></span>
+              </div>
+            </div>
+          </template>
+        </div>
+      </section>
+
+      <!-- ============================== DEVICES ============================== -->
+      <section x-data="devicesScreen" x-show="$store.nav.screen === 'devices'">
+        <header class="topbar left">
+          <button class="icon-btn" @click="$store.nav.go('home')" x-html="$icon('arrowLeft')"
+            aria-label="Back"></button>
+          <div>
+            <h1>Active Devices</h1>
+            <p class="status-line"><i class="dot green"></i><span
+                x-text="`${format(total)} now · ${activeCount} of ${devices.length} running`"></span></p>
+          </div>
+        </header>
+
+        <template x-for="room in rooms">
+          <article class="card room">
+            <div class="room-head">
+              <h2><i class="dot orange"></i><span x-text="room.name"></span></h2>
+              <span class="muted" x-text="`${format(roomTotal(room))} now`"></span>
+            </div>
+            <template x-for="device in room.devices">
+              <div class="device">
+                <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
+                <div class="device-info">
+                  <div class="device-name" x-text="device.name"></div>
+                  <span class="badge" x-text="models[device.model]"></span>
+                </div>
+                <span class="watts" :class="{ off: !draw(device) }"
+                  x-text="draw(device) ? format(draw(device)) : 'Off'"></span>
+              </div>
+            </template>
+          </article>
+        </template>
+      </section>
+
+      <!-- =============================== PROFILE =============================== -->
+      <section x-data="settingsScreen" x-show="$store.nav.screen === 'profile'" class="settings">
+        <header class="profile-head">
+          <img class="profile-avatar" src="assets/avatar.png" alt="">
+          <div>
+            <input class="inline-edit name" x-model="$store.profile.name" @change="$store.profile.save()"
+              aria-label="Name" autocomplete="off" spellcheck="false">
+            <input class="inline-edit email" type="email" x-model="$store.profile.email" @change="$store.profile.save()"
+              aria-label="Email" autocomplete="off" spellcheck="false">
+          </div>
+        </header>
+
+        <h3 class="settings-title">Settings</h3>
+        <button class="setting-row" @click="editingTime = !editingTime">
+          <span class="setting-icon" x-html="$icon('clock')"></span>
+          <span class="setting-text"><strong>Current Time</strong><span x-text="clock.label"></span></span>
+          <span class="chevron" :class="{ open: editingTime }" x-html="$icon('chevron')"></span>
+        </button>
+        <input class="time-input" type="datetime-local" x-show="editingTime" :value="clock.iso"
+          @change="clock.set($event.target.value)" aria-label="Current time">
+        <button class="setting-row" @click="editingLocation = !editingLocation">
+          <span class="setting-icon" x-html="$icon('pin')"></span>
+          <span class="setting-text"><strong>Location</strong><span x-text="$store.profile.location.name"></span></span>
+          <span class="chevron" :class="{ open: editingLocation }" x-html="$icon('chevron')"></span>
+        </button>
+        <div class="location-editor" x-show="editingLocation">
+          <input class="time-input" type="search" placeholder="Search a city…" x-model="query"
+            @input.debounce.350ms="search()" aria-label="Search location">
+          <ul class="place-list" x-show="places.length || searchError">
+            <template x-for="p in places">
+              <li><button @click="pick(p)" x-text="p.name"></button></li>
+            </template>
+            <li class="muted" x-show="searchError" x-text="searchError"></li>
+          </ul>
+          <div class="map" x-ref="map"></div>
+        </div>
+
+        <h3 class="settings-title data">Data Management</h3>
+        <button class="btn primary"><span x-html="$icon('refresh')"></span>Generate 30-Day Mock Data</button>
+        <button class="btn outline"><span x-html="$icon('upload')"></span>Upload Data</button>
+        <p class="settings-hint">Generate realistic energy consumption data or upload your own CSV file</p>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <template x-for="tab in $store.nav.tabs">
+        <button :class="{ active: $store.nav.activeTab === tab.id }" @click="$store.nav.go(tab.id)">
+          <span x-html="$icon(tab.id)"></span>
+          <span x-text="tab.label"></span>
+        </button>
+      </template>
+      <div class="home-indicator"></div>
+    </nav>
+  </div>
 </body>
+
 </html>

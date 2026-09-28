@@ -7,7 +7,8 @@ HW.demo = {
   overview: {
     actual: [4.6, 6.4, 5.1, 3.5, 5.4, 7.2, 5.4],
     forecast: [4.7, 5.6],
-    labels: ['1 Sep', '14 Sep', '28 Sep'],
+    pointLabels: ['1 Sep', '6 Sep', '10 Sep', '14 Sep', '19 Sep', '24 Sep', '28 Sep', '2 Oct', '5 Oct'],
+    labels: ['1 Sep', '14 Sep', '28 Sep', '5 Oct'],
   },
 
   // Average kWh per hour of day (home "Peak Demand Hours" card)
@@ -85,27 +86,36 @@ HW.demo = {
     },
   },
 
-  // Devices screen: rooms → devices (model = how the forecast treats the device)
+  // Devices screen: rooms → devices (model = how the forecast treats the device).
+  // `watts`: typical draw range in W while running (from the challenge assumptions; kWh/cycle and kWh/day
+  // figures are converted to average watts). `runs`: [startMinute, durationMinutes] windows in a day, or
+  // 'always' for continuously running devices (see js/power.js).
   rooms: [
     { name: 'Kitchen', devices: [
-      { name: 'Refrigerator', icon: 'fridge', model: 'fixed', watts: 150 },
-      { name: 'Kettle', icon: 'kettle', model: 'unshiftable', watts: 2000 },
-      { name: 'Coffee machine', icon: 'coffee', model: 'unshiftable', watts: 1200 },
-      { name: 'Oven', icon: 'oven', model: 'unshiftable', watts: 2500 },
-      { name: 'Dishwasher', icon: 'dishwasher', model: 'shiftable', watts: 1800 },
+      { name: 'Refrigerator', icon: 'fridge', model: 'fixed', watts: [33, 50], runs: 'always' },              // 0.8–1.2 kWh/day
+      { name: 'Kettle', icon: 'kettle', model: 'unshiftable', watts: [2000, 2000],                            // 3–5 min/use
+        runs: [[430, 4], [750, 4], [1125, 4]] },
+      { name: 'Coffee machine', icon: 'coffee', model: 'unshiftable', watts: [1000, 1500],                    // 5–10 min/use
+        runs: [[425, 7], [780, 7]] },
+      { name: 'Oven', icon: 'oven', model: 'unshiftable', watts: [2000, 2500], runs: [[1110, 45]] },
+      { name: 'Dishwasher', icon: 'dishwasher', model: 'shiftable', watts: [400, 600],                        // 0.8–1.2 kWh/cycle, 2 h
+        runs: [[1290, 120]] },
     ] },
     { name: 'Living Room', devices: [
-      { name: 'Television', icon: 'tv', model: 'unshiftable', watts: 120 },
-      { name: 'Wi-Fi router', icon: 'wifi', model: 'fixed', watts: 12 },
-      { name: 'Lighting', icon: 'bulb', model: 'unshiftable', watts: 60 },
-      { name: 'Phone / tablet charging', icon: 'charging', model: 'unshiftable', watts: 15 },
+      { name: 'Television', icon: 'tv', model: 'unshiftable', watts: [80, 150], runs: [[1140, 180]] },
+      { name: 'Wi-Fi router', icon: 'wifi', model: 'fixed', watts: [8, 15], runs: 'always' },
+      { name: 'Lighting', icon: 'bulb', model: 'unshiftable', watts: [50, 150], runs: [[390, 90], [1020, 300]] },
+      { name: 'Phone / tablet charging', icon: 'charging', model: 'unshiftable', watts: [5, 20],             // 2 devices, 2 h/charge
+        runs: [[1320, 120]] },
+      { name: 'Standby devices', icon: 'power', model: 'fixed', watts: [20, 60], runs: 'always' },
     ] },
     { name: 'Laundry', devices: [
-      { name: 'Washing machine', icon: 'washer', model: 'shiftable', watts: 500 },
-      { name: 'Electric heating / heat pump', icon: 'heatpump', model: 'physical', watts: 3000 },
+      { name: 'Washing machine', icon: 'washer', model: 'shiftable', watts: [400, 670], runs: [[480, 90]] },  // 0.6–1.0 kWh/cycle, 1.5 h
+      { name: 'Electric heating / heat pump', icon: 'heatpump', model: 'physical', watts: [1000, 3000],
+        runs: [[360, 90], [1020, 240]] },
     ] },
     { name: 'Office', devices: [
-      { name: 'Laptop', icon: 'laptop', model: 'unshiftable', watts: 65 },
+      { name: 'Laptop', icon: 'laptop', model: 'unshiftable', watts: [40, 80], runs: [[540, 480]] },
     ] },
   ],
 };

@@ -12,15 +12,14 @@ HW.config = {
   ],
   // How each appliance is forecast (same four types as the Python forecast blocks)
   models: {
-    fixed: 'Fixed model',
-    unshiftable: 'Unshiftable model',
-    shiftable: 'Shiftable model',
-    physical: 'Physical model',
+    fixed: 'Fixed',
+    unshiftable: 'Unshiftable',
+    shiftable: 'Shiftable',
+    physical: 'Physical',
   },
   ranges: ['24h', '3d', '7d'],
   tabs: [
     { id: 'home', label: 'Home' },
-    { id: 'search', label: 'Search' },
     { id: 'devices', label: 'Devices' },
     { id: 'profile', label: 'Profile' },
   ],

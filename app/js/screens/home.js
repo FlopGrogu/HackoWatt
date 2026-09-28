@@ -1,11 +1,10 @@
 /* Home dashboard: usage overview, time-of-use prices, peak demand hours, status tiles. */
 document.addEventListener('alpine:init', () => {
-  const BOX = { width: 300, height: 110, pad: 14 };
   const DAY_MINUTES = 24 * 60;
   const hh = (h) => String(h % 24).padStart(2, '0');
 
   Alpine.data('homeScreen', () => ({
-    user: {}, tariff: [], overview: null, peak: null, tiles: [],
+    user: {}, tariff: [], overview: null, peak: null, tiles: [], fade: { left: false, right: true },
 
     async init() {
       [this.user, this.tariff, this.overview, this.peak, this.tiles] = await Promise.all([
@@ -14,6 +13,11 @@ document.addEventListener('alpine:init', () => {
       ]);
       this.$watch(() => JSON.stringify(Alpine.store('profile').location), () => this.refreshWeather());
       this.refreshWeather();
+    },
+
+    // --- status tiles: fade the edge(s) that have more content to scroll to ---
+    onTilesScroll(el) {
+      this.fade = { left: el.scrollLeft > 4, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 };
     },
 
     // --- live weather at the stored location ---
@@ -28,20 +32,18 @@ document.addEventListener('alpine:init', () => {
       this.tiles = await HW.api.getHomeTiles(weather);
     },
 
-    // --- usage overview chart ---
-    get overviewChart() {
-      if (!this.overview) return { actual: '', forecast: '', nowStyle: '' };
-      const c = HW.charts.actualAndForecast(this.overview.actual, this.overview.forecast, BOX);
-      return { ...c, nowStyle: HW.charts.position(c.last, BOX.width, BOX.height) };
+    // --- charts (Chart.js specs, see js/charts.js) ---
+    get overviewSpec() {
+      return this.overview && HW.charts.overview(this.overview);
+    },
+    get peakSpec() {
+      return this.peak && HW.charts.hourly(this.peak);
     },
 
     // --- tariff bar ---
     // The day axis runs 00:00 → 23:59 (1440 minutes); the fake clock drives every "now" indicator.
     get minutes() {
       return Alpine.store('clock').minutes;
-    },
-    isNow(seg) {
-      return this.minutes >= seg.from * 60 && this.minutes < seg.to * 60;
     },
     tariffLabel(seg) {
       const span = seg.to - seg.from;
@@ -51,15 +53,6 @@ document.addEventListener('alpine:init', () => {
     },
     get nowStyle() {
       return `left:${(this.minutes / DAY_MINUTES) * 100}%`;
-    },
-
-    // --- peak demand bars ---
-    isPeak(hour) {
-      return this.peak && hour >= this.peak.from && hour <= this.peak.to;
-    },
-    barStyle(value) {
-      const max = Math.max(...(this.peak?.hours || [1]));
-      return `height:${(value / max) * 100}%`;
     },
   }));
 });
