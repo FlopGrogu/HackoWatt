@@ -38,13 +38,12 @@ USER = {"name": "Aleksandra", "initials": "A", "status": "All systems running no
 BLOCK_TITLES = {"space_heating_kwh": "Space heating", "hot_water_kwh": "Hot-water reheat",
                 "appliances_kwh": "Washer / dishwasher", "activities_kwh": "Cooking & activities",
                 "baseload_kwh": "Baseload"}
-# what drives each block, in words (chart tooltips)
-BLOCK_WHY = {"space_heating_kwh": "the heat pump keeps the flat warm ({temp:.0f} °C outside)",
-             "hot_water_kwh": "the heat pump refills the hot-water tank",
-             "appliances_kwh": "washing machine / dishwasher run",
-             "activities_kwh": "cooking, TV, lighting and other things you use while at home",
-             "baseload_kwh": "fridge, router and standby devices, always on"}
-UNIT = {1: "hour", 4: "4-hour block", 24: "day"}
+# what drives each block: the plain explanation shown in the chart tooltips
+BLOCK_WHY = {"space_heating_kwh": "Heat pump keeps the flat warm",
+             "hot_water_kwh": "Heat pump reheats the hot-water tank",
+             "appliances_kwh": "Washing machine / dishwasher run",
+             "activities_kwh": "Cooking, TV and lighting at home",
+             "baseload_kwh": "Fridge, router and standby, always on"}
 APPLIANCE_NAMES = {"washing_machine": "Washing machine", "dishwasher": "Dishwasher"}
 APPLIANCE_ICONS = {"washing_machine": "washer", "dishwasher": "dishwasher"}
 HUMAN = {"fridge": "the fridge", "heat_pump_space_heating": "space heating", "heat_pump_hot_water": "hot water",
@@ -118,7 +117,7 @@ def peak_hours(now):
 
 def highlights(rows, size, count, runs=()):
     """The `count` highest points of the (accumulated) series. Each is titled by the block that pushes it above
-    its usual level, with lines that explain what runs then, why, and what it costs."""
+    its usual level, with the plain reason it is high (what runs then)."""
     chunks = [rows[i:i + size] for i in range(0, len(rows), size)]
     parts = [{b: sum(r[b] for r in chunk) for b in BLOCK_TITLES} for chunk in chunks]
     typical = {b: sum(p[b] for p in parts) / len(parts) for b in BLOCK_TITLES}
@@ -130,21 +129,14 @@ def highlights(rows, size, count, runs=()):
         if part[driver] - typical[driver] <= 0:
             driver = max(BLOCK_TITLES, key=part.get)
         when = (f"{ts:%a %-d %b}" if size == 24 else f"{ts:%a %-d %b %H:%M}" if len(rows) > 24 else f"{ts:%H:%M}")
-        temp = sum(r["temp_out_c"] for r in chunk) / len(chunk)
-        why_line = f"{part[driver]:.2f} of {total:.2f} kWh: {BLOCK_WHY[driver].format(temp=temp)}"
+        explanation = BLOCK_WHY[driver]
         if driver == "appliances_kwh":
             end = ts + timedelta(hours=size)
             due = [r for r in runs if r["p"] >= 0.5 and ts <= r["usual_start"] < end]
             if due:
-                why_line += " (" + "; ".join(f"{APPLIANCE_NAMES[r['appliance']].lower()}: {r['reason']}, "
-                                             f"{r['p']:.0%} likely" for r in due) + ")"
-        cost = sum(r["cost_real_eur"] for r in chunk)
-        rate = cost / total if total else 0
-        vs = total - sum(sum(p.values()) for p in parts) / len(parts)
-        more = f"{abs(vs):.2f} kWh {'above' if vs >= 0 else 'below'} a typical {UNIT[size]}"
+                explanation = ", ".join(f"{APPLIANCE_NAMES[r['appliance']]} ({r['reason']})" for r in due)
         points.append(dict(index=i, title=BLOCK_TITLES[driver], detail=f"{when} • {total:.2f} kWh",
-                           explain=[why_line[0].upper() + why_line[1:], f"{more} · {cents(cost)} at {cents(rate)}/kWh"],
-                           total=total))
+                           explain=[explanation], total=total))
     gap = 3 if size == 1 else 1 if size < 24 else 0     # don't pick neighbouring points of the same peak
     top = []
     for p in sorted(points, key=lambda p: -p["total"]):

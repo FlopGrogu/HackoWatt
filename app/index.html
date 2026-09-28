@@ -144,7 +144,7 @@
             <template x-for="label in data?.labels"><span x-text="label"></span></template>
           </div>
           <div class="legend bottom">
-            <span><i class="dot" :class="pendingCount ? 'grey' : 'orange'"></i>Forecast</span>
+            <span><i class="dot" :class="pendingCount ? 'grey' : 'orange'"></i>Forecast (kWh)</span>
             <span x-show="pendingCount"><i class="dot green"></i>If shifted</span>
             <span><i class="square faint"></i>Price</span>
           </div>

@@ -7,7 +7,7 @@
   const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const theme = () => ({
     accent: token('--accent'), line: token('--line'), card: token('--card'),
-    bar: '#3c3a38', barHover: '#5a5755', forecast: '#6f6c69', text: '#c8c4bf',
+    bar: '#3c3a38', barHover: '#5a5755', forecast: token('--forecast'), text: '#c8c4bf',
   });
 
   // Hover mode of the profile chart: a shift marker wins when the pointer is on it, otherwise the nearest
@@ -158,9 +158,22 @@
             pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0,
           }] },
           options: base(t, {
-            layout: { padding: { top: 96, bottom: 10, left: 12, right: 12 } },
+            layout: { padding: { top: 10, bottom: 4, left: 0, right: prices ? 0 : 12 } },
             interaction: { mode: 'hw', intersect: false },
-            scales: { ...scales(t, { grace: '10%' }), price: { display: false, min: 0, max: 0.85 } },
+            scales: {
+              ...scales(t, {
+                min: 0, grace: 0,                                   // nice steps, the line uses the full height
+                // left-hand legend: the kWh values of the forecast line
+                ticks: { display: true, count: undefined, maxTicksLimit: 5, padding: 6, color: line,   // same color as the forecast line
+                         font: { size: 11 }, callback: (v) => v.toFixed(v < 10 ? 1 : 0) },
+              }),
+              // right-hand price axis, 0–50 ct: markers show what the step background means
+              price: {
+                display: !!prices, position: 'right', min: 0, max: 0.5,
+                grid: { display: false }, border: { display: false },
+                ticks: { stepSize: 0.1, padding: 6, color: token('--muted'), font: { size: 11 }, callback: (v) => HW.fmt.money(v) },
+              },
+            },
             onHover(_evt, elements) {
               const el = elements.find((e) => e.datasetIndex === 0);
               if (el) onFocus?.(el.index);
