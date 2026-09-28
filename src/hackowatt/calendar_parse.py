@@ -6,7 +6,7 @@ import icalendar
 
 from .paths import ROOT
 
-ICS = ROOT / "aleksandra_calendar.ics"
+ICS = ROOT / "aleksandra_calendar_full.ics"      # 1 Sep 2025 – 12 Oct 2026 (src/generate_calendar_year.py)
 WEEKDAYS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
 
 

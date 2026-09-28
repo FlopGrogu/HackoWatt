@@ -1,0 +1,57 @@
+{
+  "date": "2026-08-08",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:33:03",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home after arriving from Vienna late the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "11:00",
+      "reason": "She wakes up at home for a weekend morning, preparing for Paul's arrival.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "11:50",
+      "reason": "She travels from home to Warsaw Chopin Airport to pick up Paul.",
+      "away_score": 70,
+      "people": 1
+    },
+    {
+      "start": "11:50",
+      "end": "13:20",
+      "reason": "She is at Warsaw Chopin Airport meeting Paul.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:20",
+      "end": "19:30",
+      "reason": "She and Paul travel back from the airport and spend the afternoon at home together.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "19:30",
+      "end": "22:30",
+      "reason": "She and Paul have dinner together at home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She winds down for the night at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

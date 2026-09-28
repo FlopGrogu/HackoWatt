@@ -1,0 +1,57 @@
+{
+  "date": "2025-10-09",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:09:15",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is sleeping at the hotel in Brussels as part of her business trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "13:00",
+      "reason": "She is attending the wrap-up meetings with the Brussels team at the office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "16:00",
+      "reason": "She is having free time and traveling to Brussels airport for her return flight to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "16:00",
+      "end": "17:25",
+      "reason": "She is at the Brussels airport preparing for her flight back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:25",
+      "end": "19:35",
+      "reason": "She is on her flight SN 2563 from Brussels to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:35",
+      "end": "20:30",
+      "reason": "She is landing at the airport in Warsaw and traveling back to her apartment on Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She has arrived back home at her apartment in Warsaw for the evening.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}

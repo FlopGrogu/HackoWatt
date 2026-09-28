@@ -1,0 +1,43 @@
+{
+  "date": "2026-04-16",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:21",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is staying at Hotel V Nesplein in Amsterdam as part of her multi-day trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "13:00",
+      "reason": "She attends the wrap-up meeting at Polderstroom in Amsterdam.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "17:00",
+      "reason": "She is finishing up her trip in Amsterdam and heading to the airport for her evening flight.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:00",
+      "end": "21:30",
+      "reason": "She takes flight LO 268 from Amsterdam to Warsaw and travels back home.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "21:30",
+      "end": "24:00",
+      "reason": "She arrives back at her apartment on ul. Chmielna in Warsaw and rests after her flight.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

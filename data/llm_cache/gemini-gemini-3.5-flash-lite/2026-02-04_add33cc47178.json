@@ -1,0 +1,43 @@
+{
+  "date": "2026-02-04",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:18:20",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:00",
+      "reason": "She is sleeping at home before her early train to Kraków.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:00",
+      "end": "06:15",
+      "reason": "She prepares for the trip and travels from home to Warszawa Centralna station.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "06:15",
+      "end": "19:55",
+      "reason": "She is travelling to Kraków, attending meetings, and returning by train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "22:50",
+      "reason": "Her train arrives at Warszawa Centralna at 22:20 and she travels back home.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "22:50",
+      "end": "24:00",
+      "reason": "She is back home and winding down for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

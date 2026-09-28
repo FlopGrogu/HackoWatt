@@ -1,0 +1,64 @@
+{
+  "date": "2026-06-18",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:29:08",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "00:30",
+      "reason": "She is traveling back to Warsaw by train from Kraków, arriving around midnight.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "00:30",
+      "end": "06:00",
+      "reason": "She is sleeping at home after returning from Kraków late at night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:30",
+      "reason": "She wakes up at home and gets ready for her office day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:30",
+      "end": "09:00",
+      "reason": "She commutes from home to her office at Warsaw Spire.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "19:00",
+      "reason": "She is working at the office in Warsaw Spire with a legal review during the day.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "22:00",
+      "reason": "She is attending dinner with Kasia at Kawiarnia Relaks.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:00",
+      "end": "22:30",
+      "reason": "She travels back home from the café.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She is back home winding down for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

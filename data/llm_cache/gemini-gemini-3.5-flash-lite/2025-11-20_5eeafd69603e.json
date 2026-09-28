@@ -1,0 +1,50 @@
+{
+  "date": "2025-11-20",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:12:30",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is staying at Absalon Hotel in Copenhagen as part of the partner week.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "13:00",
+      "reason": "She attends the wrap-up session at Kraftly in Copenhagen.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "18:20",
+      "reason": "She is finishing up in Copenhagen and traveling to the airport for her flight.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:20",
+      "end": "19:55",
+      "reason": "She is on flight LO 462 from Copenhagen to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "21:00",
+      "reason": "She lands at Chopin Airport and travels back home to Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "24:00",
+      "reason": "She has arrived home after her trip and is settling in for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

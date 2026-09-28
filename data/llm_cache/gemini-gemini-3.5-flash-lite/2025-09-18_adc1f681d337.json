@@ -1,0 +1,71 @@
+{
+  "date": "2025-09-18",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:07:37",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:00",
+      "reason": "She is sleeping in her apartment before the early morning train trip.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:00",
+      "end": "06:00",
+      "reason": "She is waking up, getting ready, and leaving her home for the train station.",
+      "away_score": 20,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:40",
+      "reason": "She is traveling from Warszawa Centralna to Kraków by train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:40",
+      "end": "10:00",
+      "reason": "She arrives in Kraków and travels to the KrakGrid office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:00",
+      "end": "15:30",
+      "reason": "She is attending the KrakGrid kickoff meeting and 1:1 in Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:30",
+      "end": "19:55",
+      "reason": "She has free time in Kraków before her evening return train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "22:20",
+      "reason": "She is traveling back from Kraków to Warsaw by train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:20",
+      "end": "23:00",
+      "reason": "She arrives at Warszawa Centralna and travels back to her apartment.",
+      "away_score": 70,
+      "people": 1
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She is back home settling down for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

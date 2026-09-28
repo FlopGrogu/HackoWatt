@@ -1,0 +1,78 @@
+{
+  "date": "2025-10-29",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:10:53",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home in her bed.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "09:30",
+      "reason": "She wakes up at home and prepares for her WFH day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She participates in a team stand-up online from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:50",
+      "end": "11:00",
+      "reason": "She continues working from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She attends an integration check-in meeting online from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "12:00",
+      "end": "18:30",
+      "reason": "She continues working from home for the rest of the workday.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "18:30",
+      "end": "19:00",
+      "reason": "She travels from home to the bouldering gym on Puławska.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "21:00",
+      "reason": "She is bouldering with Tomek and Ola at the gym.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "21:30",
+      "reason": "She travels back home from the bouldering gym.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "21:30",
+      "end": "24:00",
+      "reason": "She is back at home resting for the evening.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

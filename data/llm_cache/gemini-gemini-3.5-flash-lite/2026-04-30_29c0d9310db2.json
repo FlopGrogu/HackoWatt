@@ -1,0 +1,36 @@
+{
+  "date": "2026-04-30",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:25:25",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping in her apartment before her trip to Zakopane.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "06:30",
+      "reason": "She is getting ready and leaving her apartment to catch the train to Zakopane.",
+      "away_score": 50,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "13:05",
+      "reason": "She is traveling by train IC 31100 from Warsaw to Zakopane.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:05",
+      "end": "24:00",
+      "reason": "She is staying in Zakopane for Majówka as stated in her calendar.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

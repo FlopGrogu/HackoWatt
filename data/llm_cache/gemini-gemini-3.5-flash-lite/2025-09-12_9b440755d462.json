@@ -1,0 +1,36 @@
+{
+  "date": "2025-09-12",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T00:50:23",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "19:00",
+      "reason": "She is working from home today.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "19:45",
+      "reason": "She is travelling to Warsaw Chopin Airport to pick up Paul.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "19:45",
+      "end": "24:00",
+      "reason": "She is back home with Paul who arrived in Warsaw.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

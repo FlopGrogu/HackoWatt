@@ -1,0 +1,29 @@
+{
+  "date": "2026-05-05",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:25:49",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:05",
+      "reason": "She is sleeping in her apartment before an early flight.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:05",
+      "end": "07:20",
+      "reason": "She takes a taxi from home to Warsaw Chopin Airport for her Vienna trip.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "07:20",
+      "end": "24:00",
+      "reason": "She is in flight and staying in Vienna for a multi-day tender award event.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

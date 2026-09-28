@@ -1,0 +1,15 @@
+{
+  "date": "2026-03-28",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:22:50",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "24:00",
+      "reason": "She is spending the weekend in Berlin with Paul and is not at her apartment.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

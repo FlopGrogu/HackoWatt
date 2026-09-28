@@ -1,0 +1,43 @@
+{
+  "date": "2026-06-25",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:29:39",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "14:55",
+      "reason": "She is working from home in the morning before her trip to Berlin.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:55",
+      "end": "16:10",
+      "reason": "She takes a taxi from her home to Warsaw Chopin Airport.",
+      "away_score": 50,
+      "people": 0
+    },
+    {
+      "start": "16:10",
+      "end": "17:35",
+      "reason": "She is on flight LO 381 from Warsaw to Berlin.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:35",
+      "end": "24:00",
+      "reason": "She is staying at Paul's flat in Berlin for the night.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

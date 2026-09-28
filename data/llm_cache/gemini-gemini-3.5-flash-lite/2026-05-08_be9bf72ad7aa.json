@@ -1,0 +1,57 @@
+{
+  "date": "2026-05-08",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:26:03",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:30",
+      "reason": "She is sleeping at home after returning from Vienna late the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "11:00",
+      "reason": "She is at home doing morning routines and starting her WFH day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She is working from home attending a Microsoft Teams meeting.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "12:00",
+      "end": "19:00",
+      "reason": "She is continuing her WFH day at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "19:30",
+      "reason": "She is traveling from home to Kino Muranów.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "23:00",
+      "reason": "She is at Kino Muranów watching a movie with Ola.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She is traveling back from the cinema and arriving home for the night.",
+      "away_score": 20,
+      "people": 1
+    }
+  ]
+}

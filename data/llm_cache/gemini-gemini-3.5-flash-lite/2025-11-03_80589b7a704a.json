@@ -1,0 +1,64 @@
+{
+  "date": "2025-11-03",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:11:13",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after returning from Łódź the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "09:30",
+      "reason": "She wakes up at home on a WFH day and has her usual morning routine.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She participates in the team stand-up on Microsoft Teams from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:50",
+      "end": "11:00",
+      "reason": "She continues working from home between calendar events.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She focuses on writing a partner proposal via Microsoft Teams at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "12:00",
+      "end": "20:00",
+      "reason": "She continues her WFH day at home through the afternoon and evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "20:30",
+      "reason": "She does laundry and packs for her upcoming trip to Gdańsk at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She relaxes at home and prepares to sleep before her early train to Gdańsk.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

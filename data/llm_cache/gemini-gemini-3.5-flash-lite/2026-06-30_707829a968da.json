@@ -1,0 +1,43 @@
+{
+  "date": "2026-06-30",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:30:02",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:15",
+      "reason": "She is sleeping at home and preparing for work.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "19:00",
+      "reason": "She is working at the office at Warsaw Spire.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "20:00",
+      "reason": "She commutes back home from the office.",
+      "away_score": 20,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "20:30",
+      "reason": "She is doing laundry and packing at home for Brussels.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She rests at home before her early flight to Brussels the next day.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

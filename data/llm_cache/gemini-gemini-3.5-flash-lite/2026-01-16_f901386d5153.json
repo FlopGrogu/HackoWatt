@@ -1,0 +1,64 @@
+{
+  "date": "2026-01-16",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:16:53",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after arriving late from Stockholm the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "10:00",
+      "reason": "She is waking up and starting her WFH day at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "10:00",
+      "end": "11:00",
+      "reason": "She is participating in a Microsoft Teams meeting while working from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "11:00",
+      "end": "15:10",
+      "reason": "She is continuing her work from home before preparing to leave for the train station.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "15:10",
+      "end": "16:15",
+      "reason": "She is traveling to Warszawa Centralna to pick up Paul and returning home.",
+      "away_score": 75,
+      "people": 0
+    },
+    {
+      "start": "16:15",
+      "end": "18:00",
+      "reason": "She is back at home with Paul after meeting him at the station.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She is at home receiving the grocery delivery with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "19:00",
+      "end": "24:00",
+      "reason": "She is spending the rest of the evening relaxing at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

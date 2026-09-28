@@ -90,4 +90,5 @@ Scripts in `src/`, each run on its own (shared code in `src/hackowatt/`):
 | Hourly error (mean absolute) | 0.180 kWh | 0.145 kWh |
 | 7-day total | +11 % | −6 % |
 | Away score correct (confident hours) | habits 8/11 | LLM 307/310 (99 %) |
+| Presence correct, all 336 hours (home = away score < 50) | 63 % | 98 % |
 

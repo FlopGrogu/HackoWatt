@@ -1,0 +1,36 @@
+{
+  "date": "2026-03-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:22:20",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home following the weekend schedule.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "20:00",
+      "reason": "She is spending the day at home preparing for her upcoming trip to Copenhagen.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "20:45",
+      "reason": "She is at home doing laundry, packing, and calling her mum.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:45",
+      "end": "24:00",
+      "reason": "She is relaxing at home and preparing to sleep early for her flight tomorrow.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

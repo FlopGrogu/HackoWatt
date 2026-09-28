@@ -1,0 +1,50 @@
+{
+  "date": "2026-04-24",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:58",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home in her bed.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up and starts her morning routine at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "15:00",
+      "reason": "She is working from home as indicated by the WFH calendar entry.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:00",
+      "end": "15:25",
+      "reason": "She leaves her apartment to walk to Warszawa Centralna to pick up Paul.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "15:25",
+      "end": "15:55",
+      "reason": "She is at Warszawa Centralna picking up Paul from the Berlin train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:55",
+      "end": "24:00",
+      "reason": "She returns home with Paul, who is staying in Warsaw for the weekend.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

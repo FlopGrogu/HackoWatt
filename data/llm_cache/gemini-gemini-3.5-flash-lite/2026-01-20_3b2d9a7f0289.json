@@ -1,0 +1,71 @@
+{
+  "date": "2026-01-20",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:17:12",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "08:15",
+      "reason": "She is getting ready and having breakfast at home before going to the office.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:00",
+      "reason": "She is commuting from her home to the office at Warsaw Spire.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "14:30",
+      "reason": "She is working at her office in Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:30",
+      "end": "15:30",
+      "reason": "She is attending a legal review meeting at her office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:30",
+      "end": "18:00",
+      "reason": "She continues working at the office in Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "18:45",
+      "reason": "She is commuting back from the office to her home.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "18:45",
+      "end": "22:59",
+      "reason": "She is relaxing and having dinner at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "date": "2025-10-31",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:10:59",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:15",
+      "reason": "She is sleeping at home before leaving for Łódź.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:20",
+      "reason": "She is traveling from her apartment to Warszawa Centralna for the train to Łódź.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:20",
+      "end": "24:00",
+      "reason": "She is taking the train to Łódź and staying there for the All Saints weekend.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

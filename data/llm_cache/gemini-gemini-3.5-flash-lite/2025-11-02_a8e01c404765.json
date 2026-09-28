@@ -1,0 +1,36 @@
+{
+  "date": "2025-11-02",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:11:08",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "17:10",
+      "reason": "She is staying away from home in Lodz for the All Saints weekend.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:10",
+      "end": "18:35",
+      "reason": "She is traveling by train from Lodz Fabryczna to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:35",
+      "end": "20:00",
+      "reason": "She is traveling from Warszawa Centralna back to her home on ul. Chmielna.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "20:00",
+      "end": "24:00",
+      "reason": "She is back at home as indicated by her evening phone call with her mum.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "date": "2025-12-17",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:14:34",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up and prepares at home before leaving for work.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:30",
+      "reason": "She commutes from home to her office at Warsaw Spire.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:30",
+      "end": "11:00",
+      "reason": "She is at her office at Warsaw Spire for meetings.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "18:08",
+      "reason": "She continues working at her office in Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:08",
+      "end": "19:00",
+      "reason": "She travels from her office toward the bouldering gym.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "21:00",
+      "reason": "She is bouldering with Tomek at the Mokot3w gym.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "21:45",
+      "reason": "She travels back home from the gym in Mokot3w.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "21:45",
+      "end": "24:00",
+      "reason": "She is back at home resting for the evening.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}

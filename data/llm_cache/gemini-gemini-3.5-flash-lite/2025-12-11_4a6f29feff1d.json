@@ -1,0 +1,57 @@
+{
+  "date": "2025-12-11",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:14:07",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "01:00",
+      "reason": "She flew in late from Stockholm the previous night and is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "01:00",
+      "end": "07:00",
+      "reason": "She is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:00",
+      "end": "08:15",
+      "reason": "She wakes up and gets ready for her office day in Warsaw.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:00",
+      "reason": "She commutes from home to Warsaw Spire for her office day.",
+      "away_score": 85,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "18:00",
+      "reason": "She is working from the office at Warsaw Spire, including internal meetings.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "18:30",
+      "reason": "She travels from the office to the Christmas party location at Elektrownia Powiśle.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "24:00",
+      "reason": "She is attending the Flexa Christmas party at Elektrownia Powiśle.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

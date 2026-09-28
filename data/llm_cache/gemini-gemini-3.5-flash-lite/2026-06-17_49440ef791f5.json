@@ -1,0 +1,57 @@
+{
+  "date": "2026-06-17",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:29:04",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is staying overnight at Puro Kraków Kazimierz in Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "07:30",
+      "end": "09:00",
+      "reason": "She is getting ready in Kraków before her morning meeting.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "15:00",
+      "reason": "She is attending the KrakGrid contract extension meeting at the KrakGrid office in Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:00",
+      "end": "19:55",
+      "reason": "She has free time in Kraków before her evening train back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "22:20",
+      "reason": "She is traveling by train from Kraków to Warszawa Centralna.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:20",
+      "end": "23:00",
+      "reason": "She is traveling from Warszawa Centralna back to her apartment on ul. Chmielna.",
+      "away_score": 75,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She has returned home to her apartment for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

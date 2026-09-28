@@ -1,0 +1,43 @@
+{
+  "date": "2025-11-30",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:13:17",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "19:00",
+      "reason": "She is staying at Paul's flat in Berlin for the weekend.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "20:10",
+      "reason": "She travels from Berlin to Berlin Brandenburg Airport (BER).",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "20:10",
+      "end": "21:35",
+      "reason": "She is on her flight from Berlin to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:35",
+      "end": "23:00",
+      "reason": "She travels from Chopin Airport to her home on ul. Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She arrives home late at night after the flight.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "date": "2026-07-07",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:30:38",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home preparing for her trip to Gdańsk.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "06:30",
+      "reason": "She wakes up and prepares to leave for the train station.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "07:05",
+      "reason": "She is travelling from her home to Warszawa Centralna for the train to Gdańsk.",
+      "away_score": 50,
+      "people": 0
+    },
+    {
+      "start": "07:05",
+      "end": "09:45",
+      "reason": "She is on train EIP 5101 traveling from Warsaw to Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:45",
+      "end": "11:00",
+      "reason": "She arrives in Gdańsk and travels to the Port of Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "17:00",
+      "reason": "She is attending the port pilot go-live event at the Port of Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:00",
+      "end": "24:00",
+      "reason": "She stays overnight in Gdańsk at the hotel for the multi-day trip.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

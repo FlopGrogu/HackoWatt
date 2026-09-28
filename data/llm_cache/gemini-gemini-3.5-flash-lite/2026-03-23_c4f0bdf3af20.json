@@ -1,0 +1,29 @@
+{
+  "date": "2026-03-23",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:22:25",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:30",
+      "reason": "She is sleeping at home in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:30",
+      "end": "05:50",
+      "reason": "She is finishing preparations and leaving her apartment.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "05:50",
+      "end": "24:00",
+      "reason": "She is travelling to and staying in Copenhagen for a business trip.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

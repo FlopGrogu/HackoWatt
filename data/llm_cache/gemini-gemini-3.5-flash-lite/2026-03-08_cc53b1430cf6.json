@@ -1,0 +1,36 @@
+{
+  "date": "2026-03-08",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:20:46",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home following her usual weekend night routine.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "18:00",
+      "reason": "She is likely at home on a relaxed Sunday, with no calendar entries until the evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She is at home to receive the scheduled grocery delivery.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "24:00",
+      "reason": "She spends the rest of the evening at home preparing for the upcoming workday.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

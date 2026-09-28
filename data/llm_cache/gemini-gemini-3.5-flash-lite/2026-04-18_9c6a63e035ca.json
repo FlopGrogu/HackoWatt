@@ -1,0 +1,43 @@
+{
+  "date": "2026-04-18",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:30",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "11:30",
+      "reason": "She is likely waking up and spending the morning at home.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "11:30",
+      "end": "19:30",
+      "reason": "She is spending the afternoon at home or running errands in the city.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "19:30",
+      "end": "20:00",
+      "reason": "She is getting ready and traveling to the birthday event nearby.",
+      "away_score": 20,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "24:00",
+      "reason": "She is attending Bartek's birthday at Pardon, To Tu.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

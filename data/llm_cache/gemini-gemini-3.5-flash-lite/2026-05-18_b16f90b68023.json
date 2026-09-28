@@ -1,0 +1,85 @@
+{
+  "date": "2026-05-18",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:26:50",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after arriving from Berlin the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "09:00",
+      "reason": "She wakes up at home for her usual morning routine on a WFH day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "09:30",
+      "reason": "She is preparing at home for her team stand-up on Microsoft Teams.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She attends the team stand-up on Microsoft Teams from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:50",
+      "end": "15:30",
+      "reason": "She is working from home during the day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:30",
+      "end": "16:30",
+      "reason": "She participates in the DonauNetz tender Q&A on Microsoft Teams from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "16:30",
+      "end": "18:00",
+      "reason": "She continues working or relaxing at home before her evening yoga class.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "18:30",
+      "reason": "She travels from her home on ul. Chmielna to Joga Studio on ul. Mokotowska.",
+      "away_score": 85,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "19:30",
+      "reason": "She attends her yoga class at Joga Studio.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "20:00",
+      "reason": "She travels back from Joga Studio to her apartment on ul. Chmielna.",
+      "away_score": 85,
+      "people": 0
+    },
+    {
+      "start": "20:00",
+      "end": "24:00",
+      "reason": "She is back at home for the rest of the evening.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

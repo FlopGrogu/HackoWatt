@@ -34,8 +34,10 @@ MODEL = os.environ.get("ISHOME_MODEL", {"ollama": "qwen3:8b", "gemini": "gemini-
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 CACHE = ROOT / "data" / "llm_cache" / re.sub(r"[^A-Za-z0-9.-]+", "-", f"{PROVIDER}_{MODEL}")
 MAX_ATTEMPTS = 3              # re-ask when the answer does not cover 00:00–24:00 correctly
-GEMINI_RETRY_WAITS = [10, 20, 40, 60, 60]   # seconds, on 429 (rate limit) / 503 (overloaded)
-FIRST_DAY, LAST_DAY = date(2026, 9, 1), date(2026, 10, 12)
+GEMINI_RETRY_WAITS = [10, 20, 40, 60, 60]   # seconds, on 429 (rate limit) / 503 (overloaded) / network errors
+GEMINI_MIN_INTERVAL = 4.5                   # seconds between requests (≈ 13 per minute, below the free-tier RPM)
+_last_gemini_call = 0.0
+FIRST_DAY, LAST_DAY = date(2025, 9, 1), date(2026, 10, 12)
 
 SYSTEM = f"""You help a home-energy app predict when its user is physically inside her apartment, based on her
 calendar. The app knows nothing about her life beyond what is written below.
@@ -149,6 +151,10 @@ def _secret(name):
     return None
 
 
+class DailyLimitReached(RuntimeError):
+    """The provider's requests-per-day quota is used up (Gemini free tier resets at midnight Pacific time)."""
+
+
 def call_gemini(prompt):
     """Google Gemini REST API (generateContent) with JSON output."""
     body = {
@@ -161,17 +167,30 @@ def call_gemini(prompt):
         f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent",
         data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json", "x-goog-api-key": os.environ.get("GEMINI_API_KEY") or _secret("API_KEY")})
+    global _last_gemini_call
     for wait in GEMINI_RETRY_WAITS + [None]:
+        time.sleep(max(0.0, GEMINI_MIN_INTERVAL - (time.time() - _last_gemini_call)))   # pace requests
+        _last_gemini_call = time.time()
         try:
-            with urllib.request.urlopen(req, timeout=300) as resp:
+            with urllib.request.urlopen(req, timeout=120) as resp:
                 answer = json.loads(resp.read())
             break
         except urllib.error.HTTPError as e:
-            if e.code in (429, 503) and wait is not None:     # rate limit / overloaded: wait and retry
+            body = e.read().decode(errors="replace")
+            if e.code == 429 and "PerDay" in body:             # daily quota used up: no point in waiting minutes
+                raise DailyLimitReached(body[:300]) from None
+            if e.code in (429, 503) and wait is not None:     # per-minute limit / overloaded: wait and retry
+                asked = re.search(r'"retryDelay":\s*"(\d+)s"', body)
+                wait = max(wait, int(asked.group(1)) + 1) if asked else wait
                 print(f"  Gemini {e.code}, retrying in {wait} s", flush=True)
                 time.sleep(wait)
                 continue
-            raise RuntimeError(f"Gemini API error {e.code}: {e.read().decode()[:500]}") from None
+            raise RuntimeError(f"Gemini API error {e.code}: {body[:500]}") from None
+        except (TimeoutError, ConnectionError, urllib.error.URLError) as e:
+            if wait is None:
+                raise
+            print(f"  Gemini network error ({e.__class__.__name__}), retrying in {wait} s", flush=True)
+            time.sleep(wait)
     text = "".join(p.get("text", "") for p in answer["candidates"][0]["content"]["parts"])
     return json.loads(text), f"gemini:{answer.get('modelVersion', MODEL)}"
 

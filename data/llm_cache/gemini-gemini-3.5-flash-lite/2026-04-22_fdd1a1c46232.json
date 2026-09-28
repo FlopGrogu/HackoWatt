@@ -1,0 +1,50 @@
+{
+  "date": "2026-04-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:49",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:00",
+      "reason": "She is staying at a hotel in London for the business trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:00",
+      "end": "13:30",
+      "reason": "She attends the wrap-up meeting at GridMint in London.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:30",
+      "end": "17:10",
+      "reason": "She travels from central London to Heathrow Airport for her flight.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:10",
+      "end": "22:00",
+      "reason": "She is on her flight from London Heathrow to Warsaw Chopin Airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:00",
+      "end": "23:00",
+      "reason": "She travels from Warsaw airport back to her apartment on ul. Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She has arrived home and is settling in for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

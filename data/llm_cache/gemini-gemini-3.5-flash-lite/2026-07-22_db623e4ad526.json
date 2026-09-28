@@ -1,0 +1,15 @@
+{
+  "date": "2026-07-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:31:46",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "24:00",
+      "reason": "She is on holiday in Portugal with Paul for the entire day.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

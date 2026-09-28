@@ -1,0 +1,36 @@
+{
+  "date": "2026-03-26",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:22:44",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:15",
+      "reason": "She wakes up at home in Warsaw after returning late from Copenhagen the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "14:55",
+      "reason": "She works from home as scheduled in the calendar for the morning.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:55",
+      "end": "15:25",
+      "reason": "She takes a pre-booked Bolt taxi from her home to the airport.",
+      "away_score": 50,
+      "people": 1
+    },
+    {
+      "start": "15:25",
+      "end": "24:00",
+      "reason": "She is at Warsaw Chopin Airport and takes a flight to Berlin, staying at Paul's flat.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

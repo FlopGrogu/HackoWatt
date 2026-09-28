@@ -1,0 +1,29 @@
+{
+  "date": "2026-03-18",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:21:31",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:45",
+      "reason": "She is sleeping at home before her early flight to Munich.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:45",
+      "end": "07:00",
+      "reason": "She is taking a taxi from home to Warsaw Chopin Airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "07:00",
+      "end": "24:00",
+      "reason": "She is flying to and staying in Munich for a workshop until March 20.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

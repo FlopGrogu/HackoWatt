@@ -1,0 +1,106 @@
+{
+  "date": "2026-06-01",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:27:52",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up and has her morning routine at home.",
+      "away_score": 5,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:30",
+      "reason": "She is working from home.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She attends a team stand-up online from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:50",
+      "end": "14:00",
+      "reason": "She continues working from home.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "14:00",
+      "end": "15:00",
+      "reason": "She is on an API follow-up video call from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:00",
+      "end": "16:00",
+      "reason": "She continues working from home.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "16:00",
+      "end": "17:00",
+      "reason": "She attends a data quality video call from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "17:00",
+      "end": "18:00",
+      "reason": "She finishes work at home before her yoga class.",
+      "away_score": 15,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "18:30",
+      "reason": "She travels from home to the yoga studio on ul. Mokotowska.",
+      "away_score": 85,
+      "people": 1
+    },
+    {
+      "start": "18:30",
+      "end": "19:30",
+      "reason": "She attends yoga class at Joga Studio on ul. Mokotowska 51.",
+      "away_score": 100,
+      "people": 1
+    },
+    {
+      "start": "19:30",
+      "end": "20:00",
+      "reason": "She travels back home from the yoga studio.",
+      "away_score": 85,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "22:59",
+      "reason": "She relaxes at home for the rest of the evening.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She goes to sleep at home.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

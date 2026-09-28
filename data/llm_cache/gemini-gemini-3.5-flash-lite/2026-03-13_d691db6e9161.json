@@ -1,0 +1,78 @@
+{
+  "date": "2026-03-13",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:21:11",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "11:00",
+      "reason": "She wakes up and works from home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She attends a Microsoft Teams meeting from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "12:00",
+      "end": "16:00",
+      "reason": "She continues working from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "16:00",
+      "end": "17:00",
+      "reason": "She attends another Microsoft Teams call from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "17:00",
+      "end": "18:00",
+      "reason": "She finishes work and prepares to pick up Paul.",
+      "away_score": 10,
+      "people": 2
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She travels to Warsaw Chopin Airport to meet Paul's flight.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "20:30",
+      "reason": "She is at the airport meeting Paul.",
+      "away_score": 100,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "21:30",
+      "reason": "She travels back home from the airport with Paul.",
+      "away_score": 50,
+      "people": 2
+    },
+    {
+      "start": "21:30",
+      "end": "24:00",
+      "reason": "She is relaxing at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}
