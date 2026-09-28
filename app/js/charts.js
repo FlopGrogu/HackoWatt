@@ -46,7 +46,7 @@
       return { config: {
         type: 'line',
         data: {
-          labels: pointLabels,
+          labels: pointLabels ?? [...actual, ...forecast].map(() => ''),
           datasets: [
             dataset('Actual', [...actual, ...Array(forecast.length).fill(null)], t.accent, {
               pointRadius: (c) => (c.dataIndex === last ? 8 : 0), pointBackgroundColor: t.accent,
@@ -60,7 +60,7 @@
           layout: { padding: { top: 8, bottom: 8, left: 8, right: 8 } },
           scales: scales(t, { grace: '15%' }),
           plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-            title: (items) => items[0].label,
+            title: (items) => items[0].label || 'Average per day',
             label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)} kWh`,
           } } },
         }),
@@ -68,9 +68,15 @@
     },
 
     /** Energy Usage screen: profile line; highlighted points are ringed and show their story in the tooltip. */
-    profile({ values, highlights }) {
+    profile({ values, highlights }, { start, stepHours } = {}) {
       const t = theme();
       const byIndex = new Map(highlights.map((h) => [h.index, h]));
+      const when = (i) => (start && stepHours
+        ? new Date(start.getTime() + i * stepHours * 3600_000).toLocaleString('en-US', {
+          weekday: 'short', day: 'numeric', month: 'short',
+          ...(stepHours < 24 && { hour: '2-digit', minute: '2-digit', hour12: false }),   // daily totals: date only
+        })
+        : '');
       const state = { selected: null };
       let peak = null;                                   // pre-selected: the highest highlighted point
       highlights.forEach((h) => { if (peak === null || values[h.index] > values[peak]) peak = h.index; });
@@ -114,7 +120,7 @@
               if (hit && byIndex.has(hit.index)) { state.selected = hit.index; chart.update('none'); }
             },
             plugins: { legend: { display: false }, tooltip: { ...tooltip(t), yAlign: 'bottom', callbacks: {
-              title: (items) => byIndex.get(items[0].dataIndex)?.title ?? '',
+              title: (items) => byIndex.get(items[0].dataIndex)?.title ?? when(items[0].dataIndex),
               label: (item) => byIndex.get(item.dataIndex)?.detail ?? `${item.parsed.y.toFixed(2)} kWh`,
             } } },
           }),

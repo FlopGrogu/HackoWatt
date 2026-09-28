@@ -1,11 +1,11 @@
 /* Global Alpine state (navigation) + magic helpers shared by all screens.
    The current screen is mirrored in the URL hash (#usage, #devices …): deep links + browser back work. */
 document.addEventListener('alpine:init', () => {
-  const screens = ['home', 'usage', 'devices', 'profile'];
-  const parentTab = { usage: 'home' };        // sub-screens highlight the tab they belong to
+  const screens = ['home', 'forecast', 'profile'];
+  const aliases = { usage: 'forecast', devices: 'forecast' };   // old deep links
   const fromHash = () => {
     const id = location.hash.slice(1);
-    return screens.includes(id) ? id : 'home';
+    return screens.includes(aliases[id] || id) ? aliases[id] || id : 'home';
   };
 
   Alpine.store('nav', {
@@ -15,7 +15,7 @@ document.addEventListener('alpine:init', () => {
       if (screen !== this.screen) location.hash = screen;   // hashchange updates `screen`
     },
     get activeTab() {
-      return parentTab[this.screen] || this.screen;
+      return this.screen;
     },
   });
 
@@ -24,15 +24,12 @@ document.addEventListener('alpine:init', () => {
   }
 
   // Screen changes are animated with the View Transitions API so it is clear where a page comes from:
-  //  - drilling into a sub-screen (Home → Energy Usage) pushes it in from the right, going back pops it out,
-  //  - tab switches slide in the direction of the tab order,
+  //  - screens slide in the direction of the tab order (Home → Forecast pushes in from the right, going back
+  //    to Home pops it out to the right),
   // Browsers without the API just switch instantly.
   const direction = (from, to) => {
-    if (parentTab[to] === from) return 'forward';
-    if (parentTab[from] === to) return 'back';
     const order = HW.config.tabs.map((t) => t.id);
-    const tab = (id) => order.indexOf(parentTab[id] || id);
-    return tab(to) > tab(from) ? 'forward' : 'back';
+    return order.indexOf(to) > order.indexOf(from) ? 'forward' : 'back';
   };
 
   const show = (next) => {

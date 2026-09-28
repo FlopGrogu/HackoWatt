@@ -1,17 +1,33 @@
-/* Data service: the ONLY place screens get data from. Every method returns a Promise, so switching from
-   the static demo data to the real forecast (e.g. fetch('/api/forecast?hours=24') or a JSON file exported
-   by src/run_forecast.py) only changes this file – the screens stay as they are. */
+/* Data service: the ONLY place screens get data from. Every method returns a Promise. The forecast JSON exported
+   by src/export_app_data.py (data/app/forecast.json) drives the overview, peak-hours and usage charts; the
+   static demo data (js/data/demo.js) fills in whatever the forecast does not cover (devices) and is the
+   fallback when the file cannot be loaded. */
 (() => {
   const copy = (value) => Promise.resolve(structuredClone(value));
-  const demo = () => HW.demo;
+
+  // The forecast is fetched once on load. Anything it does not contain (or all of it, when the file cannot be
+  // loaded) comes from the static demo data.
+  const forecast = fetch(HW.config.forecastUrl, { cache: 'no-cache' })
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .catch((err) => {
+      console.warn(`Forecast not loaded (${err.message}); using demo data`);
+      return null;
+    });
+  const data = async () => ({ ...HW.demo, ...(await forecast) });
 
   HW.api = {
-    getUser: () => copy(demo().user),
+    /** Metadata of the loaded forecast ({ now, generated, llm, … }), null when the demo data is used. */
+    getForecastMeta: async () => (await forecast)?.meta ?? null,
+    getUser: async () => copy((await data()).user),
     getTariff: () => copy(HW.config.tariff),
-    getOverview: () => copy(demo().overview),
-    getPeakHours: () => copy(demo().peak),
-    getUsage: (range) => copy(demo().usage[range]),
-    getRooms: () => copy(demo().rooms),
+    getOverview: async () => copy((await data()).overview),
+    getPeakHours: async () => copy((await data()).peak),
+    getUsage: async (range) => copy((await data()).usage[range]),
+    /** All devices (flat), each with the name of its room. */
+    getDevices: () => copy(HW.demo.rooms.flatMap((room) => room.devices.map((d) => ({ ...d, room: room.name })))),
 
     /** Live conditions at a location from Open-Meteo (https://open-meteo.com/en/docs). */
     async getWeather({ lat, lon }) {
@@ -37,16 +53,15 @@
 
     /** Home status tiles; `weather` is null while loading or when the request failed. */
     async getHomeTiles(weather) {
-      const rooms = await this.getRooms();
-      const deviceCount = rooms.reduce((n, room) => n + room.devices.length, 0);
+      const deviceCount = (await this.getDevices()).length;
       const humidityState = (h) => (h < 30 ? 'Dry' : h <= 60 ? 'Good' : 'Humid');
       return [
         { id: 'temperature', icon: 'thermometer', state: weather ? 'Outside' : '…',
-          value: weather ? `${weather.temperature.toFixed(1)}°C` : '–', label: 'Temperature', highlight: true },
+          value: weather ? `${weather.temperature.toFixed(1)}°C` : '–', label: 'Temperature' },
         { id: 'humidity', icon: 'droplet', state: weather ? humidityState(weather.humidity) : '…',
           value: weather ? `${Math.round(weather.humidity)}%` : '–', label: 'Humidity' },
         { id: 'devices', icon: 'chip', state: 'Active', value: String(deviceCount), label: 'Devices',
-          target: 'devices' },
+          target: 'forecast' },
       ];
     },
   };

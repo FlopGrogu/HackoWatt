@@ -145,11 +145,6 @@
 .device + .device { border-top: 1px solid var(--line); }
 .device-info { flex: 1; min-width: 0; }
 .device-name { font-size: 17px; font-weight: 500; margin-bottom: 5px; }
-.badge {
-  display: inline-block; padding: 2px 7px; border-radius: 5px;
-  border: 1px solid var(--accent-dark); background: var(--accent-soft);
-  color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
-}
 .watts { color: var(--accent); font-size: 20px; font-weight: 700; white-space: nowrap; }
 .watts.off { color: var(--muted); font-weight: 500; }
 
@@ -221,3 +216,22 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
   .btn.outline:hover { background-color: var(--accent-soft); }
   .place-list button:hover { background-color: var(--card-2); color: var(--accent); }
 }
+
+.footnote { margin-top: -4px; text-align: center; font-size: 12px; color: #6f6c69; }
+
+/* peak axis: labels placed at their real position on the 24 h axis */
+.axis-abs { position: relative; height: 20px; margin-top: 16px; font-size: 14px; color: var(--muted); }
+.axis-abs span { position: absolute; top: 0; white-space: nowrap; transform: translateX(-50%); }
+.axis-abs .first { transform: none; }
+.axis-abs .last { transform: translateX(-100%); }
+
+/* "more details" affordance inside the tappable Energy Usage card */
+.card-link { display: flex; justify-content: flex-end; align-items: center; gap: 2px; margin-top: 14px; color: var(--accent); font-size: 14px; font-weight: 600; }
+.card-link svg { width: 16px; height: 16px; }
+
+/* forecast tab: device groups */
+.device-groups { display: flex; flex-direction: column; gap: 18px; }
+.devices-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 6px; }
+.devices-head .section-title { margin: 0; }
+.devices-head .muted { font-size: 13px; }
+.group-hint { margin: -2px 0 4px !important; font-size: 13px; }

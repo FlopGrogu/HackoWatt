@@ -1,30 +1,31 @@
-/* Active devices grouped by room: forecast model and what each device is drawing right now
-   (simulated from the fake clock, see js/power.js). */
+/* Devices grouped by how the forecast models them (shiftable → fixed-time → always-on → heating), with what each
+   device is drawing right now (simulated from the fake clock, see js/power.js). Used inside the Forecast tab. */
 document.addEventListener('alpine:init', () => {
-  Alpine.data('devicesScreen', () => ({
-    rooms: [],
-    models: HW.config.models,
+  Alpine.data('deviceList', () => ({
+    devices: [],
     format: HW.power.format,
 
     async init() {
-      this.rooms = await HW.api.getRooms();
+      this.devices = await HW.api.getDevices();
     },
 
     get minute() {
       return Alpine.store('clock').minutes;
     },
-    get devices() {
-      return this.rooms.flatMap((room) => room.devices);
+    get groups() {
+      return HW.config.deviceGroups
+        .map((g) => ({ ...g, devices: this.devices.filter((d) => d.model === g.model) }))
+        .filter((g) => g.devices.length);
     },
 
     draw(device) {
       return HW.power.draw(device, this.minute);
     },
-    roomTotal(room) {
-      return room.devices.reduce((sum, d) => sum + this.draw(d), 0);
+    groupTotal(group) {
+      return group.devices.reduce((sum, d) => sum + this.draw(d), 0);
     },
     get total() {
-      return this.rooms.reduce((sum, room) => sum + this.roomTotal(room), 0);
+      return this.devices.reduce((sum, d) => sum + this.draw(d), 0);
     },
     get activeCount() {
       return this.devices.filter((d) => this.draw(d) > 0).length;

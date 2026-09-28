@@ -51,6 +51,21 @@ document.addEventListener('alpine:init', () => {
       if (span <= 5) return `${hh(seg.from)}–${hh(seg.to)}h`;
       return `${hh(seg.from)}:00–${hh(seg.to)}:00`;
     },
+    // --- peak demand: legend + axis derived from the data (hours from … to inclusive) ---
+    get peakLabel() {
+      return this.peak && `${hh(this.peak.from)}–${hh(this.peak.to + 1)}`;
+    },
+    /** 00:00 / 06:00 / 12:00 / 18:00 ticks (dropped where they would collide with the peak label) + 24:00 end. */
+    get peakAxis() {
+      if (!this.peak) return [];
+      const { from, to } = this.peak;
+      const center = (from + to + 1) / 2;
+      const ticks = [0, 6, 12, 18].filter((h) => h === 0 || Math.abs(h - center) > 4)
+        .map((h) => ({ text: `${hh(h)}:00`, at: (h / 24) * 100, cls: h === 0 ? 'first' : '' }));
+      return [...ticks, { text: this.peakLabel, at: (center / 24) * 100, cls: 'accent' },
+        { text: '23:00', at: 100, cls: 'last' }];
+    },
+
     get nowStyle() {
       return `left:${(this.minutes / DAY_MINUTES) * 100}%`;
     },

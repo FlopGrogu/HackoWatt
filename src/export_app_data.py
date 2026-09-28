@@ -39,8 +39,8 @@ BLOCK_TITLES = {"space_heating_kwh": "Space heating", "hot_water_kwh": "Hot-wate
                 "appliances_kwh": "Washer / dishwasher", "activities_kwh": "Cooking & activities",
                 "baseload_kwh": "Baseload"}
 RANGES = {"24h": (24, 1, "Hour-level granularity (next 24 h)"),
-          "3d": (72, 4, "4-hour granularity (next 3 days)"),
-          "7d": (168, 12, "12-hour granularity (next 7 days)")}
+          "3d": (72, 4, "4-hour totals (next 3 days)"),
+          "7d": (168, 24, "Daily totals (next 7 days)")}
 
 
 def r1(x, n=1):
@@ -49,6 +49,11 @@ def r1(x, n=1):
 
 def group(values, size):
     return [sum(values[i:i + size]) / len(values[i:i + size]) for i in range(0, len(values), size)]
+
+
+def accumulate(values, size):
+    """kWh summed over consecutive blocks of `size` hours (size 1 = the hourly values themselves)."""
+    return [sum(values[i:i + size]) for i in range(0, len(values), size)]
 
 
 def daily_history(now, days):
@@ -60,13 +65,17 @@ def daily_history(now, days):
 
 
 def overview(now):
-    """Home card: 4-day averages of the last 28 metered days + of the next 7 forecast days."""
+    """Home card: daily kWh of the last 28 metered days + of the next 7 forecast days."""
     past = daily_history(now, 28)
     rows = forecast(now.replace(hour=0) + timedelta(days=1), 24 * 7)[0]
     future = [sum(r["total_real_kwh"] for r in rows[d * 24:(d + 1) * 24]) for d in range(7)]
     first = now.replace(hour=0) - timedelta(days=len(past))
-    return {"actual": [r1(v) for v in group(past, 4)], "forecast": [r1(v) for v in group(future, 4)],
-            "labels": [f"{first:%-d %b}", f"{first + timedelta(days=14):%-d %b}", f"{now:%-d %b}"]}
+    start = now.replace(hour=0) + timedelta(days=1)
+    day = lambda d: f"{d:%-d %b}"
+    return {"actual": [r1(v) for v in past], "forecast": [r1(v) for v in future],
+            "pointLabels": [day(first + timedelta(days=i)) for i in range(len(past))] +
+                           [day(start + timedelta(days=i)) for i in range(len(future))],   # one label per point (tooltips)
+            "labels": [day(first), day(first + timedelta(days=14)), day(now), day(start + timedelta(days=6))]}
 
 
 def peak_hours(now):
@@ -88,9 +97,14 @@ def highlights(rows, size, count):
         chunk = rows[i:i + size]
         total = sum(r["total_real_kwh"] for r in chunk)
         block = max(BLOCK_TITLES, key=lambda b: sum(r[b] for r in chunk))
-        when = f"{chunk[0]['timestamp']:%a %-d %b %H:%M}" if size > 1 else f"{chunk[0]['timestamp']:%H:%M}"
+        when = (f"{chunk[0]['timestamp']:%a %-d %b}" if size == 24 else
+                f"{chunk[0]['timestamp']:%a %-d %b %H:%M}" if len(rows) > 24 else f"{chunk[0]['timestamp']:%H:%M}")
         points.append(dict(index=i // size, title=BLOCK_TITLES[block], detail=f"{when} • {total:.2f} kWh", total=total))
-    top = sorted(points, key=lambda p: -p["total"])[:count]
+    gap = 3 if size == 1 else 1 if size < 24 else 0     # don't pick neighbouring points of the same peak
+    top = []
+    for p in sorted(points, key=lambda p: -p["total"]):
+        if len(top) < count and all(abs(p["index"] - q["index"]) > gap for q in top):
+            top.append(p)
     return [{k: v for k, v in p.items() if k != "total"} for p in sorted(top, key=lambda p: p["index"])]
 
 
@@ -153,8 +167,8 @@ def main(now, out=OUT):
     for name, (hours, size, subtitle) in RANGES.items():
         rows, runs, trips = forecast(now, hours, llm=llm)
         usage[name] = {
-            "title": "Forecast Profile", "subtitle": subtitle, "labels": labels_for(rows, name),
-            "values": [r1(v, 3) for v in group([r["total_real_kwh"] for r in rows], size)],
+            "title": "Forecast Profile", "subtitle": subtitle, "stepHours": size, "labels": labels_for(rows, name),
+            "values": [r1(v, 3) for v in accumulate([r["total_real_kwh"] for r in rows], size)],
             "highlights": highlights(rows, size, 2 if name != "7d" else 3),
             "incidents": incidents(now, hours, rows, runs, trips, llm),
             "summaryTitle": {"24h": "Daily Summary", "3d": "3-Day Summary", "7d": "Weekly Summary"}[name],

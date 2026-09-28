@@ -23,7 +23,7 @@
   <script defer src="js/services/api.js"></script>
   <script defer src="js/store.js"></script>
   <script defer src="js/screens/home.js"></script>
-  <script defer src="js/screens/usage.js"></script>
+  <script defer src="js/screens/forecast.js"></script>
   <script defer src="js/screens/devices.js"></script>
   <script defer src="js/screens/settings.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
@@ -50,7 +50,7 @@
         </header>
 
         <!-- Energy Usage -->
-        <article class="card tappable" @click="$store.nav.go('usage')">
+        <article class="card tappable" @click="$store.nav.go('forecast')">
           <div class="card-head">
             <h2>Energy Usage</h2>
             <div class="legend">
@@ -63,6 +63,7 @@
           <div class="axis">
             <template x-for="label in overview?.labels"><span x-text="label"></span></template>
           </div>
+          <div class="card-link"><span>Details &amp; predictions</span><span x-html="$icon('chevron')"></span></div>
         </article>
 
         <!-- Energy Prices -->
@@ -91,13 +92,13 @@
           <h2>Your Peak Demand Hours</h2>
           <p class="muted" x-text="peak?.text"></p>
           <div class="chart bars"><canvas x-chart="peakSpec"></canvas></div>
-          <div class="axis">
-            <span>00:00</span><span>06:00</span><span>12:00</span>
-            <span class="accent" x-text="peak && `${peak.from}–${peak.to}`"></span><span>23:00</span>
+          <div class="axis-abs">
+            <template x-for="t in peakAxis">
+              <span :class="t.cls" :style="`left:${t.at}%`" x-text="t.text"></span>
+            </template>
           </div>
           <div class="legend bottom">
-            <span><i class="square orange"></i><span
-                x-text="peak && `Peak (${peak.from}–${peak.to + 1} h)`"></span></span>
+            <span><i class="square orange"></i><span x-text="peakLabel && `Peak (${peakLabel} h)`"></span></span>
             <span><i class="square grey"></i>Off-peak</span>
           </div>
         </article>
@@ -119,11 +120,10 @@
         </div>
       </section>
 
-      <!-- ============================ ENERGY USAGE ============================ -->
-      <section x-data="usageScreen" x-show="$store.nav.screen === 'usage'">
+      <!-- ============================== FORECAST ============================== -->
+      <section x-data="forecastScreen" x-show="$store.nav.screen === 'forecast'">
         <header class="topbar left">
-          <button class="icon-btn" @click="$store.nav.go('home')" x-html="$icon('back')" aria-label="Back"></button>
-          <h1>Energy Usage</h1>
+          <h1>Forecast</h1>
         </header>
 
         <div class="segmented" :style="`--i:${ranges.indexOf(range)};--n:${ranges.length}`">
@@ -145,62 +145,34 @@
           </div>
         </article>
 
-        <h3 class="section-title">Logged Incidents</h3>
-        <div class="tiles">
-          <template x-for="inc in data?.incidents">
-            <div class="tile compact">
-              <div class="muted" x-text="inc.title"></div>
-              <div class="tile-value small" :class="inc.tone" x-text="inc.value"></div>
-              <div class="muted" x-text="inc.time"></div>
-            </div>
-          </template>
-        </div>
-
-        <h3 class="section-title" x-text="data?.summaryTitle"></h3>
-        <div class="tiles">
-          <template x-for="s in data?.summary">
-            <div class="tile compact">
-              <div class="caps muted" x-text="s.label"></div>
-              <div class="tile-value" :class="{ accent: s.accent }" x-text="s.value"></div>
-              <div class="delta" :class="s.good ? 'green' : 'red'">
-                <span x-text="s.good ? '↓' : '↑'"></span><span x-text="s.delta"></span>
-              </div>
-            </div>
-          </template>
-        </div>
-      </section>
-
-      <!-- ============================== DEVICES ============================== -->
-      <section x-data="devicesScreen" x-show="$store.nav.screen === 'devices'">
-        <header class="topbar left">
-          <button class="icon-btn" @click="$store.nav.go('home')" x-html="$icon('arrowLeft')"
-            aria-label="Back"></button>
-          <div>
-            <h1>Active Devices</h1>
-            <p class="status-line"><i class="dot green"></i><span
-                x-text="`${format(total)} now · ${activeCount} of ${devices.length} running`"></span></p>
+        <!-- Devices, grouped by how the forecast models them -->
+        <div x-data="deviceList" class="device-groups">
+          <div class="devices-head">
+            <h3 class="section-title">Devices</h3>
+            <span class="muted" x-text="`${format(total)} now · ${activeCount} of ${devices.length} running`"></span>
           </div>
-        </header>
-
-        <template x-for="room in rooms">
-          <article class="card room">
-            <div class="room-head">
-              <h2><i class="dot orange"></i><span x-text="room.name"></span></h2>
-              <span class="muted" x-text="`${format(roomTotal(room))} now`"></span>
-            </div>
-            <template x-for="device in room.devices">
-              <div class="device">
-                <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
-                <div class="device-info">
-                  <div class="device-name" x-text="device.name"></div>
-                  <span class="badge" x-text="models[device.model]"></span>
-                </div>
-                <span class="watts" :class="{ off: !draw(device) }"
-                  x-text="draw(device) ? format(draw(device)) : 'Off'"></span>
+          <template x-for="group in groups">
+            <article class="card room">
+              <div class="room-head">
+                <h2><i class="dot orange"></i><span x-text="group.title"></span></h2>
+                <span class="muted" x-text="`${format(groupTotal(group))} now`"></span>
               </div>
-            </template>
-          </article>
-        </template>
+              <p class="muted group-hint" x-text="group.hint"></p>
+              <template x-for="device in group.devices">
+                <div class="device">
+                  <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
+                  <div class="device-info">
+                    <div class="device-name" x-text="device.name"></div>
+                    <span class="muted" x-text="device.room"></span>
+                  </div>
+                  <span class="watts" :class="{ off: !draw(device) }"
+                    x-text="draw(device) ? format(draw(device)) : 'Off'"></span>
+                </div>
+              </template>
+            </article>
+          </template>
+        </div>
+        <p class="footnote" x-text="forecastNote"></p>
       </section>
 
       <!-- =============================== PROFILE =============================== -->
