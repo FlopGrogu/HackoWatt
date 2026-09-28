@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-23",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:49:16",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "06:00",
+      "end": "09:30",
+      "reason": "She wakes up and works from home on a WFH day with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She attends the team stand-up online from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "09:50",
+      "end": "14:00",
+      "reason": "She continues working from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "14:00",
+      "end": "15:00",
+      "reason": "She takes a contract call for the Nordvolt pilot from home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "15:00",
+      "end": "19:00",
+      "reason": "She finishes the workday at home.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "19:00",
+      "end": "23:00",
+      "reason": "She hosts dinner at home with Kasia and Tomek, alongside Paul.",
+      "away_score": 0,
+      "people": 4
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "Dinner ends and they prepare for bed at home.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

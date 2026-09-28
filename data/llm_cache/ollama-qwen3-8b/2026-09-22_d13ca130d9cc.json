@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-22",
+  "model": "ollama:qwen3:8b",
+  "created": "2026-09-28T20:54:44",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "09:00",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Gdańsk"
+    },
+    {
+      "start": "09:00",
+      "end": "12:00",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Gdańsk (site visit)"
+    },
+    {
+      "start": "12:00",
+      "end": "13:10",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Gdańsk (waiting for train)"
+    },
+    {
+      "start": "13:10",
+      "end": "15:55",
+      "away_score": 0,
+      "people": 0,
+      "reason": "Traveling to Warsaw"
+    },
+    {
+      "start": "15:55",
+      "end": "19:40",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Warsaw"
+    },
+    {
+      "start": "19:40",
+      "end": "20:30",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Warsaw (possibly at the airport)"
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "away_score": 0,
+      "people": 0,
+      "reason": "In Warsaw (at home with Paul)"
+    }
+  ]
+}

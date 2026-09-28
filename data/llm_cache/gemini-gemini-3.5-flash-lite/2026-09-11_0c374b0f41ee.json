@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-11",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:38:44",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "09:00",
+      "reason": "She wakes up and starts working from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "13:00",
+      "reason": "She is at home focusing on the Stockholm pilot proposal.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "13:00",
+      "end": "14:30",
+      "reason": "She is having lunch at home before her trip.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:30",
+      "end": "15:00",
+      "reason": "She takes a taxi from home to the airport.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "15:00",
+      "end": "17:35",
+      "reason": "She is at Warsaw Chopin Airport and taking a flight to Berlin.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:35",
+      "end": "24:00",
+      "reason": "She is in Berlin for the weekend with Paul.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

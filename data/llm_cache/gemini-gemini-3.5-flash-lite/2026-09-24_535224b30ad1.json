@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-24",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:29:12",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:30",
+      "reason": "She is sleeping at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "05:30",
+      "end": "06:00",
+      "reason": "She wakes up to see off Paul for his airport taxi.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "06:00",
+      "end": "07:30",
+      "reason": "She prepares for work at home after Paul's departure.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "08:15",
+      "reason": "She travels from home to the office at Warsaw Spire.",
+      "away_score": 75,
+      "people": 0
+    },
+    {
+      "start": "08:15",
+      "end": "18:30",
+      "reason": "She is working at the office in Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "19:15",
+      "reason": "She travels back home from the office.",
+      "away_score": 40,
+      "people": 0
+    },
+    {
+      "start": "19:15",
+      "end": "24:00",
+      "reason": "She is back home relaxing for the rest of the evening.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

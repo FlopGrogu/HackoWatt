@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-25",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:50:13",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home in her bed.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:00",
+      "reason": "She wakes up and has her morning coffee at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:00",
+      "end": "08:15",
+      "reason": "She is getting ready and leaving home for work.",
+      "away_score": 20,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "17:30",
+      "reason": "She is at her office at Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:30",
+      "end": "19:30",
+      "reason": "She is attending team after-work drinks at Browar Warszawski.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "20:45",
+      "reason": "She travels back home from the city center.",
+      "away_score": 30,
+      "people": 0
+    },
+    {
+      "start": "20:45",
+      "end": "23:00",
+      "reason": "She is at the cinema with Ola at Kino Muranów.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She returns home after the cinema for the night.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}
