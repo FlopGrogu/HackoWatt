@@ -1,0 +1,7 @@
+Downloaded 2026-09-28 from Open-Meteo (https://open-meteo.com), location Warsaw 52.2297N 21.0122E
+
+openmeteo_historical.json  (used for 2026-09-01 .. 2026-09-28, Historical Weather API):
+https://archive-api.open-meteo.com/v1/archive?latitude=52.2297&longitude=21.0122&timezone=Europe%2FWarsaw&start_date=2026-09-01&end_date=2026-09-28&hourly=temperature_2m,relative_humidity_2m,cloud_cover,shortwave_radiation,wind_speed_10m&daily=sunrise,sunset
+
+openmeteo_forecast.json    (used for 2026-09-29 .. 2026-10-12, Forecast API; 20-28 Sep only for overlap check):
+https://api.open-meteo.com/v1/forecast?latitude=52.2297&longitude=21.0122&timezone=Europe%2FWarsaw&start_date=2026-09-20&end_date=2026-10-12&hourly=temperature_2m,relative_humidity_2m,cloud_cover,shortwave_radiation,wind_speed_10m&daily=sunrise,sunset

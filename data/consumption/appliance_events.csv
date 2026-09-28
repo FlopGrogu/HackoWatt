@@ -1,0 +1,295 @@
+appliance,start,end,duration_min,peak_kw,kwh,reason
+washing_machine,2026-09-01 14:00,2026-09-01 15:49,109,2.0,0.9473,Holiday laundry #1
+washing_machine,2026-09-01 16:30,2026-09-01 18:11,101,2.0,0.6807,Holiday laundry #2
+heat_pump_hot_water,2026-09-01 16:40,2026-09-01 17:11,31,1.6,0.8267,Hot-water tank reheat
+oven,2026-09-01 19:15,2026-09-01 19:40,25,2.47,0.7822,Frozen pizza after holiday
+kettle,2026-09-01 20:29,2026-09-01 20:32,3,2.0,0.1,Evening tea
+tv,2026-09-01 20:55,2026-09-01 22:37,102,0.1,0.17,Evening TV / streaming
+phone_tablet_charging,2026-09-01 22:35,2026-09-02 00:21,106,0.01,0.0177,Phone overnight
+kettle,2026-09-02 06:46,2026-09-02 06:50,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-09-02 06:58,2026-09-02 07:08,10,1.48,0.2467,Morning coffee
+heat_pump_hot_water,2026-09-02 06:58,2026-09-02 07:41,43,1.6,1.1467,Hot-water tank reheat
+heat_pump_hot_water,2026-09-02 21:51,2026-09-02 22:22,31,1.6,0.8267,Hot-water tank reheat
+phone_tablet_charging,2026-09-02 23:05,2026-09-03 00:21,76,0.01,0.0127,Phone overnight
+kettle,2026-09-03 06:46,2026-09-03 06:51,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-09-03 06:53,2026-09-03 07:01,8,1.42,0.1893,Morning coffee
+heat_pump_hot_water,2026-09-03 07:04,2026-09-03 07:35,31,1.6,0.8267,Hot-water tank reheat
+washing_machine,2026-09-03 07:30,2026-09-03 09:09,99,2.0,0.614,Before Stockholm
+phone_tablet_charging,2026-09-03 07:40,2026-09-03 10:00,140,0.015,0.035,Power bank before trip
+laptop,2026-09-03 08:15,2026-09-03 12:26,251,0.08,0.2864,Work from home
+kettle,2026-09-03 12:31,2026-09-03 12:34,3,2.0,0.1,Lunch break
+coffee_machine,2026-09-03 12:51,2026-09-03 12:58,7,1.14,0.133,Post-lunch coffee
+laptop,2026-09-03 12:59,2026-09-03 15:10,131,0.08,0.1444,Work from home
+heat_pump_hot_water,2026-09-04 15:50,2026-09-04 16:21,31,1.6,0.8267,Hot-water tank reheat
+phone_tablet_charging,2026-09-04 23:05,2026-09-05 00:30,85,0.01,0.0142,Phone overnight
+kettle,2026-09-05 07:51,2026-09-05 07:54,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-05 07:59,2026-09-05 08:07,8,1.41,0.188,Morning coffee
+heat_pump_hot_water,2026-09-05 08:00,2026-09-05 08:40,40,1.6,1.0667,Hot-water tank reheat
+coffee_machine,2026-09-05 09:26,2026-09-05 09:30,4,1.25,0.0833,Second weekend coffee
+washing_machine,2026-09-05 11:00,2026-09-05 12:40,100,2.0,0.6473,After Stockholm
+heat_pump_hot_water,2026-09-05 15:47,2026-09-05 16:18,31,1.6,0.8267,Hot-water tank reheat
+oven,2026-09-05 18:45,2026-09-05 19:40,55,2.45,1.3883,Duck breast + roasted veg with Paul
+tv,2026-09-05 21:30,2026-09-05 23:15,105,0.094,0.1645,Evening with Paul
+laptop,2026-09-05 21:59,2026-09-05 22:23,24,0.08,0.0272,"Personal laptop (e-mails, booking trips)"
+dishwasher,2026-09-05 22:45,2026-09-06 00:23,98,2.0,1.088,Dinner with Paul
+phone_tablet_charging,2026-09-05 23:35,2026-09-06 00:55,80,0.01,0.0133,Phone overnight
+phone_tablet_charging,2026-09-05 23:37,2026-09-06 01:14,97,0.012,0.0194,Tablet overnight
+phone_tablet_charging,2026-09-05 23:40,2026-09-06 01:03,83,0.01,0.0138,Paul's phone
+heat_pump_hot_water,2026-09-06 02:00,2026-09-06 02:32,32,1.6,0.8533,Hot-water tank reheat
+kettle,2026-09-06 08:38,2026-09-06 08:42,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-09-06 08:44,2026-09-06 08:51,7,1.17,0.1365,Morning coffee
+coffee_machine,2026-09-06 08:57,2026-09-06 09:02,5,1.36,0.1133,Coffee for Paul
+heat_pump_hot_water,2026-09-06 08:57,2026-09-06 09:57,60,1.6,1.6,Hot-water tank reheat
+coffee_machine,2026-09-06 09:54,2026-09-06 10:04,10,1.44,0.24,Second weekend coffee
+tv,2026-09-06 20:00,2026-09-06 22:30,150,0.104,0.26,Movie night with Paul
+kettle,2026-09-06 21:40,2026-09-06 21:44,4,2.0,0.1333,Evening tea
+phone_tablet_charging,2026-09-06 23:20,2026-09-07 00:49,89,0.01,0.0148,Phone overnight
+phone_tablet_charging,2026-09-06 23:22,2026-09-07 00:58,96,0.012,0.0192,Tablet overnight
+phone_tablet_charging,2026-09-06 23:25,2026-09-07 00:43,78,0.01,0.013,Paul's phone
+kettle,2026-09-07 07:09,2026-09-07 07:12,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-07 07:15,2026-09-07 07:23,8,1.18,0.1573,Morning coffee
+heat_pump_hot_water,2026-09-07 07:17,2026-09-07 08:33,76,1.6,2.0267,Hot-water tank reheat
+coffee_machine,2026-09-07 07:40,2026-09-07 07:48,8,1.43,0.1907,Coffee for Paul
+laptop,2026-09-07 08:30,2026-09-07 11:40,190,0.068,0.1809,Work from home
+laptop,2026-09-07 08:30,2026-09-07 11:30,180,0.063,0.1387,Paul working remotely
+laptop,2026-09-07 12:50,2026-09-07 17:30,280,0.073,0.2388,Work from home
+dishwasher,2026-09-07 21:30,2026-09-07 23:07,97,2.0,1.0547,Weekend dishes
+phone_tablet_charging,2026-09-07 22:50,2026-09-08 00:29,99,0.01,0.0165,Phone overnight
+kettle,2026-09-08 06:39,2026-09-08 06:43,4,2.0,0.1333,Morning tea / hot water
+heat_pump_hot_water,2026-09-08 06:45,2026-09-08 07:38,53,1.6,1.4133,Hot-water tank reheat
+coffee_machine,2026-09-08 06:49,2026-09-08 06:57,8,1.46,0.1947,Morning coffee
+phone_tablet_charging,2026-09-08 22:30,2026-09-09 00:50,140,0.015,0.035,Power bank before trip
+phone_tablet_charging,2026-09-08 23:00,2026-09-09 00:20,80,0.01,0.0133,Phone overnight
+kettle,2026-09-09 05:22,2026-09-09 05:25,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-09 05:33,2026-09-09 05:38,5,1.44,0.12,Morning coffee
+heat_pump_hot_water,2026-09-09 05:43,2026-09-09 06:27,44,1.6,1.1733,Hot-water tank reheat
+phone_tablet_charging,2026-09-09 23:10,2026-09-10 00:30,80,0.01,0.0133,Phone overnight
+coffee_machine,2026-09-10 07:01,2026-09-10 07:09,8,1.31,0.1747,Morning coffee
+kettle,2026-09-10 07:02,2026-09-10 07:05,3,2.0,0.1,Morning tea / hot water
+heat_pump_hot_water,2026-09-10 07:20,2026-09-10 08:06,46,1.6,1.2267,Hot-water tank reheat
+laptop,2026-09-10 09:10,2026-09-10 12:45,215,0.066,0.1598,Work from home
+kettle,2026-09-10 12:50,2026-09-10 12:55,5,2.0,0.1667,Lunch break
+coffee_machine,2026-09-10 13:15,2026-09-10 13:21,6,1.47,0.147,Post-lunch coffee
+laptop,2026-09-10 13:23,2026-09-10 18:00,277,0.08,0.2752,Work from home
+kettle,2026-09-10 15:04,2026-09-10 15:08,4,2.0,0.1333,Afternoon tea
+oven,2026-09-10 19:00,2026-09-10 19:30,30,2.17,0.7595,Baked salmon
+tv,2026-09-10 20:04,2026-09-10 21:49,105,0.101,0.1768,Evening TV / streaming
+dishwasher,2026-09-10 21:30,2026-09-10 23:09,99,2.0,1.1213,Salmon dinner
+kettle,2026-09-10 21:33,2026-09-10 21:38,5,2.0,0.1667,Evening tea
+laptop,2026-09-10 21:50,2026-09-10 23:00,70,0.078,0.077,"Personal laptop (e-mails, booking trips)"
+phone_tablet_charging,2026-09-10 22:50,2026-09-11 00:28,98,0.01,0.0163,Phone overnight
+phone_tablet_charging,2026-09-10 22:52,2026-09-10 23:59,67,0.012,0.0134,Tablet overnight
+kettle,2026-09-11 06:54,2026-09-11 06:59,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-09-11 07:01,2026-09-11 07:08,7,1.33,0.1552,Morning coffee
+heat_pump_hot_water,2026-09-11 07:15,2026-09-11 08:11,56,1.6,1.4933,Hot-water tank reheat
+washing_machine,2026-09-11 07:15,2026-09-11 09:01,106,2.0,0.8473,Before Berlin
+phone_tablet_charging,2026-09-11 08:00,2026-09-11 10:20,140,0.015,0.035,Power bank before trip
+laptop,2026-09-11 08:30,2026-09-11 12:15,225,0.053,0.1634,Work from home
+kettle,2026-09-11 12:20,2026-09-11 12:24,4,2.0,0.1333,Lunch break
+coffee_machine,2026-09-11 12:50,2026-09-11 12:59,9,1.49,0.2235,Post-lunch coffee
+laptop,2026-09-11 12:58,2026-09-11 14:20,82,0.073,0.0685,Work from home
+heat_pump_space_heating,2026-09-12 06:00,2026-09-12 06:30,30,1.794,0.6823,Space heating (thermostat)
+heat_pump_hot_water,2026-09-12 17:52,2026-09-12 18:23,31,1.6,0.8267,Hot-water tank reheat
+heat_pump_space_heating,2026-09-13 06:00,2026-09-13 06:33,33,1.923,0.7756,Space heating (thermostat)
+heat_pump_hot_water,2026-09-13 10:23,2026-09-13 10:54,31,1.6,0.8267,Hot-water tank reheat
+phone_tablet_charging,2026-09-13 23:05,2026-09-14 00:38,93,0.01,0.0155,Phone overnight
+phone_tablet_charging,2026-09-13 23:07,2026-09-14 00:08,61,0.012,0.0122,Tablet overnight
+kettle,2026-09-14 06:51,2026-09-14 06:55,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-09-14 06:53,2026-09-14 07:00,7,1.15,0.1342,Morning coffee
+heat_pump_hot_water,2026-09-14 06:55,2026-09-14 07:34,39,1.6,1.04,Hot-water tank reheat
+washing_machine,2026-09-14 20:00,2026-09-14 21:40,100,2.0,0.6473,Before Brussels
+kettle,2026-09-14 20:43,2026-09-14 20:47,4,2.0,0.1333,Evening tea
+phone_tablet_charging,2026-09-14 21:00,2026-09-14 23:20,140,0.015,0.035,Power bank before trip
+dishwasher,2026-09-14 22:00,2026-09-14 23:37,97,2.0,1.0547,Emptying before trip
+phone_tablet_charging,2026-09-14 22:35,2026-09-15 00:03,88,0.01,0.0147,Phone overnight
+phone_tablet_charging,2026-09-14 22:37,2026-09-14 23:45,68,0.012,0.0136,Tablet overnight
+kettle,2026-09-15 05:42,2026-09-15 05:47,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-09-15 05:47,2026-09-15 05:53,6,1.18,0.118,Morning coffee
+heat_pump_hot_water,2026-09-15 05:53,2026-09-15 06:20,27,1.6,0.72,Hot-water tank reheat
+heat_pump_hot_water,2026-09-17 20:25,2026-09-17 21:34,69,1.6,1.84,Hot-water tank reheat
+kettle,2026-09-17 21:07,2026-09-17 21:11,4,2.0,0.1333,Evening tea
+phone_tablet_charging,2026-09-17 22:50,2026-09-18 00:25,95,0.01,0.0158,Phone overnight
+kettle,2026-09-18 07:12,2026-09-18 07:17,5,2.0,0.1667,Morning tea / hot water
+heat_pump_hot_water,2026-09-18 07:16,2026-09-18 07:52,36,1.6,0.96,Hot-water tank reheat
+coffee_machine,2026-09-18 07:17,2026-09-18 07:26,9,1.4,0.21,Morning coffee
+washing_machine,2026-09-18 08:30,2026-09-18 10:16,106,2.0,0.8473,After Brussels
+laptop,2026-09-18 08:45,2026-09-18 12:17,212,0.063,0.181,Work from home
+kettle,2026-09-18 12:22,2026-09-18 12:26,4,2.0,0.1333,Lunch break
+coffee_machine,2026-09-18 12:45,2026-09-18 12:55,10,1.25,0.2083,Post-lunch coffee
+laptop,2026-09-18 12:53,2026-09-18 16:45,232,0.079,0.2557,Work from home
+kettle,2026-09-18 14:35,2026-09-18 14:38,3,2.0,0.1,Afternoon tea
+oven,2026-09-18 17:50,2026-09-18 18:55,65,2.09,1.3585,Lasagne for board game night
+heat_pump_hot_water,2026-09-18 21:12,2026-09-18 21:46,34,1.6,0.9067,Hot-water tank reheat
+kettle,2026-09-18 22:30,2026-09-18 22:34,4,2.0,0.1333,Tea for guests
+kettle,2026-09-18 22:40,2026-09-18 22:45,5,2.0,0.1667,Tea for guests
+phone_tablet_charging,2026-09-18 23:00,2026-09-19 01:20,140,0.015,0.035,Power bank before trip
+dishwasher,2026-09-18 23:45,2026-09-19 01:16,91,2.0,0.8547,Board game night
+phone_tablet_charging,2026-09-19 00:05,2026-09-19 01:46,101,0.01,0.0168,Phone overnight
+phone_tablet_charging,2026-09-19 00:07,2026-09-19 01:16,69,0.012,0.0138,Tablet overnight
+kettle,2026-09-19 08:10,2026-09-19 08:14,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-09-19 08:11,2026-09-19 08:21,10,1.22,0.2033,Morning coffee
+heat_pump_hot_water,2026-09-19 08:23,2026-09-19 09:07,44,1.6,1.1733,Hot-water tank reheat
+heat_pump_hot_water,2026-09-20 02:00,2026-09-20 02:32,32,1.6,0.8533,Hot-water tank reheat
+washing_machine,2026-09-20 18:30,2026-09-20 20:10,100,2.0,0.6473,Smoky bonfire clothes
+tv,2026-09-20 20:00,2026-09-20 22:00,120,0.082,0.164,Tired after Mazury
+phone_tablet_charging,2026-09-20 22:35,2026-09-21 00:04,89,0.01,0.0148,Phone overnight
+phone_tablet_charging,2026-09-20 22:37,2026-09-20 23:43,66,0.012,0.0132,Tablet overnight
+kettle,2026-09-21 06:57,2026-09-21 07:00,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-21 07:05,2026-09-21 07:13,8,1.13,0.1507,Morning coffee
+heat_pump_hot_water,2026-09-21 07:11,2026-09-21 08:00,49,1.6,1.3067,Hot-water tank reheat
+laptop,2026-09-21 08:15,2026-09-21 12:20,245,0.08,0.2446,Work from home
+phone_tablet_charging,2026-09-21 09:00,2026-09-21 11:20,140,0.015,0.035,Power bank before trip
+heat_pump_space_heating,2026-09-22 06:00,2026-09-22 06:54,54,2.699,1.5333,Space heating (thermostat)
+washing_machine,2026-09-22 17:00,2026-09-22 18:45,105,2.0,0.814,After Gdańsk
+heat_pump_hot_water,2026-09-22 18:00,2026-09-22 18:31,31,1.6,0.8267,Hot-water tank reheat
+oven,2026-09-22 21:00,2026-09-22 21:25,25,2.16,0.684,Late pizza after Paul lands
+phone_tablet_charging,2026-09-22 23:20,2026-09-23 00:44,84,0.01,0.014,Phone overnight
+phone_tablet_charging,2026-09-22 23:22,2026-09-23 00:53,91,0.012,0.0182,Tablet overnight
+phone_tablet_charging,2026-09-22 23:25,2026-09-23 01:09,104,0.01,0.0173,Paul's phone
+heat_pump_space_heating,2026-09-23 06:00,2026-09-23 06:38,38,2.057,0.9272,Space heating (thermostat)
+kettle,2026-09-23 07:11,2026-09-23 07:14,3,2.0,0.1,Morning tea / hot water
+heat_pump_hot_water,2026-09-23 07:15,2026-09-23 08:18,63,1.6,1.68,Hot-water tank reheat
+coffee_machine,2026-09-23 07:17,2026-09-23 07:22,5,1.46,0.1217,Morning coffee
+coffee_machine,2026-09-23 07:27,2026-09-23 07:33,6,1.31,0.131,Coffee for Paul
+laptop,2026-09-23 08:30,2026-09-23 12:39,249,0.08,0.2579,Work from home
+laptop,2026-09-23 09:00,2026-09-23 17:30,510,0.08,0.5141,Paul working remotely
+kettle,2026-09-23 12:44,2026-09-23 12:49,5,2.0,0.1667,Lunch break
+coffee_machine,2026-09-23 13:15,2026-09-23 13:20,5,1.08,0.09,Post-lunch coffee
+laptop,2026-09-23 13:23,2026-09-23 17:30,247,0.08,0.2611,Work from home
+kettle,2026-09-23 15:11,2026-09-23 15:14,3,2.0,0.1,Afternoon tea
+oven,2026-09-23 19:30,2026-09-23 20:10,40,2.11,0.9495,Käsespätzle gratin (Paul)
+oven,2026-09-23 20:15,2026-09-23 20:50,35,2.06,0.824,Apple crumble
+heat_pump_hot_water,2026-09-23 21:19,2026-09-23 21:53,34,1.6,0.9067,Hot-water tank reheat
+kettle,2026-09-23 22:00,2026-09-23 22:05,5,2.0,0.1667,Tea for guests
+dishwasher,2026-09-23 23:15,2026-09-24 00:48,93,2.0,0.9213,Dinner guests
+phone_tablet_charging,2026-09-23 23:35,2026-09-24 00:52,77,0.01,0.0128,Phone overnight
+phone_tablet_charging,2026-09-23 23:40,2026-09-24 01:27,107,0.01,0.0178,Paul's phone
+kettle,2026-09-24 05:35,2026-09-24 05:40,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-09-24 05:44,2026-09-24 05:54,10,1.33,0.2217,Morning coffee
+heat_pump_hot_water,2026-09-24 05:56,2026-09-24 07:01,65,1.6,1.7333,Hot-water tank reheat
+coffee_machine,2026-09-24 06:05,2026-09-24 06:14,9,1.33,0.1995,Coffee for Paul
+heat_pump_space_heating,2026-09-24 13:33,2026-09-24 13:51,18,1.48,0.3691,Space heating (thermostat)
+washing_machine,2026-09-24 19:00,2026-09-24 20:50,110,2.0,0.9807,Bed sheets after Paul
+oven,2026-09-24 19:15,2026-09-24 19:40,25,2.04,0.646,Reheating leftovers
+tv,2026-09-24 20:00,2026-09-24 22:08,128,0.115,0.2453,Evening TV / streaming
+laptop,2026-09-24 21:29,2026-09-24 21:52,23,0.056,0.0193,"Personal laptop (e-mails, booking trips)"
+phone_tablet_charging,2026-09-24 22:35,2026-09-25 00:06,91,0.01,0.0152,Phone overnight
+phone_tablet_charging,2026-09-24 22:37,2026-09-24 23:51,74,0.012,0.0148,Tablet overnight
+heat_pump_space_heating,2026-09-25 06:00,2026-09-25 06:44,44,2.265,1.1323,Space heating (thermostat)
+kettle,2026-09-25 06:47,2026-09-25 06:52,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-09-25 06:53,2026-09-25 06:59,6,1.24,0.124,Morning coffee
+heat_pump_hot_water,2026-09-25 07:04,2026-09-25 07:50,46,1.6,1.2267,Hot-water tank reheat
+heat_pump_space_heating,2026-09-25 17:51,2026-09-25 18:09,18,1.48,0.3704,Space heating (thermostat)
+heat_pump_space_heating,2026-09-25 21:58,2026-09-25 22:18,20,1.481,0.41,Space heating (thermostat)
+phone_tablet_charging,2026-09-25 23:30,2026-09-26 01:50,140,0.015,0.035,Power bank before trip
+phone_tablet_charging,2026-09-25 23:40,2026-09-26 00:55,75,0.01,0.0125,Phone overnight
+heat_pump_space_heating,2026-09-26 06:00,2026-09-26 06:33,33,1.962,0.7847,Space heating (thermostat)
+kettle,2026-09-26 07:37,2026-09-26 07:40,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-26 07:49,2026-09-26 07:57,8,1.15,0.1533,Morning coffee
+heat_pump_hot_water,2026-09-26 07:57,2026-09-26 08:44,47,1.6,1.2533,Hot-water tank reheat
+heat_pump_space_heating,2026-09-27 19:05,2026-09-27 19:22,17,1.504,0.3541,Space heating (thermostat)
+dishwasher,2026-09-27 21:30,2026-09-27 23:00,90,2.0,0.8213,Week's dishes
+heat_pump_hot_water,2026-09-27 21:51,2026-09-27 22:22,31,1.6,0.8267,Hot-water tank reheat
+phone_tablet_charging,2026-09-27 22:50,2026-09-28 00:36,106,0.01,0.0177,Phone overnight
+phone_tablet_charging,2026-09-27 22:52,2026-09-28 00:04,72,0.012,0.0144,Tablet overnight
+heat_pump_space_heating,2026-09-28 06:00,2026-09-28 06:41,41,2.072,1.0043,Space heating (thermostat)
+kettle,2026-09-28 06:40,2026-09-28 06:43,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-28 06:51,2026-09-28 06:56,5,1.44,0.12,Morning coffee
+heat_pump_hot_water,2026-09-28 07:01,2026-09-28 07:34,33,1.6,0.88,Hot-water tank reheat
+oven,2026-09-28 19:45,2026-09-28 20:20,35,2.14,0.856,Chicken traybake
+washing_machine,2026-09-28 20:30,2026-09-28 22:16,106,2.0,0.8473,Before Berlin week
+phone_tablet_charging,2026-09-28 21:00,2026-09-28 23:20,140,0.015,0.035,Power bank before trip
+laptop,2026-09-28 21:45,2026-09-28 22:36,51,0.065,0.0496,"Personal laptop (e-mails, booking trips)"
+dishwasher,2026-09-28 22:30,2026-09-29 00:11,101,2.0,1.188,Before Berlin week
+phone_tablet_charging,2026-09-28 22:50,2026-09-29 00:09,79,0.01,0.0132,Phone overnight
+phone_tablet_charging,2026-09-28 22:52,2026-09-29 00:31,99,0.012,0.0198,Tablet overnight
+kettle,2026-09-29 04:55,2026-09-29 04:58,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-09-29 05:08,2026-09-29 05:18,10,1.24,0.2067,Morning coffee
+heat_pump_hot_water,2026-09-29 05:14,2026-09-29 05:59,45,1.6,1.2,Hot-water tank reheat
+heat_pump_space_heating,2026-09-30 07:04,2026-09-30 07:25,21,1.481,0.4305,Space heating (thermostat)
+heat_pump_hot_water,2026-09-30 21:59,2026-09-30 22:30,31,1.6,0.8267,Hot-water tank reheat
+heat_pump_space_heating,2026-10-01 06:00,2026-10-01 06:30,30,1.746,0.6682,Space heating (thermostat)
+heat_pump_space_heating,2026-10-02 06:00,2026-10-02 06:43,43,2.186,1.0859,Space heating (thermostat)
+heat_pump_hot_water,2026-10-02 14:30,2026-10-02 15:01,31,1.6,0.8267,Hot-water tank reheat
+heat_pump_space_heating,2026-10-03 06:00,2026-10-03 06:46,46,2.21,1.1653,Space heating (thermostat)
+heat_pump_hot_water,2026-10-04 02:00,2026-10-04 02:45,45,1.6,1.2,Hot-water tank reheat
+heat_pump_space_heating,2026-10-04 06:00,2026-10-04 06:43,43,2.173,1.0768,Space heating (thermostat)
+heat_pump_space_heating,2026-10-04 22:08,2026-10-04 22:28,20,1.483,0.4109,Space heating (thermostat)
+phone_tablet_charging,2026-10-04 23:20,2026-10-05 00:48,88,0.01,0.0147,Phone overnight
+heat_pump_space_heating,2026-10-05 06:00,2026-10-05 06:42,42,2.254,1.0833,Space heating (thermostat)
+kettle,2026-10-05 07:06,2026-10-05 07:10,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-10-05 07:17,2026-10-05 07:23,6,1.29,0.129,Morning coffee
+heat_pump_hot_water,2026-10-05 07:19,2026-10-05 08:07,48,1.6,1.28,Hot-water tank reheat
+washing_machine,2026-10-05 08:00,2026-10-05 09:41,101,2.0,0.6807,After Berlin #1
+laptop,2026-10-05 08:30,2026-10-05 12:17,227,0.071,0.2051,Work from home
+washing_machine,2026-10-05 10:30,2026-10-05 12:12,102,2.0,0.714,After Berlin #2
+kettle,2026-10-05 12:22,2026-10-05 12:27,5,2.0,0.1667,Lunch break
+coffee_machine,2026-10-05 12:51,2026-10-05 12:59,8,1.28,0.1707,Post-lunch coffee
+laptop,2026-10-05 12:59,2026-10-05 13:55,56,0.066,0.0525,Work from home
+heat_pump_space_heating,2026-10-05 15:10,2026-10-05 15:30,20,2.4,0.8,Test run after annual service
+laptop,2026-10-05 15:30,2026-10-05 18:20,170,0.08,0.1653,Work from home
+heat_pump_hot_water,2026-10-05 21:25,2026-10-05 22:04,39,1.6,1.04,Hot-water tank reheat
+phone_tablet_charging,2026-10-05 23:05,2026-10-06 00:32,87,0.01,0.0145,Phone overnight
+phone_tablet_charging,2026-10-05 23:07,2026-10-06 00:38,91,0.012,0.0182,Tablet overnight
+heat_pump_space_heating,2026-10-06 06:00,2026-10-06 06:26,26,1.561,0.547,Space heating (thermostat)
+kettle,2026-10-06 06:38,2026-10-06 06:42,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-10-06 06:49,2026-10-06 06:58,9,1.17,0.1755,Morning coffee
+heat_pump_hot_water,2026-10-06 06:52,2026-10-06 07:26,34,1.6,0.9067,Hot-water tank reheat
+oven,2026-10-06 19:00,2026-10-06 19:35,35,2.22,0.888,Roasted vegetables
+kettle,2026-10-06 20:31,2026-10-06 20:35,4,2.0,0.1333,Evening tea
+washing_machine,2026-10-06 21:00,2026-10-06 22:40,100,2.0,0.6473,Before Stockholm
+dishwasher,2026-10-06 21:30,2026-10-06 23:01,91,2.0,0.8547,Before Stockholm
+phone_tablet_charging,2026-10-06 21:30,2026-10-06 23:50,140,0.015,0.035,Power bank before trip
+phone_tablet_charging,2026-10-06 22:35,2026-10-06 23:48,73,0.01,0.0122,Phone overnight
+phone_tablet_charging,2026-10-06 22:37,2026-10-06 23:53,76,0.012,0.0152,Tablet overnight
+kettle,2026-10-07 04:56,2026-10-07 05:01,5,2.0,0.1667,Morning tea / hot water
+coffee_machine,2026-10-07 05:06,2026-10-07 05:16,10,1.02,0.17,Morning coffee
+heat_pump_hot_water,2026-10-07 05:10,2026-10-07 05:30,20,1.6,0.5333,Hot-water tank reheat
+heat_pump_hot_water,2026-10-09 22:20,2026-10-09 23:33,73,1.6,1.9467,Hot-water tank reheat
+phone_tablet_charging,2026-10-09 23:00,2026-10-10 00:27,87,0.01,0.0145,Phone overnight
+heat_pump_space_heating,2026-10-09 23:33,2026-10-10 00:31,58,2.731,1.651,Space heating (thermostat)
+heat_pump_space_heating,2026-10-10 03:00,2026-10-10 03:25,25,1.482,0.5122,Space heating (thermostat)
+heat_pump_space_heating,2026-10-10 05:37,2026-10-10 07:21,104,3.0,3.0817,Space heating (thermostat)
+kettle,2026-10-10 08:05,2026-10-10 08:09,4,2.0,0.1333,Morning tea / hot water
+washing_machine,2026-10-10 08:15,2026-10-10 09:57,102,2.0,0.714,After Stockholm
+coffee_machine,2026-10-10 08:20,2026-10-10 08:30,10,1.09,0.1817,Morning coffee
+heat_pump_hot_water,2026-10-10 09:16,2026-10-10 09:47,31,1.6,0.8267,Hot-water tank reheat
+kettle,2026-10-10 18:40,2026-10-10 18:44,4,2.0,0.1333,Boiling water for pierogi
+oven,2026-10-10 19:00,2026-10-10 19:40,40,2.17,0.9765,Baked pierogi
+kettle,2026-10-10 19:20,2026-10-10 19:25,5,2.0,0.1667,Boiling water for pierogi
+kettle,2026-10-10 20:00,2026-10-10 20:05,5,2.0,0.1667,Boiling water for pierogi
+kettle,2026-10-10 20:40,2026-10-10 20:43,3,2.0,0.1,Boiling water for pierogi
+heat_pump_hot_water,2026-10-10 21:42,2026-10-10 22:16,34,1.6,0.9067,Hot-water tank reheat
+dishwasher,2026-10-11 00:25,2026-10-11 02:05,100,2.0,1.1547,Pierogi night #1
+phone_tablet_charging,2026-10-11 00:35,2026-10-11 02:19,104,0.01,0.0173,Phone overnight
+phone_tablet_charging,2026-10-11 00:40,2026-10-11 02:16,96,0.01,0.016,Paul's phone
+heat_pump_hot_water,2026-10-11 02:00,2026-10-11 02:33,33,1.6,0.88,Hot-water tank reheat
+heat_pump_space_heating,2026-10-11 06:07,2026-10-11 06:34,27,1.481,0.5511,Space heating (thermostat)
+heat_pump_space_heating,2026-10-11 08:42,2026-10-11 09:05,23,1.482,0.4723,Space heating (thermostat)
+kettle,2026-10-11 09:07,2026-10-11 09:10,3,2.0,0.1,Morning tea / hot water
+coffee_machine,2026-10-11 09:20,2026-10-11 09:28,8,1.42,0.1893,Morning coffee
+coffee_machine,2026-10-11 09:38,2026-10-11 09:46,8,1.43,0.1907,Coffee for Paul
+heat_pump_hot_water,2026-10-11 09:49,2026-10-11 10:45,56,1.6,1.4933,Hot-water tank reheat
+dishwasher,2026-10-11 12:00,2026-10-11 13:34,94,2.0,0.9547,Pierogi night #2
+heat_pump_hot_water,2026-10-11 17:04,2026-10-11 17:35,31,1.6,0.8267,Hot-water tank reheat
+tv,2026-10-11 20:30,2026-10-11 22:30,120,0.14,0.28,Evening with Paul
+kettle,2026-10-11 21:30,2026-10-11 21:35,5,2.0,0.1667,Evening tea
+phone_tablet_charging,2026-10-11 23:20,2026-10-12 01:01,101,0.01,0.0168,Phone overnight
+phone_tablet_charging,2026-10-11 23:25,2026-10-12 00:42,77,0.01,0.0128,Paul's phone
+heat_pump_space_heating,2026-10-12 06:09,2026-10-12 06:31,22,1.48,0.4501,Space heating (thermostat)
+kettle,2026-10-12 07:11,2026-10-12 07:15,4,2.0,0.1333,Morning tea / hot water
+coffee_machine,2026-10-12 07:17,2026-10-12 07:26,9,1.09,0.1635,Morning coffee
+heat_pump_hot_water,2026-10-12 07:30,2026-10-12 08:35,65,1.6,1.7333,Hot-water tank reheat
+coffee_machine,2026-10-12 07:33,2026-10-12 07:39,6,1.41,0.141,Coffee for Paul
+laptop,2026-10-12 08:30,2026-10-12 12:49,259,0.08,0.2723,Work from home
+laptop,2026-10-12 09:00,2026-10-12 14:00,300,0.08,0.3155,Paul working remotely
+kettle,2026-10-12 12:54,2026-10-12 12:58,4,2.0,0.1333,Lunch break
+coffee_machine,2026-10-12 13:12,2026-10-12 13:21,9,1.35,0.2025,Post-lunch coffee
+laptop,2026-10-12 13:20,2026-10-12 17:30,250,0.08,0.2613,Work from home
+washing_machine,2026-10-12 15:00,2026-10-12 16:48,108,2.0,0.914,Bed sheets after Paul
+kettle,2026-10-12 15:30,2026-10-12 15:34,4,2.0,0.1333,Afternoon tea
+oven,2026-10-12 18:45,2026-10-12 19:30,45,2.01,1.005,Roasted veg + halloumi
+tv,2026-10-12 20:27,2026-10-12 22:28,121,0.141,0.2843,Evening TV / streaming
+dishwasher,2026-10-12 21:00,2026-10-12 22:34,94,2.0,0.9547,Weekend with Paul
+laptop,2026-10-12 21:34,2026-10-12 22:44,70,0.07,0.0685,"Personal laptop (e-mails, booking trips)"
+phone_tablet_charging,2026-10-12 22:35,2026-10-13 00:00,85,0.01,0.0142,Phone overnight
