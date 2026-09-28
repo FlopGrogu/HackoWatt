@@ -50,7 +50,7 @@
         </header>
 
         <!-- Energy Usage -->
-        <article class="card tappable home-energy" @click="$store.nav.go('usage')">
+        <article class="card tappable" @click="$store.nav.go('usage')">
           <div class="card-head">
             <h2>Energy Usage</h2>
             <div class="legend">
@@ -133,7 +133,7 @@
           </template>
         </div>
 
-        <article class="card profile usage-card">
+        <article class="card profile">
           <h2 x-text="data?.title"></h2>
           <p class="muted" x-text="data?.subtitle"></p>
           <div class="chart tall">
@@ -221,7 +221,7 @@
           <span class="setting-text"><strong>Current Time</strong><span x-text="clock.label"></span></span>
           <span class="chevron" :class="{ open: editingTime }" x-html="$icon('chevron')"></span>
         </button>
-        <input class="time-input" type="datetime-local" x-show="editingTime" :value="clock.iso"
+        <input class="time-input" type="datetime-local" x-show="editingTime" x-effect="document.activeElement !== $el && ($el.value = clock.iso)"
           @change="clock.set($event.target.value)" aria-label="Current time">
         <button class="setting-row" @click="editingLocation = !editingLocation">
           <span class="setting-icon" x-html="$icon('pin')"></span>

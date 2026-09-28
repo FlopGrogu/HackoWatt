@@ -26,7 +26,6 @@ document.addEventListener('alpine:init', () => {
   // Screen changes are animated with the View Transitions API so it is clear where a page comes from:
   //  - drilling into a sub-screen (Home → Energy Usage) pushes it in from the right, going back pops it out,
   //  - tab switches slide in the direction of the tab order,
-  //  - the Energy Usage card morphs between its Home and Usage versions (see css: .vt-energy).
   // Browsers without the API just switch instantly.
   const direction = (from, to) => {
     if (parentTab[to] === from) return 'forward';
@@ -50,7 +49,6 @@ document.addEventListener('alpine:init', () => {
       return;
     }
     const classes = [`vt-${direction(prev, next)}`];
-    if ([prev, next].sort().join() === 'home,usage') classes.push('vt-energy');
     const root = document.documentElement;
     root.classList.add(...classes);
     document.startViewTransition(apply).finished.finally(() => root.classList.remove(...classes));
@@ -58,32 +56,38 @@ document.addEventListener('alpine:init', () => {
 
   window.addEventListener('hashchange', () => show(fromHash()));
 
-  // Fake "current time": initialised from the system clock once, then persisted in localStorage.
-  // Stored as local 'YYYY-MM-DDTHH:mm' (the format of <input type="datetime-local">).
-  const CLOCK_KEY = 'hw.fakeTime';
+  // Fake "current time": the system clock shifted by a persisted offset (0 until the user sets a time), so it
+  // keeps running. `now` is refreshed every 10 s, which updates the status bar and every "now" indicator.
+  const OFFSET_KEY = 'hw.clockOffset';
   const PROFILE_KEY = 'hw.profile';
+  const TICK_MS = 10_000;
   const pad = (n) => String(n).padStart(2, '0');
   const toLocalIso = (d) =>
     `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   const valid = (iso) => /^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(iso || '') && !isNaN(new Date(iso));
-  const loadClock = () => {
+  const loadOffset = () => {
     try {
-      const saved = localStorage.getItem(CLOCK_KEY);
-      if (valid(saved)) return saved;
-    } catch { /* storage unavailable: fall through to the system time */ }
-    const iso = toLocalIso(new Date());
-    try { localStorage.setItem(CLOCK_KEY, iso); } catch { /* ignore */ }
-    return iso;
+      const saved = Number(localStorage.getItem(OFFSET_KEY));
+      if (Number.isFinite(saved)) return saved;
+    } catch { /* storage unavailable: run on the system time */ }
+    return 0;
   };
 
   Alpine.store('clock', {
-    iso: loadClock(),
+    offset: loadOffset(),
+    now: Date.now(),
+    start() {
+      setInterval(() => { this.now = Date.now(); }, TICK_MS);
+    },
+    /** Jump to a time picked as local 'YYYY-MM-DDTHH:mm'; it keeps running from there. */
     set(iso) {
       if (!valid(iso)) return;
-      this.iso = iso;
-      try { localStorage.setItem(CLOCK_KEY, iso); } catch { /* ignore */ }
+      this.now = Date.now();
+      this.offset = new Date(iso).getTime() - this.now;
+      try { localStorage.setItem(OFFSET_KEY, String(this.offset)); } catch { /* ignore */ }
     },
-    get date() { return new Date(this.iso); },
+    get date() { return new Date(this.now + this.offset); },
+    get iso() { return toLocalIso(this.date); },
     /** Minutes since 00:00 (0 … 1439): the position on any 00:00–23:59 day axis. */
     get minutes() { return this.date.getHours() * 60 + this.date.getMinutes(); },
     /** Status-bar style time, e.g. "9:41" or "14:30" */
@@ -94,6 +98,7 @@ document.addEventListener('alpine:init', () => {
       return `${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
     },
   });
+  Alpine.store('clock').start();
 
   // Account + location, persisted across sessions.
   const DEFAULT_PROFILE = {

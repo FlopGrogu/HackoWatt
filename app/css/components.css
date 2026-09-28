@@ -12,11 +12,11 @@
 .legend.bottom { margin-top: 18px; }
 
 /* ---------- home header ---------- */
-.welcome { position: relative; padding: 18px 0 0; }
+.welcome { position: relative; padding: 30px 0 0; }
 .welcome h1 { white-space: nowrap; font-size: 22px; }
 .status-line { margin-top: 6px; color: #c8c4bf; font-size: 15px; }
 .avatar {
-  position: absolute; top: 4px; right: -4px;
+  position: absolute; top: 16px; right: -4px;
   width: 52px; height: 52px; border-radius: 50%; padding: 0;
   box-shadow: 0 0 18px rgba(255, 176, 102, .35);
 }
@@ -114,7 +114,7 @@
   position: sticky; top: 0; z-index: 5;      /* stays under the status bar while the screen scrolls */
   display: flex; align-items: center; justify-content: space-between;
   /* the bar's background reaches down over the section gap, so no content peeks through below it */
-  margin: -12px -20px -10px; padding: 26px 20px 18px; background: var(--bg);
+  margin: 0 -20px -10px; padding: 26px 20px 18px; background: var(--bg);
 }
 .topbar h1 { font-size: 24px; font-weight: 600; }
 .topbar.left { justify-content: flex-start; gap: 18px; }
@@ -156,7 +156,7 @@
 
 /* ---------- profile / settings ---------- */
 .settings { gap: 0 !important; }
-.profile-head { display: flex; align-items: center; gap: 16px; margin-top: -6px; padding: 0 0 27px; border-bottom: 1px solid var(--line); }
+.profile-head { display: flex; align-items: center; gap: 16px; padding: 6px 0 27px; border-bottom: 1px solid var(--line); }
 .profile-avatar { width: 64px; height: 64px; border-radius: 50%; flex: none; }
 .profile-head > div { flex: 1; min-width: 0; }
 .inline-edit { display: block; width: 100%; background: none; border: 0; outline: 0; font: inherit; border-radius: 6px; }
