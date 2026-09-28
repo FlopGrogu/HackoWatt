@@ -113,7 +113,8 @@
 .topbar {
   position: sticky; top: 0; z-index: 5;      /* stays under the status bar while the screen scrolls */
   display: flex; align-items: center; justify-content: space-between;
-  margin: -12px -20px 0; padding: 26px 20px 6px; background: var(--bg);
+  /* the bar's background reaches down over the section gap, so no content peeks through below it */
+  margin: -12px -20px -10px; padding: 26px 20px 18px; background: var(--bg);
 }
 .topbar h1 { font-size: 24px; font-weight: 600; }
 .topbar.left { justify-content: flex-start; gap: 18px; }

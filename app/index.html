@@ -32,7 +32,7 @@
 <body>
   <div class="phone" x-data x-cloak>
     <div class="statusbar">
-      <span>9:41</span>
+      <span x-text="$store.clock.time">9:41</span>
       <span x-html="$icon('status')"></span>
     </div>
 
@@ -50,7 +50,7 @@
         </header>
 
         <!-- Energy Usage -->
-        <article class="card tappable" @click="$store.nav.go('usage')">
+        <article class="card tappable home-energy" @click="$store.nav.go('usage')">
           <div class="card-head">
             <h2>Energy Usage</h2>
             <div class="legend">
@@ -133,7 +133,7 @@
           </template>
         </div>
 
-        <article class="card profile">
+        <article class="card profile usage-card">
           <h2 x-text="data?.title"></h2>
           <p class="muted" x-text="data?.subtitle"></p>
           <div class="chart tall">

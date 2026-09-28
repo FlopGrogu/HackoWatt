@@ -23,10 +23,40 @@ document.addEventListener('alpine:init', () => {
     document.querySelector('.phone')?.classList.add('full');
   }
 
-  window.addEventListener('hashchange', () => {
-    Alpine.store('nav').screen = fromHash();
-    document.querySelector('.screen')?.scrollTo({ top: 0 });
-  });
+  // Screen changes are animated with the View Transitions API so it is clear where a page comes from:
+  //  - drilling into a sub-screen (Home → Energy Usage) pushes it in from the right, going back pops it out,
+  //  - tab switches slide in the direction of the tab order,
+  //  - the Energy Usage card morphs between its Home and Usage versions (see css: .vt-energy).
+  // Browsers without the API just switch instantly.
+  const direction = (from, to) => {
+    if (parentTab[to] === from) return 'forward';
+    if (parentTab[from] === to) return 'back';
+    const order = HW.config.tabs.map((t) => t.id);
+    const tab = (id) => order.indexOf(parentTab[id] || id);
+    return tab(to) > tab(from) ? 'forward' : 'back';
+  };
+
+  const show = (next) => {
+    const nav = Alpine.store('nav');
+    const prev = nav.screen;
+    if (next === prev) return;
+    const apply = async () => {
+      nav.screen = next;
+      await Alpine.nextTick();
+      document.querySelector('.screen')?.scrollTo({ top: 0 });
+    };
+    if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      apply();
+      return;
+    }
+    const classes = [`vt-${direction(prev, next)}`];
+    if ([prev, next].sort().join() === 'home,usage') classes.push('vt-energy');
+    const root = document.documentElement;
+    root.classList.add(...classes);
+    document.startViewTransition(apply).finished.finally(() => root.classList.remove(...classes));
+  };
+
+  window.addEventListener('hashchange', () => show(fromHash()));
 
   // Fake "current time": initialised from the system clock once, then persisted in localStorage.
   // Stored as local 'YYYY-MM-DDTHH:mm' (the format of <input type="datetime-local">).
@@ -56,6 +86,8 @@ document.addEventListener('alpine:init', () => {
     get date() { return new Date(this.iso); },
     /** Minutes since 00:00 (0 … 1439): the position on any 00:00–23:59 day axis. */
     get minutes() { return this.date.getHours() * 60 + this.date.getMinutes(); },
+    /** Status-bar style time, e.g. "9:41" or "14:30" */
+    get time() { return `${this.date.getHours()}:${pad(this.date.getMinutes())}`; },
     /** e.g. "Sep 28, 2026 14:30" */
     get label() {
       const d = this.date;
