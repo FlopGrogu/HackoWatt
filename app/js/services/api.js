@@ -26,6 +26,8 @@
     getOverview: async () => copy((await data()).overview),
     getPeakHours: async () => copy((await data()).peak),
     getUsage: async (range) => copy((await data()).usage[range]),
+    /** Cheaper-time suggestions for predicted washer / dishwasher runs (see `shifts` in the forecast JSON). */
+    getShifts: async () => copy((await data()).shifts ?? []),
     /** All devices (flat), each with the name of its room. */
     getDevices: () => copy(HW.demo.rooms.flatMap((room) => room.devices.map((d) => ({ ...d, room: room.name })))),
 

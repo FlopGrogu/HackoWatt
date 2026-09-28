@@ -31,7 +31,7 @@
 /* ---------- line charts ---------- */
 .chart { position: relative; height: 130px; margin-top: 18px; }
 .chart canvas { position: relative; }
-.chart.tall { height: 230px; margin-top: 8px; }
+.chart.tall { height: 270px; margin-top: 4px; }
 .chart .stripes {
   position: absolute; inset: 0 0 20px;
   background: repeating-linear-gradient(90deg, rgba(122, 86, 56, .35) 0 5px, transparent 5px 14px);
@@ -235,3 +235,25 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 .devices-head .section-title { margin: 0; }
 .devices-head .muted { font-size: 13px; }
 .group-hint { margin: -2px 0 4px !important; font-size: 13px; }
+
+/* forecast: explanation card, scheduled devices, confirmation sheet */
+.hint { margin-top: 8px; font-size: 13px; }
+.why h2 { margin-bottom: 10px; }
+.why-line { display: flex; gap: 10px; padding: 7px 0; font-size: 14px; line-height: 1.4; color: #c8c4bf; }
+.why-line + .why-line { border-top: 1px solid var(--line); }
+.why-line span:first-child { font-weight: 700; }
+.scheduled { font-size: 13px; color: var(--green); }
+.scheduled button { color: var(--muted); text-decoration: underline; font-size: 13px; }
+.sheet-backdrop { position: absolute; inset: 0; z-index: 30; display: flex; align-items: flex-end; background: rgba(0, 0, 0, .55); }
+.sheet { width: 100%; padding: 26px 20px calc(24px + env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; background: var(--card); border-top: 1px solid var(--line); }
+.sheet-in { transition: transform .3s cubic-bezier(.3, .8, .3, 1); }
+.sheet-from { transform: translateY(100%); }
+.sheet h2 { margin-bottom: 6px; }
+.sheet-times { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 18px 0 14px; }
+.sheet-times > div { flex: 1; display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: 16px; background: var(--card-2); }
+.sheet-times strong { font-size: 20px; }
+.sheet-times .cheap { box-shadow: inset 0 0 0 1.5px var(--green); }
+.sheet-times .cheap strong { color: var(--green); }
+.sheet-save { margin-bottom: 20px; color: #c8c4bf; font-size: 14px; }
+.sheet-actions { display: flex; gap: 10px; }
+.sheet-actions .btn { flex: 1; margin: 0; }

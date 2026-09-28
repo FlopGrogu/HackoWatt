@@ -18,6 +18,10 @@ document.addEventListener('alpine:init', () => {
         .filter((g) => g.devices.length);
     },
 
+    /** The confirmed shift for a device (washing machine / dishwasher), if it has been scheduled. */
+    scheduled(device) {
+      return Alpine.store('shifts').scheduledFor(device.name);
+    },
     draw(device) {
       return HW.power.draw(device, this.minute);
     },

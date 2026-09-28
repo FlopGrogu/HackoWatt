@@ -28,10 +28,16 @@ document.addEventListener('alpine:init', () => {
     },
 
     get profileSpec() {
+      const shifts = Alpine.store('shifts');
       return this.data && HW.charts.profile(this.data, {
         start: this.meta?.now && new Date(this.meta.now),      // time of point 0 …
         stepHours: this.data.stepHours,                        // … and the spacing between points
+        shifts: { pending: shifts.pending, confirmed: shifts.confirmed },
+        onPick: (shift) => shifts.select(shift),
       });
+    },
+    get pendingCount() {
+      return Alpine.store('shifts').pending.length;
     },
   }));
 });

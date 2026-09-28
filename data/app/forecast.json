@@ -125,7 +125,7 @@
     ],
     "from": 5,
     "to": 8,
-    "text": "Your highest energy demand is typically between 5–9 h on weekdays."
+    "text": "Your highest energy demand is typically between 5–9 h on weekdays, mostly hot water and space heating."
   },
   "home": {
     "temperature": {
@@ -174,12 +174,20 @@
         {
           "index": 5,
           "title": "Washer / dishwasher",
-          "detail": "22:00 • 0.79 kWh"
+          "detail": "22:00 • 0.79 kWh",
+          "explain": [
+            "0.57 of 0.79 kWh: washing machine / dishwasher run",
+            "0.58 kWh above a typical hour · €0.22 at €0.28/kWh"
+          ]
         },
         {
           "index": 12,
           "title": "Hot-water reheat",
-          "detail": "05:00 • 1.31 kWh"
+          "detail": "05:00 • 1.31 kWh",
+          "explain": [
+            "1.20 of 1.31 kWh: the heat pump refills the hot-water tank",
+            "1.09 kWh above a typical hour · €0.24 at €0.18/kWh"
+          ]
         }
       ],
       "incidents": [
@@ -224,7 +232,30 @@
           "accent": true
         }
       ],
-      "stepHours": 1
+      "stepHours": 1,
+      "why": [
+        {
+          "label": "Space heating",
+          "before": 1.36,
+          "after": 0.05,
+          "delta": -1.31,
+          "text": "Space heating: 0.0 kWh, -1.3 kWh vs the previous 24 h"
+        },
+        {
+          "label": "Hot water",
+          "before": 1.71,
+          "after": 1.2,
+          "delta": -0.51,
+          "text": "Hot water: 1.2 kWh, -0.5 kWh vs the previous 24 h"
+        },
+        {
+          "label": "Washer/dishwasher",
+          "before": 0.82,
+          "after": 1.16,
+          "delta": 0.34,
+          "text": "Washer/dishwasher: 1.2 kWh, +0.3 kWh vs the previous 24 h"
+        }
+      ]
     },
     "3d": {
       "title": "Forecast Profile",
@@ -258,12 +289,20 @@
         {
           "index": 1,
           "title": "Washer / dishwasher",
-          "detail": "Mon 28 Sep 21:00 • 1.92 kWh"
+          "detail": "Mon 28 Sep 21:00 • 1.92 kWh",
+          "explain": [
+            "1.16 of 1.92 kWh: washing machine / dishwasher run (washing machine: evening before a trip, 70% likely; dishwasher: emptying before a trip, 60% likely)",
+            "1.29 kWh above a typical 4-hour block · €0.62 at €0.32/kWh"
+          ]
         },
         {
           "index": 3,
           "title": "Hot-water reheat",
-          "detail": "Tue 29 Sep 05:00 • 1.60 kWh"
+          "detail": "Tue 29 Sep 05:00 • 1.60 kWh",
+          "explain": [
+            "1.20 of 1.60 kWh: the heat pump refills the hot-water tank",
+            "0.96 kWh above a typical 4-hour block · €0.32 at €0.20/kWh"
+          ]
         }
       ],
       "incidents": [
@@ -308,7 +347,30 @@
           "accent": true
         }
       ],
-      "stepHours": 4
+      "stepHours": 4,
+      "why": [
+        {
+          "label": "Space heating",
+          "before": 2.92,
+          "after": 1.36,
+          "delta": -1.57,
+          "text": "Space heating: 1.4 kWh, -1.6 kWh vs the previous 3 days"
+        },
+        {
+          "label": "Hot water",
+          "before": 2.96,
+          "after": 2.0,
+          "delta": -0.96,
+          "text": "Hot water: 2.0 kWh, -1.0 kWh vs the previous 3 days"
+        },
+        {
+          "label": "Baseload",
+          "before": 5.57,
+          "after": 6.22,
+          "delta": 0.65,
+          "text": "Baseload: 6.2 kWh, +0.6 kWh vs the previous 3 days"
+        }
+      ]
     },
     "7d": {
       "title": "Forecast Profile",
@@ -334,18 +396,30 @@
       "highlights": [
         {
           "index": 0,
-          "title": "Baseload",
-          "detail": "Mon 28 Sep • 5.10 kWh"
+          "title": "Washer / dishwasher",
+          "detail": "Mon 28 Sep • 5.10 kWh",
+          "explain": [
+            "1.16 of 5.10 kWh: washing machine / dishwasher run (washing machine: evening before a trip, 70% likely; dishwasher: emptying before a trip, 60% likely)",
+            "0.79 kWh above a typical day · €1.40 at €0.28/kWh"
+          ]
         },
         {
           "index": 5,
-          "title": "Baseload",
-          "detail": "Sat 3 Oct • 4.47 kWh"
+          "title": "Hot-water reheat",
+          "detail": "Sat 3 Oct • 4.47 kWh",
+          "explain": [
+            "1.22 of 4.47 kWh: the heat pump refills the hot-water tank",
+            "0.16 kWh above a typical day · €1.13 at €0.25/kWh"
+          ]
         },
         {
           "index": 6,
-          "title": "Baseload",
-          "detail": "Sun 4 Oct • 7.00 kWh"
+          "title": "Washer / dishwasher",
+          "detail": "Sun 4 Oct • 7.00 kWh",
+          "explain": [
+            "1.36 of 7.00 kWh: washing machine / dishwasher run (washing machine: after a 5-night trip + 7 days since last wash, 87% likely)",
+            "2.69 kWh above a typical day · €1.96 at €0.28/kWh"
+          ]
         }
       ],
       "incidents": [
@@ -390,7 +464,56 @@
           "accent": true
         }
       ],
-      "stepHours": 24
+      "stepHours": 24,
+      "why": [
+        {
+          "label": "Activities",
+          "before": 8.99,
+          "after": 1.83,
+          "delta": -7.15,
+          "text": "Activities: 1.8 kWh, -7.2 kWh vs the previous week"
+        },
+        {
+          "label": "Hot water",
+          "before": 9.33,
+          "after": 5.27,
+          "delta": -4.07,
+          "text": "Hot water: 5.3 kWh, -4.1 kWh vs the previous week"
+        },
+        {
+          "label": "Washer/dishwasher",
+          "before": 3.54,
+          "after": 2.52,
+          "delta": -1.01,
+          "text": "Washer/dishwasher: 2.5 kWh, -1.0 kWh vs the previous week"
+        }
+      ]
     }
-  }
+  },
+  "shifts": [
+    {
+      "id": "dishwasher-20260928T21",
+      "device": "Dishwasher",
+      "icon": "dishwasher",
+      "reason": "emptying before a trip",
+      "p": 0.6,
+      "kwh": 1.0,
+      "usual": "2026-09-28T21:00",
+      "ideal": "2026-09-29T00:00",
+      "usualIndex": 4,
+      "idealIndex": 7,
+      "usualPrice": 0.4,
+      "idealPrice": 0.18,
+      "saving": 0.17,
+      "removes": {
+        "4": 0.206,
+        "5": 0.291,
+        "6": 0.103
+      },
+      "adds": {
+        "7": 0.36,
+        "8": 0.24
+      }
+    }
+  ]
 }

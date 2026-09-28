@@ -126,6 +126,49 @@ document.addEventListener('alpine:init', () => {
     },
   });
 
+  // Shiftable runs the user has scheduled at the cheaper time (ids persisted). The Forecast chart applies them
+  // to its prediction; the rest are offered as an alternative line the user can pick.
+  const SHIFTS_KEY = 'hw.shifts';
+  const loadConfirmed = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SHIFTS_KEY));
+      if (Array.isArray(saved)) return saved;
+    } catch { /* corrupt or unavailable */ }
+    return [];
+  };
+
+  Alpine.store('shifts', {
+    items: [],
+    confirmedIds: loadConfirmed(),
+    selectedId: null,                       // shift shown in the confirmation sheet
+    async load() {
+      this.items = await HW.api.getShifts();
+    },
+    get confirmed() { return this.items.filter((s) => this.confirmedIds.includes(s.id)); },
+    get pending() { return this.items.filter((s) => !this.confirmedIds.includes(s.id)); },
+    get selected() { return this.items.find((s) => s.id === this.selectedId) ?? null; },
+    scheduledFor(device) { return this.confirmed.find((s) => s.device === device) ?? null; },
+    select(shift) { this.selectedId = shift.id; },
+    cancel() { this.selectedId = null; },
+    confirm() {
+      if (this.selectedId && !this.confirmedIds.includes(this.selectedId)) this.confirmedIds.push(this.selectedId);
+      this.selectedId = null;
+      this.persist();
+    },
+    undo(shift) {
+      this.confirmedIds = this.confirmedIds.filter((id) => id !== shift.id);
+      this.persist();
+    },
+    persist() {
+      try { localStorage.setItem(SHIFTS_KEY, JSON.stringify(this.confirmedIds)); } catch { /* ignore */ }
+    },
+  });
+  Alpine.store('shifts').load();
+
+  /** "Tue 03:00" for an ISO timestamp. */
+  Alpine.magic('when', () => (iso) =>
+    new Date(iso).toLocaleString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }));
+
   Alpine.magic('icon', () => (name) => HW.icons[name] || '');
   Alpine.magic('euro', () => (value) => `${HW.config.currency}${value.toFixed(2)}`);
 });

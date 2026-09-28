@@ -143,6 +143,18 @@
           <div class="axis">
             <template x-for="label in data?.labels"><span x-text="label"></span></template>
           </div>
+          <div class="legend bottom" x-show="pendingCount">
+            <span><i class="dot orange"></i>Forecast</span>
+            <span><i class="dot green"></i>If shifted to a cheaper time</span>
+          </div>
+          <p class="muted hint" x-show="pendingCount">Tap a green marker to schedule the device there.</p>
+        </article>
+
+        <article class="card why" x-show="data?.why?.length">
+          <h2>Why this forecast?</h2>
+          <template x-for="w in data?.why">
+            <p class="why-line"><span :class="w.delta > 0 ? 'red' : 'green'" x-text="w.delta > 0 ? '↑' : '↓'"></span><span x-text="w.text"></span></p>
+          </template>
         </article>
 
         <!-- Devices, grouped by how the forecast models them -->
@@ -163,7 +175,11 @@
                   <span class="icon-bubble square warm" x-html="$icon(device.icon)"></span>
                   <div class="device-info">
                     <div class="device-name" x-text="device.name"></div>
-                    <span class="muted" x-text="device.room"></span>
+                    <span class="muted" x-show="!scheduled(device)" x-text="device.room"></span>
+                    <span class="scheduled" x-show="scheduled(device)">
+                      Scheduled <span x-text="scheduled(device) && $when(scheduled(device).ideal)"></span> ·
+                      <button @click="$store.shifts.undo(scheduled(device))">Undo</button>
+                    </span>
                   </div>
                   <span class="watts" :class="{ off: !draw(device) }"
                     x-text="draw(device) ? format(draw(device)) : 'Off'"></span>
@@ -218,6 +234,28 @@
         <p class="settings-hint">Generate realistic energy consumption data or upload your own CSV file</p>
       </section>
     </main>
+
+    <!-- Confirm scheduling a shiftable device at the cheaper time -->
+    <div class="sheet-backdrop" x-data x-show="$store.shifts.selected" x-transition.opacity @click.self="$store.shifts.cancel()">
+      <div class="sheet" x-show="$store.shifts.selected" x-transition:enter="sheet-in" x-transition:enter-start="sheet-from">
+        <template x-if="$store.shifts.selected">
+          <div>
+            <h2 x-text="`Schedule the ${$store.shifts.selected.device.toLowerCase()}?`"></h2>
+            <p class="muted" x-text="`Likely needed ${$when($store.shifts.selected.usual)} (${$store.shifts.selected.reason}, ${Math.round($store.shifts.selected.p * 100)}% likely).`"></p>
+            <div class="sheet-times">
+              <div><span class="muted">Usual</span><strong x-text="$when($store.shifts.selected.usual)"></strong><span class="muted" x-text="$euro($store.shifts.selected.usualPrice) + '/kWh'"></span></div>
+              <span class="accent" x-html="$icon('chevron')"></span>
+              <div class="cheap"><span class="muted">Cheaper</span><strong x-text="$when($store.shifts.selected.ideal)"></strong><span class="muted" x-text="$euro($store.shifts.selected.idealPrice) + '/kWh'"></span></div>
+            </div>
+            <p class="sheet-save" x-text="`Saves ≈ ${$euro($store.shifts.selected.saving)} and smooths out your evening load.`"></p>
+            <div class="sheet-actions">
+              <button class="btn outline" @click="$store.shifts.cancel()">Not now</button>
+              <button class="btn primary" @click="$store.shifts.confirm()">Schedule</button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
 
     <nav class="tabbar">
       <template x-for="tab in $store.nav.tabs">
