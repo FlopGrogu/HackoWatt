@@ -1,0 +1,15 @@
+{
+  "date": "2026-08-15",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:33:33",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "24:00",
+      "reason": "The user is away in Mazury for a sailing trip for the entire day as stated in the calendar.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

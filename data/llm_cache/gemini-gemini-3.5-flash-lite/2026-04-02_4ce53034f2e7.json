@@ -1,0 +1,92 @@
+{
+  "date": "2026-04-02",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:23:14",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up and prepares for the office at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:15",
+      "reason": "She commutes from home to her office at Warsaw Spire.",
+      "away_score": 75,
+      "people": 0
+    },
+    {
+      "start": "09:15",
+      "end": "10:00",
+      "reason": "She arrives at her office at Warsaw Spire before her Microsoft Teams call.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:00",
+      "end": "10:45",
+      "reason": "She attends a 1:1 with Anna via Microsoft Teams from the office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:45",
+      "end": "11:00",
+      "reason": "She moves to Room Wisła for the budget review in the office building.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She attends the budget review in Room Wisła at the office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "12:00",
+      "end": "18:08",
+      "reason": "She continues working at the office until her usual departure time around 18:08.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:08",
+      "end": "19:00",
+      "reason": "She commutes back home from the office.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "20:00",
+      "reason": "She is back at home relaxing or having dinner.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "20:30",
+      "reason": "She does laundry and packs for her trip to Łódź at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She spends the rest of the evening at home preparing for the next day's trip.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-17",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:26",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after returning from Amsterdam yesterday evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up at home and prepares for her office day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "08:30",
+      "reason": "She travels from home to the Warsaw Spire office nearby.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "17:30",
+      "reason": "She is at the office in Warsaw Spire for the day's work and all-hands.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:30",
+      "end": "18:00",
+      "reason": "She travels back home from the office to await her grocery delivery.",
+      "away_score": 20,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She is at home to receive the Frisco grocery delivery.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "19:30",
+      "reason": "She prepares and leaves home for the concert.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "19:30",
+      "end": "23:00",
+      "reason": "She is attending a concert with Marta at Pardon, To Tu.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She travels back from the venue and arrives home to sleep.",
+      "away_score": 20,
+      "people": 1
+    }
+  ]
+}

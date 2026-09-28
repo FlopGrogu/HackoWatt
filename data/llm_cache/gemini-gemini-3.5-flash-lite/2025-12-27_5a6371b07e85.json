@@ -1,0 +1,36 @@
+{
+  "date": "2025-12-27",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:15:23",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "17:10",
+      "reason": "She is staying with her parents in Lodz for Christmas.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:10",
+      "end": "18:35",
+      "reason": "She is traveling by train from Lodz to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:35",
+      "end": "19:30",
+      "reason": "She is commuting from Warsaw Central station back to her home on ul. Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "24:00",
+      "reason": "She has arrived back at her apartment after the trip.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

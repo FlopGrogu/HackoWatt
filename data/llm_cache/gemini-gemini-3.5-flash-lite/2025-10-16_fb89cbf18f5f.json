@@ -1,0 +1,50 @@
+{
+  "date": "2025-10-16",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:09:46",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:30",
+      "reason": "She is sleeping at home after arriving late from Kraków the night before.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "08:15",
+      "reason": "She wakes up and prepares for her day at the office.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:15",
+      "reason": "She commutes from home to the office at Warsaw Spire.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:15",
+      "end": "18:00",
+      "reason": "She is at her office at Warsaw Spire for her workday.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She travels back home from the office.",
+      "away_score": 30,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "24:00",
+      "reason": "She is back at home relaxing for the evening.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

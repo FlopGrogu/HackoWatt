@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-06",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:36:16",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "07:30",
+      "end": "11:00",
+      "reason": "She is waking up and having breakfast at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "11:00",
+      "end": "11:30",
+      "reason": "She is traveling from home to Charlotte on pl. Zbawiciela with Paul.",
+      "away_score": 80,
+      "people": 2
+    },
+    {
+      "start": "11:30",
+      "end": "14:00",
+      "reason": "She is at Sunday brunch at Charlotte with Kasia, Marta, Tomek, and Paul.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "14:30",
+      "reason": "She is returning home from brunch with Paul.",
+      "away_score": 80,
+      "people": 2
+    },
+    {
+      "start": "14:30",
+      "end": "20:00",
+      "reason": "She is relaxing at home in the afternoon with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "20:00",
+      "end": "22:30",
+      "reason": "She is having a movie night at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She is winding down and going to sleep at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

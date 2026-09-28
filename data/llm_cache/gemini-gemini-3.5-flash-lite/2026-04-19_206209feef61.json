@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-19",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:24:35",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "01:30",
+      "reason": "She is returning home from Bartek's birthday at pl. Grzybowski.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "01:30",
+      "end": "08:00",
+      "reason": "She is sleeping at home after the late night out.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:00",
+      "end": "11:00",
+      "reason": "She wakes up and has a slow Sunday morning at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "11:30",
+      "reason": "She travels from home to Charlotte on pl. Zbawiciela for brunch.",
+      "away_score": 70,
+      "people": 1
+    },
+    {
+      "start": "11:30",
+      "end": "14:00",
+      "reason": "She is attending Sunday brunch with Kasia & Marta at Charlotte.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "14:30",
+      "reason": "She travels back home from pl. Zbawiciela.",
+      "away_score": 70,
+      "people": 1
+    },
+    {
+      "start": "14:30",
+      "end": "20:00",
+      "reason": "She spends the afternoon relaxing at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:00",
+      "end": "20:30",
+      "reason": "She does laundry and packs for London at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She finishes her evening preparations and rests before her early flight.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

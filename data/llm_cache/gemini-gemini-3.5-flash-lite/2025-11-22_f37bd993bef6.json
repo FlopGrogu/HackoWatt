@@ -1,0 +1,50 @@
+{
+  "date": "2025-11-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:12:44",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home after returning late from dinner.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "09:00",
+      "reason": "She wakes up and has her morning coffee at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "09:30",
+      "reason": "She travels from home to Pole Mokotowskie for her run.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "09:30",
+      "end": "10:30",
+      "reason": "She is attending her run at Pole Mokotowskie as per the calendar.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:30",
+      "end": "11:00",
+      "reason": "She travels back home from Pole Mokotowskie.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "24:00",
+      "reason": "She stays at home for the rest of the day with no further calendar events.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

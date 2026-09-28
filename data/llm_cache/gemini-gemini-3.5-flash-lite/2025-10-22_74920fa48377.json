@@ -1,0 +1,50 @@
+{
+  "date": "2025-10-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:10:13",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is staying at a hotel in Vienna for the workshop.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "07:30",
+      "end": "15:00",
+      "reason": "She is attending the DonauNetz workshop in Vienna.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:00",
+      "end": "18:30",
+      "reason": "She is traveling from the workshop to Vienna airport for her flight back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "21:20",
+      "reason": "She is on flight LO 232 from Vienna to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:20",
+      "end": "22:10",
+      "reason": "She is traveling from Warsaw Chopin Airport back to her home on ul. Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "22:10",
+      "end": "24:00",
+      "reason": "She has arrived back home and is settling in for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "date": "2026-03-21",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:21:52",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "09:00",
+      "reason": "She slept at home after returning from her Munich trip the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "18:00",
+      "reason": "She is likely spending the day at home or running errands in Warsaw with no calendar constraints.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She is traveling from home to Teatr Polski for her evening theatre plan with Marta.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "22:00",
+      "reason": "She is attending the theatre at Teatr Polski with Marta.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:00",
+      "end": "22:59",
+      "reason": "She is traveling back from the theatre and arriving home.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She is winding down and going to sleep at home for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

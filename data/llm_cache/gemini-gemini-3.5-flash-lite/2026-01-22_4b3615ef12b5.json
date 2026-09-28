@@ -1,0 +1,43 @@
+{
+  "date": "2026-01-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:17:20",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is staying overnight at a hotel in Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "16:30",
+      "reason": "She attends the KrakGrid workshop in Kraków and travels back.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "16:30",
+      "end": "22:20",
+      "reason": "She is traveling back to Warsaw by train from Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:20",
+      "end": "23:15",
+      "reason": "She travels from Warsaw Centralna station back to her home apartment.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "23:15",
+      "end": "24:00",
+      "reason": "She is back at home resting for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

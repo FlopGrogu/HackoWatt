@@ -1,0 +1,36 @@
+{
+  "date": "2026-08-20",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:33:57",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after packing the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "14:55",
+      "reason": "She is working from home during the morning before her afternoon trip.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:55",
+      "end": "16:10",
+      "reason": "She takes a taxi from home to the airport for her flight to Berlin.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "16:10",
+      "end": "24:00",
+      "reason": "She is on a flight and then staying at Paul's flat in Berlin for the long weekend.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

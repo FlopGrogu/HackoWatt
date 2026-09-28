@@ -1,0 +1,50 @@
+{
+  "date": "2026-05-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:27:07",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is sleeping at the hotel in Kraków from the pilot review trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "14:00",
+      "reason": "She attends the KrakGrid rollout plan meeting at the office in Kraków.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "19:55",
+      "reason": "She finishes her meeting in Kraków and prepares for the evening train back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "22:20",
+      "reason": "She travels from Kraków to Warszawa on train EIP 1306.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:20",
+      "end": "23:00",
+      "reason": "She arrives at Warszawa Centralna and commutes back to her apartment on Chmielna.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She arrives home late at night and goes to sleep.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}

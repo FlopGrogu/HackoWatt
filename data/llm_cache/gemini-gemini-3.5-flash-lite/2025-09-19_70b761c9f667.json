@@ -1,0 +1,50 @@
+{
+  "date": "2025-09-19",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:07:43",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after returning from Kraków late the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "14:00",
+      "reason": "She is working from home as indicated by the WFH calendar entry.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:00",
+      "end": "15:00",
+      "reason": "She is working from home and attending a Microsoft Teams call.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:00",
+      "end": "16:00",
+      "reason": "She continues working from home between scheduled calls.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "16:00",
+      "end": "17:00",
+      "reason": "She is participating in another Microsoft Teams call from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "17:00",
+      "end": "24:00",
+      "reason": "She spends the rest of the evening at home.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

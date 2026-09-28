@@ -1,0 +1,36 @@
+{
+  "date": "2025-11-16",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:12:12",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "17:15",
+      "reason": "She is at home preparing for her trip to Copenhagen later in the day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "17:15",
+      "end": "18:00",
+      "reason": "She takes a taxi from her home to the airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "24:00",
+      "reason": "She is flying to Copenhagen and staying at a hotel there.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

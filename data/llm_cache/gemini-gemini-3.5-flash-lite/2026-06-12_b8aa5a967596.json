@@ -1,0 +1,78 @@
+{
+  "date": "2026-06-12",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:28:42",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:30",
+      "reason": "She is sleeping at home after arriving late from Brussels the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "14:00",
+      "reason": "She is working from home as stated in her calendar for the day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:00",
+      "end": "15:00",
+      "reason": "She is attending an online meeting via Microsoft Teams from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:00",
+      "end": "16:00",
+      "reason": "She is at home between her work meetings.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "16:00",
+      "end": "17:00",
+      "reason": "She is attending a tariff model review meeting via Microsoft Teams from home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "17:00",
+      "end": "18:00",
+      "reason": "She is at home preparing for the upcoming grocery delivery.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She is at home to receive the grocery delivery from Frisco.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "19:30",
+      "reason": "She is travelling from her apartment to Kino Muranów for the cinema.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "23:00",
+      "reason": "She is at Kino Muranów watching a movie with Ola.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "23:00",
+      "end": "24:00",
+      "reason": "She is travelling back from the cinema and settling in at home for the night.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "date": "2026-05-15",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:26:35",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home after returning late from Stockholm the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "13:30",
+      "reason": "She is working from home during the morning per her WFH calendar entry.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "13:30",
+      "end": "14:50",
+      "reason": "She is preparing and traveling from her apartment to Warszawa Centralna for her train to Berlin.",
+      "away_score": 80,
+      "people": 1
+    },
+    {
+      "start": "14:50",
+      "end": "20:35",
+      "reason": "She is on the international train EC 47 from Warsaw to Berlin.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "20:35",
+      "end": "24:00",
+      "reason": "She has arrived in Berlin and is staying at Paul's flat for the weekend.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

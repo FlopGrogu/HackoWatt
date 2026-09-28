@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-05",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:35:51",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:00",
+      "reason": "She is sleeping at home after arriving late from Stockholm the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:00",
+      "end": "09:00",
+      "reason": "She is waking up and having coffee at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "09:30",
+      "reason": "She is traveling to Pole Mokotowskie for her run.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "09:30",
+      "end": "10:30",
+      "reason": "She is running at Pole Mokotowskie according to the calendar.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:30",
+      "end": "11:00",
+      "reason": "She is returning home after her run.",
+      "away_score": 30,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "15:10",
+      "reason": "She is at home resting and preparing for the afternoon.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "15:10",
+      "end": "15:25",
+      "reason": "She is walking from home to Warszawa Centralna to pick up Paul.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "15:25",
+      "end": "15:55",
+      "reason": "She is picking up Paul at Warszawa Centralna as scheduled.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:55",
+      "end": "19:30",
+      "reason": "She and Paul are back home together.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "19:30",
+      "end": "22:30",
+      "reason": "She and Paul are having dinner at home as per the calendar entry.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She and Paul are winding down at home for the night.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

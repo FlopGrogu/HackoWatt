@@ -1,0 +1,15 @@
+{
+  "date": "2026-01-30",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:18:00",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "24:00",
+      "reason": "The calendar directly states she is in Berlin for a long weekend staying at Paul's flat all day.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

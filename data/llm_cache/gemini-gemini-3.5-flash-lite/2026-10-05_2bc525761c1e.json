@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-05",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:55:42",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after her flight back from Berlin.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "14:00",
+      "reason": "She wakes up and works from home as scheduled.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "14:00",
+      "end": "15:30",
+      "reason": "She is at home receiving the heat pump technician Mr. Kowalczyk.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "15:30",
+      "end": "17:00",
+      "reason": "She continues working from home after the service visit.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "17:00",
+      "end": "18:00",
+      "reason": "She receives the grocery delivery at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "18:00",
+      "end": "19:00",
+      "reason": "She prepares and travels from home to the bouldering gym in Mokotów.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "21:00",
+      "reason": "She is bouldering with Ola at the gym on ul. Puławska.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "22:00",
+      "reason": "She travels back from the bouldering gym to her apartment.",
+      "away_score": 30,
+      "people": 1
+    },
+    {
+      "start": "22:00",
+      "end": "24:00",
+      "reason": "She is relaxing at home for the rest of the evening.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

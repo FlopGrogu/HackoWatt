@@ -1,0 +1,64 @@
+{
+  "date": "2025-09-24",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:08:04",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is sleeping at the hotel in Gdańsk as part of her multi-day business trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "09:00",
+      "reason": "She is travelling from her hotel to the workshop venue in Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "12:30",
+      "reason": "She is attending the electrification roadmap workshop in Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "12:30",
+      "end": "17:00",
+      "reason": "She has free time and is finishing up her stay in Gdańsk before her train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:00",
+      "end": "17:15",
+      "reason": "She is travelling to the Gdańsk railway station.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:15",
+      "end": "19:55",
+      "reason": "She is on the train from Gdańsk to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "20:30",
+      "reason": "She is traveling from Warsaw Central station back to her home on ul. Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "20:30",
+      "end": "24:00",
+      "reason": "She has returned to her apartment in Warsaw and is spending the rest of the evening at home.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

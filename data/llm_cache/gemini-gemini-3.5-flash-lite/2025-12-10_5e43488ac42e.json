@@ -1,0 +1,43 @@
+{
+  "date": "2025-12-10",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:14:02",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is staying at the hotel in Stockholm for the year-end review.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "13:00",
+      "reason": "She is attending the contract renewal meeting at Nordvolt HQ in Stockholm.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "18:00",
+      "reason": "She is free after the meeting in Stockholm before heading to the airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:00",
+      "end": "22:30",
+      "reason": "She is traveling from Stockholm to Warsaw via flight LO 454.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She arrives back at her apartment in Warsaw late in the evening.",
+      "away_score": 10,
+      "people": 1
+    }
+  ]
+}

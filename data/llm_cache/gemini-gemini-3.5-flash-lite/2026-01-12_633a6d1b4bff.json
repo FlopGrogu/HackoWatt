@@ -1,0 +1,22 @@
+{
+  "date": "2026-01-12",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:16:35",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:00",
+      "reason": "She is sleeping away from home in Stockholm at her hotel.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "05:00",
+      "end": "24:00",
+      "reason": "She is traveling and staying in Stockholm for a pilot design sprint.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

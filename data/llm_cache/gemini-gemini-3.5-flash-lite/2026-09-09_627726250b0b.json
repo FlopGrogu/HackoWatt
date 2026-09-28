@@ -1,0 +1,106 @@
+{
+  "date": "2026-09-09",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:37:26",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "05:00",
+      "reason": "She is sleeping at home after her return from dinner the previous night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "05:00",
+      "end": "06:00",
+      "reason": "She wakes up and prepares to leave for her early train to Krakow.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "06:15",
+      "reason": "She commutes from her apartment to Warszawa Centralna for the morning train.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "06:15",
+      "end": "08:40",
+      "reason": "She is travelling on the morning train from Warsaw to Krakow.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:40",
+      "end": "09:30",
+      "reason": "She arrives in Krakow and travels to her remote workspace for the team stand-up.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She participates in the team stand-up online from Krakow.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:50",
+      "end": "10:00",
+      "reason": "She moves to the client workshop venue in Krakow.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "10:00",
+      "end": "15:30",
+      "reason": "She attends the client workshop at the KrakGrid office in Krakow.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:30",
+      "end": "16:00",
+      "reason": "She travels from the workshop to the cafe area near Krakow Glowny.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "16:00",
+      "end": "17:30",
+      "reason": "She has coffee and answers emails in the Krakow Glowny area.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:30",
+      "end": "19:55",
+      "reason": "She spends the evening in Krakow before her return train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:55",
+      "end": "22:20",
+      "reason": "She is travelling on the evening train from Krakow back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:20",
+      "end": "22:45",
+      "reason": "She commutes from Warszawa Centralna back to her apartment on Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "22:45",
+      "end": "24:00",
+      "reason": "She returns home, winds down, and goes to sleep.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

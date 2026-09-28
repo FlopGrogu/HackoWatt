@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-13",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:40:03",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "11:00",
+      "reason": "She is sleeping at Paul's flat in Berlin as part of her weekend trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "12:00",
+      "reason": "She is getting ready and traveling from Paul's flat to Kreuzberg for brunch.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "12:00",
+      "end": "14:00",
+      "reason": "She is having brunch with Paul in Kreuzberg, Berlin.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "18:30",
+      "reason": "She is spending the afternoon in Berlin before heading to the airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "20:10",
+      "reason": "She is traveling to Berlin Brandenburg Airport (BER) for her flight.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "20:10",
+      "end": "21:35",
+      "reason": "She is taking flight LO 388 from Berlin to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "21:35",
+      "end": "22:45",
+      "reason": "She is landing at Chopin Airport in Warsaw and traveling back to her home on ul. Chmielna.",
+      "away_score": 85,
+      "people": 0
+    },
+    {
+      "start": "22:45",
+      "end": "24:00",
+      "reason": "She has arrived home late in the evening and is getting ready for bed.",
+      "away_score": 15,
+      "people": 1
+    }
+  ]
+}

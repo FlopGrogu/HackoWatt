@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-20",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:47:00",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:00",
+      "reason": "She is sleeping away from home at the cabin in Mazury.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:00",
+      "end": "14:00",
+      "reason": "She is spending the morning in Mazury before driving back.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "17:30",
+      "reason": "She is driving back from Mazury with Bartek.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "17:30",
+      "end": "22:59",
+      "reason": "She returns home from the trip and settles in for the evening.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She is sleeping at home for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "date": "2026-02-17",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:19:18",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:15",
+      "reason": "She is sleeping in her apartment.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:15",
+      "end": "08:00",
+      "reason": "She prepares and leaves her apartment to walk to the nearby clinic for fasting blood tests.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "08:00",
+      "end": "08:45",
+      "reason": "She is at her GP check-up at LuxMed on ul. Chmielna 85.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:45",
+      "end": "09:15",
+      "reason": "She returns home briefly after her medical appointment.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "09:15",
+      "end": "17:45",
+      "reason": "She is at her office at Warsaw Spire for her workday.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:45",
+      "end": "18:30",
+      "reason": "She travels back home from the office.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "24:00",
+      "reason": "She is back in her apartment for the rest of the evening and night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

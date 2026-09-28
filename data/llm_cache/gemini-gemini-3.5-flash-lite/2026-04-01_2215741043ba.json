@@ -1,0 +1,43 @@
+{
+  "date": "2026-04-01",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:23:08",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after working from the office the previous day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "09:30",
+      "reason": "She wakes up at home and prepares for her WFH day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "11:00",
+      "reason": "She participates in Microsoft Teams meetings from her home office.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "11:00",
+      "end": "22:59",
+      "reason": "She spends the rest of the WFH day and evening at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She goes to sleep at home for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

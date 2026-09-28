@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide assets – prediction model</title>
+<!-- Source of the PNG slide assets. Render one asset per file:
+     index.html?asset=diagram|timeline|result&theme=dark|light  (see slides/render_assets.sh) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --text:#f5f3f0; --muted:#a19d98; --box:#262524; --box2:#33302e; --line:#5b5856;
+          --accent:#ffb066; --accent-soft:#3b2d22; --green:#3dd26a; --away:#6b4c33; --home:#ffb066; }
+  body.light { --text:#1f1d1b; --muted:#6f6a64; --box:#f3efe9; --box2:#e7e1d8; --line:#b9b2a8;
+               --accent:#e07b24; --accent-soft:#fbe3cc; --green:#1f9d4b; --away:#d9c5b2; --home:#f0a55a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: transparent; }
+  body { font-family: Inter, system-ui, sans-serif; color: var(--text); }
+  .asset { display: none; position: relative; }
+  body[data-asset="diagram"] #diagram, body[data-asset="timeline"] #timeline { display: block; }
+  body[data-asset="result"] #result { display: flex; }
+  body[data-asset="wide"] #wide { display: block; }
+  body[data-asset="levers"] #levers { display: block; }
+
+  /* ---------------- diagram (1000 × 720) ---------------- */
+  #diagram { width: 1000px; height: 545px; }
+  #diagram svg.wires { position: absolute; inset: 0; }
+  .wires path { fill: none; stroke: var(--line); stroke-width: 3; }
+  .wires path.hot { stroke: var(--accent); }
+  .wires .label { fill: var(--accent); font: 700 18px Inter; }
+  .col-title { position: absolute; top: 8px; font-size: 15px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); }
+  .node { position: absolute; display: flex; align-items: center; gap: 14px; padding: 0 18px;
+          background: var(--box); border-radius: 18px; font-size: 21px; font-weight: 600; }
+  .node svg { flex: none; width: 30px; height: 30px; stroke: var(--accent); }
+  .node small { display: block; font-size: 15px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+  .ishome { position: absolute; left: 340px; top: 150px; width: 250px; height: 260px; border-radius: 26px;
+            background: var(--accent-soft); border: 3px solid var(--accent);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 10px; }
+  .ishome .big { font-size: 34px; font-weight: 800; }
+  .ishome .sub { font-size: 18px; color: var(--muted); line-height: 1.35; }
+  .ishome .scale { width: 190px; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--home), var(--away)); }
+  .ishome .ends { width: 190px; display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); }
+  .method { color: var(--accent); }
+  .tag { position: absolute; top: -14px; right: 16px; display: flex; align-items: center; gap: 6px;
+         padding: 4px 11px 4px 9px; border-radius: 999px; background: var(--accent); color: #1c1b1a;
+         font-size: 14px; font-weight: 700; }
+  .tag svg { width: 15px; height: 15px; stroke: #1c1b1a; }
+
+  /* ---------------- timeline (1000 × 300) ---------------- */
+  #timeline { width: 1000px; height: 300px; }
+  .tl-title { font-size: 22px; font-weight: 700; padding-top: 4px; }
+  .tl-title span { color: var(--muted); font-weight: 500; }
+  .tl-row { display: flex; align-items: center; margin-top: 18px; }
+  .tl-label { width: 150px; font-size: 17px; font-weight: 600; color: var(--muted); }
+  .tl-bar { position: relative; flex: 1; height: 56px; border-radius: 12px; overflow: hidden; display: flex; }
+  .seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700;
+         color: #fff; white-space: nowrap; overflow: hidden; border-right: 2px solid transparent; }
+  .seg.away { background: var(--away); }
+  .seg.mid { background: color-mix(in srgb, var(--away) 55%, var(--home)); }
+  .seg.home { background: var(--home); color: #1c1b1a; }
+  body.light .seg.away { color: #3a2a1c; }
+  .tl-axis { display: flex; justify-content: space-between; margin: 10px 0 0 150px; font-size: 15px; color: var(--muted); }
+  .tl-legend { display: flex; gap: 22px; margin: 16px 0 0 150px; font-size: 15px; color: var(--muted); }
+  .tl-note { margin: 10px 0 0 150px; font-size: 16px; color: var(--muted); font-style: italic; }
+  .tl-legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 7px; vertical-align: -2px; }
+
+  /* ---------------- result (1000 × 330) ---------------- */
+  #result { width: 1000px; height: 330px; gap: 36px; align-items: center; }
+  .kpi { flex: none; width: 300px; height: 300px; border-radius: 28px; background: var(--accent-soft); border: 3px solid var(--accent);
+         display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .kpi .num { font-size: 92px; font-weight: 800; color: var(--accent); letter-spacing: -3px; line-height: 1; }
+  .kpi .txt { font-size: 20px; font-weight: 600; margin-top: 12px; line-height: 1.3; }
+  table { flex: 1; border-collapse: collapse; font-size: 21px; }
+  th { text-align: left; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); padding: 0 12px 12px; }
+  td { padding: 16px 12px; border-top: 2px solid var(--box2); }
+  td.num { font-weight: 700; white-space: nowrap; }
+  td.good { color: var(--accent); }
+  caption { caption-side: bottom; text-align: left; padding: 14px 12px 0; font-size: 15px; color: var(--muted); }
+  /* ---------------- wide diagram in the style of the team's Google Slides template (1500 × 545) ---------------- */
+  #wide { width: 1500px; height: 545px; font-family: 'IBM Plex Sans', sans-serif; color: #333; }
+  #wide svg.wires { position: absolute; inset: 0; }
+  #wide .wires path { fill: none; stroke: #7a766f; stroke-width: 3; }
+  #wide .wires path.hot { stroke: #e8923a; }
+  #wide .wires .label { fill: #d9771f; font: 700 20px 'IBM Plex Sans'; }
+  #wide .col-title { position: absolute; top: 6px; font-size: 16px; font-weight: 600; letter-spacing: 1.8px; color: #6b6862; }
+  #wide .node { position: absolute; display: flex; align-items: center; gap: 16px; padding: 0 22px;
+                background: rgba(255, 255, 255, .45); border: 2px solid #333; border-radius: 16px;
+                font-size: 24px; font-weight: 600; }
+  #wide .node svg { flex: none; width: 32px; height: 32px; stroke: #333; }
+  #wide .node small { display: block; font-size: 17px; font-weight: 400; color: #555; margin-top: 1px; }
+  #wide .method { color: #d9771f; font-weight: 600; }
+  #wide .ishome { position: absolute; left: 540px; top: 140px; width: 300px; height: 270px; border-radius: 22px; background: #333; border: none;
+                  color: #f3f0ea; display: flex; flex-direction: column; justify-content: center; align-items: center;
+                  text-align: center; gap: 12px; }
+  #wide .ishome .big { font-size: 40px; font-weight: 700; }
+  #wide .ishome .sub { font-size: 20px; color: #cfcac1; line-height: 1.35; }
+  #wide .ishome .scale { width: 220px; height: 12px; border-radius: 6px; background: linear-gradient(90deg, #f7e27a, #ec8f4f); }
+  #wide .ishome .ends { width: 220px; display: flex; justify-content: space-between; font-size: 15px; color: #cfcac1; }
+  #wide .tag { position: absolute; top: -15px; right: 18px; display: flex; align-items: center; gap: 6px;
+               padding: 4px 12px 4px 10px; border-radius: 999px; background: linear-gradient(90deg, #f7e27a, #ec9a4f);
+               color: #333; font-size: 15px; font-weight: 700; }
+  #wide .tag svg { width: 16px; height: 16px; stroke: #333; }
+  /* ---------------- levers: where the kWh go (team slide style, 1500 × 560) ---------------- */
+  #levers { width: 1500px; height: 560px; font-family: 'IBM Plex Sans', sans-serif; color: #333; }
+  #levers .head { display: flex; justify-content: space-between; align-items: baseline; font-size: 20px; color: #6b6862; }
+  #levers .head b { color: #333; font-weight: 600; }
+  #levers .bar { display: flex; height: 96px; margin-top: 16px; border-radius: 18px; overflow: hidden; }
+  #levers .seg { display: flex; flex-direction: column; justify-content: center; padding: 0 22px; white-space: nowrap; }
+  #levers .seg .n { font-size: 22px; font-weight: 600; }
+  #levers .seg .p { font-size: 34px; font-weight: 700; line-height: 1.1; }
+  #levers .s-always { background: #333; color: #f3f0ea; }
+  #levers .s-heat { background: linear-gradient(90deg, #f3b24a, #ee8a55); color: #333; }
+  #levers .s-fixed { background: #cfc8bc; color: #333; }
+  #levers .s-shift { background: #f7e27a; color: #333; padding: 0 14px; }
+  #levers .s-shift .p { font-size: 28px; }
+  #levers .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 34px; }
+  #levers .card { border: 2px solid #333; border-radius: 16px; padding: 18px 20px 20px; background: rgba(255,255,255,.45); position: relative; }
+  #levers .card::before { content: ''; position: absolute; left: 18px; right: 18px; top: -2px; height: 6px; border-radius: 0 0 4px 4px; }
+  #levers .c-always::before { background: #333; } #levers .c-heat::before { background: linear-gradient(90deg,#f3b24a,#ee8a55); }
+  #levers .c-fixed::before { background: #cfc8bc; } #levers .c-shift::before { background: #f7e27a; }
+  #levers .card h3 { font-size: 23px; font-weight: 600; }
+  #levers .card .sub { font-size: 16px; color: #6b6862; margin-top: 2px; }
+  #levers .pills { display: flex; gap: 8px; margin-top: 16px; }
+  #levers .pill { padding: 4px 12px; border-radius: 999px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; }
+  #levers .avoid { background: #333; color: #f3f0ea; }
+  #levers .shift { background: linear-gradient(90deg, #f7e27a, #ec9a4f); color: #333; }
+  #levers .forecast { border: 2px solid #9a948a; color: #6b6862; padding: 2px 10px; }
+  #levers .eur { font-size: 42px; font-weight: 700; margin-top: 12px; letter-spacing: -.5px; }
+  #levers .eur.zero { color: #9a948a; }
+  #levers .how { font-size: 16px; color: #555; margin-top: 4px; line-height: 1.35; }
+  #levers .foot { margin-top: 26px; font-size: 21px; }
+  #levers .foot b { font-weight: 700; }
+  #levers .foot span { color: #6b6862; font-size: 16px; margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<!-- =========================== MODEL DIAGRAM =========================== -->
+<div class="asset" id="diagram">
+  <svg class="wires" viewBox="0 0 1000 545" width="1000" height="545">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" style="fill:var(--line)"/></marker>
+      <marker id="arrow-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" style="fill:var(--accent)"/></marker>
+    </defs>
+    <!-- inputs -> isHome -->
+    <path class="hot" d="M250 110 C 300 110, 300 210, 336 210" marker-end="url(#arrow-hot)"/>
+    <text class="label" x="300" y="128">LLM</text>
+    <path d="M250 245 L 336 280" marker-end="url(#arrow)"/>
+    <path d="M250 380 C 300 380, 300 350, 336 350" marker-end="url(#arrow)"/>
+    <!-- isHome -> blocks -->
+    <path class="hot" d="M594 230 C 640 230, 640 110, 676 110" marker-end="url(#arrow-hot)"/>
+    <path class="hot" d="M594 265 C 640 265, 640 225, 676 225" marker-end="url(#arrow-hot)"/>
+    <path class="hot" d="M594 360 C 640 360, 640 460, 676 460" marker-end="url(#arrow-hot)"/>
+    <!-- weather -> heat pump -->
+    <path d="M250 505 C 470 505, 470 485, 676 485" marker-end="url(#arrow)"/>
+  </svg>
+
+  <div class="col-title" style="left:0">INPUTS</div>
+  <div class="col-title" style="left:340px">PRESENCE</div>
+  <div class="col-title" style="left:680px">ENERGY BLOCKS</div>
+
+  <div class="node" style="left:0;top:78px;width:250px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Calendar</div>
+  <div class="node" style="left:0;top:213px;width:250px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><div>User position<small>current, from the phone</small></div></div>
+  <div class="node" style="left:0;top:348px;width:250px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg><div>Presence patterns<small>learned per hour</small></div></div>
+  <div class="node" style="left:0;top:473px;width:250px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/></svg><div>Weather<small>Open-Meteo forecast</small></div></div>
+
+  <div class="ishome">
+    <div class="big">isHome</div>
+    <div class="sub">away score per hour<br>+ people at home</div>
+    <div class="scale"></div>
+    <div class="ends"><span>0 home</span><span>100 away</span></div>
+  </div>
+
+  <div class="node" style="left:680px;top:78px;width:320px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M5 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2 2 0 0 1 0 4H17M9 3v3m4-3v3"/></svg>
+    <div>Fixed-time load<small><span class="method">average per hour</span> · kettle, oven</small></div></div>
+  <div class="node" style="left:680px;top:193px;width:320px;height:64px"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>tips</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 7h16"/><circle cx="12" cy="14" r="4.5"/></svg>
+    <div>Shiftable load<small><span class="method">rules</span> · washer, dishwasher</small></div></div>
+  <div class="node" style="left:680px;top:308px;width:320px;height:64px">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v1.5M9 13v2"/></svg>
+    <div>Always-on load<small><span class="method">constant</span> · fridge, router, standby</small></div></div>
+  <div class="node" style="left:680px;top:443px;width:320px;height:84px"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>reminders + tips</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="3.5"/><path d="M15 9h3M15 12h3M15 15h3"/></svg>
+    <div>Heating load<small><span class="method">physics</span> · heat pump, hot water</small></div></div>
+
+</div>
+
+<!-- =========================== TIMELINE 22 SEP =========================== -->
+<div class="asset" id="timeline">
+  <div class="tl-title">Tue 22 Sep – back from Gdańsk, picking up Paul <span>· away score per interval</span></div>
+  <!-- widths = minutes / 1440 -->
+  <div class="tl-row">
+    <div class="tl-label">LLM (calendar)</div>
+    <div class="tl-bar">
+      <div class="seg away" style="flex:955">Gdańsk + train · 100</div>
+      <div class="seg mid" style="flex:50"></div>
+      <div class="seg home" style="flex:135">home 10</div>
+      <div class="seg away" style="flex:135">airport 90</div>
+      <div class="seg mid" style="flex:45"></div>
+      <div class="seg home" style="flex:165">+ Paul 0</div>
+    </div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-label">Reality</div>
+    <div class="tl-bar">
+      <div class="seg away" style="flex:995">away</div>
+      <div class="seg home" style="flex:145">home</div>
+      <div class="seg away" style="flex:110">away</div>
+      <div class="seg home" style="flex:190">+ Paul</div>
+    </div>
+  </div>
+  <div class="tl-axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+  <div class="tl-legend">
+    <span><i style="background:var(--home)"></i>home</span>
+    <span><i style="background:var(--away)"></i>away</span>
+  </div>
+  <div class="tl-note">Nobody told it about the airport – it inferred the pickup from “Paul lands 19:40” + “Paul in Warsaw @ Home”.</div>
+</div>
+
+<!-- =========================== RESULT =========================== -->
+<div class="asset" id="result">
+  <div class="kpi">
+    <div class="num">−49%</div>
+    <div class="txt">daily forecast error<br>with the calendar</div>
+  </div>
+  <table>
+    <thead><tr><th>Test: 29 Sep – 12 Oct</th><th>without</th><th>with LLM</th></tr></thead>
+    <tbody>
+      <tr><td>Daily error</td><td class="num">2.6 kWh</td><td class="num good">1.3 kWh</td></tr>
+      <tr><td>Hourly error</td><td class="num">0.18 kWh</td><td class="num good">0.15 kWh</td></tr>
+      <tr><td>Presence correct (all hours)</td><td class="num">63 %</td><td class="num good">98 %</td></tr>
+    </tbody>
+    <caption>24 h forecast every day at 00:00 · actual consumption 5.6 kWh/day</caption>
+  </table>
+</div>
+
+<!-- =================== WIDE DIAGRAM (team slide template) =================== -->
+<div class="asset" id="wide">
+  <svg class="wires" viewBox="0 0 1500 545" width="1500" height="545">
+    <defs>
+      <marker id="w-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" style="fill:#7a766f"/></marker>
+      <marker id="w-arrow-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" style="fill:#e8923a"/></marker>
+    </defs>
+    <path class="hot" d="M300 105 C 440 105, 430 200, 534 200" marker-end="url(#w-arrow-hot)"/>
+    <text class="label" x="392" y="128">LLM</text>
+    <path d="M300 235 C 420 235, 430 275, 534 275" marker-end="url(#w-arrow)"/>
+    <path d="M300 365 C 430 365, 430 350, 534 350" marker-end="url(#w-arrow)"/>
+    <path class="hot" d="M846 215 C 980 215, 980 105, 1094 105" marker-end="url(#w-arrow-hot)"/>
+    <path class="hot" d="M846 255 C 980 255, 980 235, 1094 235" marker-end="url(#w-arrow-hot)"/>
+    <path class="hot" d="M846 370 C 980 370, 980 470, 1094 470" marker-end="url(#w-arrow-hot)"/>
+    <path d="M300 495 C 700 495, 800 505, 1094 505" marker-end="url(#w-arrow)"/>
+  </svg>
+
+  <div class="col-title" style="left:0">INPUTS</div>
+  <div class="col-title" style="left:540px">PRESENCE</div>
+  <div class="col-title" style="left:1100px">ENERGY BLOCKS</div>
+
+  <div class="node" style="left:0;top:70px;width:300px;height:70px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Calendar</div>
+  <div class="node" style="left:0;top:200px;width:300px;height:70px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><div>User position<small>current, from the phone</small></div></div>
+  <div class="node" style="left:0;top:330px;width:300px;height:70px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg><div>Presence patterns<small>learned defaults per hour</small></div></div>
+  <div class="node" style="left:0;top:460px;width:300px;height:80px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/></svg><div>Weather<small>Open-Meteo forecast</small></div></div>
+
+  <div class="ishome">
+    <div class="big">isHome</div>
+    <div class="sub">away score per hour<br>+ people at home</div>
+    <div class="scale"></div>
+    <div class="ends"><span>0 home</span><span>100 away</span></div>
+  </div>
+
+  <div class="node" style="left:1100px;top:70px;width:400px;height:70px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M5 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2 2 0 0 1 0 4H17M9 3v3m4-3v3"/></svg>
+    <div>Fixed-time load<small><span class="method">average per hour</span> · kettle, oven, TV</small></div></div>
+  <div class="node" style="left:1100px;top:200px;width:400px;height:70px"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>tips</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 7h16"/><circle cx="12" cy="14" r="4.5"/></svg>
+    <div>Shiftable load<small><span class="method">rules</span> · washer, dishwasher</small></div></div>
+  <div class="node" style="left:1100px;top:330px;width:400px;height:70px"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v1.5M9 13v2"/></svg>
+    <div>Always-on load<small><span class="method">constant</span> · fridge, router, standby</small></div></div>
+  <div class="node" style="left:1100px;top:450px;width:400px;height:90px"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>reminders + tips</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="3.5"/><path d="M15 9h3M15 12h3M15 15h3"/></svg>
+    <div>Heating load<small><span class="method">physics</span> · heat pump, hot water</small></div></div>
+</div>
+
+<!-- =================== LEVERS: where the kWh go (team slide template) =================== -->
+<div class="asset" id="levers">
+  <div class="head"><span><b>Her consumption, 1 Sep – 12 Oct:</b> 229 kWh · €67.57</span><span>share of kWh</span></div>
+  <div class="bar">
+    <div class="seg s-always" style="flex:37.6"><span class="n">Always-on</span><span class="p">38 %</span></div>
+    <div class="seg s-heat" style="flex:32.7"><span class="n">Heating</span><span class="p">33 %</span></div>
+    <div class="seg s-fixed" style="flex:19.1"><span class="n">Fixed-time</span><span class="p">19 %</span></div>
+    <div class="seg s-shift" style="flex:10.6"><span class="n">Shiftable</span><span class="p">11 %</span></div>
+  </div>
+  <div class="cards">
+    <div class="card c-always"><h3>Always-on</h3><div class="sub">fridge · router · standby</div>
+      <div class="pills"><span class="pill avoid">AVOID</span></div>
+      <div class="eur">≈ €1.70</div><div class="how">standby off while she is away</div></div>
+    <div class="card c-heat"><h3>Heating</h3><div class="sub">heat pump · hot water</div>
+      <div class="pills"><span class="pill avoid">AVOID</span><span class="pill shift">SHIFT</span></div>
+      <div class="eur">≈ €9.90</div><div class="how">holiday mode while away (€5.20) · hot water at night (€4.70)</div></div>
+    <div class="card c-fixed"><h3>Fixed-time</h3><div class="sub">kettle · oven · TV · light</div>
+      <div class="pills"><span class="pill forecast">FORECAST ONLY</span></div>
+      <div class="eur zero">€0</div><div class="how">happens when she needs it – we only predict it</div></div>
+    <div class="card c-shift"><h3>Shiftable</h3><div class="sub">washer · dishwasher</div>
+      <div class="pills"><span class="pill shift">SHIFT</span></div>
+      <div class="eur">≈ €3.10</div><div class="how">to the €0.18 night hours, finished when she's home</div></div>
+  </div>
+  <div class="foot"><b>≈ €14.70 of €67.57 (22 %) can be avoided or shifted – two thirds of it in heating.</b>
+    <span>Upper bounds · official tariff · simulated household</span></div>
+</div>
+
+<script>
+  const p = new URLSearchParams(location.search);
+  document.body.dataset.asset = p.get('asset') || 'diagram';
+  if (p.get('theme') === 'light') document.body.classList.add('light');
+</script>
+</body>
+</html>

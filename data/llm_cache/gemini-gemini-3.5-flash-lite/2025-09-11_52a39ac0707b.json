@@ -1,0 +1,64 @@
+{
+  "date": "2025-09-11",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T00:50:22",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "00:45",
+      "reason": "She is returning home from Stockholm after a late flight.",
+      "away_score": 50,
+      "people": 1
+    },
+    {
+      "start": "00:45",
+      "end": "06:30",
+      "reason": "She is sleeping at home after returning late.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:30",
+      "end": "08:15",
+      "reason": "She wakes up at home and prepares for her office day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:00",
+      "reason": "She commutes from home to the Warsaw Spire office.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "19:00",
+      "reason": "She is working at the Warsaw Spire office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "22:00",
+      "reason": "She is having dinner with Marta at Beirut Hummus & Music Bar.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:00",
+      "end": "22:30",
+      "reason": "She travels back home from dinner in the city center.",
+      "away_score": 40,
+      "people": 0
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She is back home getting ready for bed.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

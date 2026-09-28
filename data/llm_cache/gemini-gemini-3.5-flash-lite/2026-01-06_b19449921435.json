@@ -1,0 +1,29 @@
+{
+  "date": "2026-01-06",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:16:08",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:00",
+      "reason": "She is sleeping at home since it is a public holiday night following a WFH day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:00",
+      "end": "22:59",
+      "reason": "She is spending the public holiday at home as she has no travel plans in her calendar.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "22:59",
+      "end": "24:00",
+      "reason": "She is sleeping at home preparing for work the next day.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

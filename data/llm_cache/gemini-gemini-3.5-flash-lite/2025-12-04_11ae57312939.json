@@ -1,0 +1,29 @@
+{
+  "date": "2025-12-04",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:13:35",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "14:00",
+      "reason": "She is staying at a hotel in London for the business trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "22:50",
+      "reason": "She is traveling from London to Warsaw by flight and ground transport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:50",
+      "end": "24:00",
+      "reason": "She arrives back at her apartment late in the evening.",
+      "away_score": 20,
+      "people": 1
+    }
+  ]
+}

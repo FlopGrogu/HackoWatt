@@ -1,0 +1,50 @@
+{
+  "date": "2026-04-06",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:23:31",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "09:30",
+      "reason": "She is sleeping away from home in Lodz as part of the Easter trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:30",
+      "end": "09:50",
+      "reason": "She attends the team stand-up online while still staying in Lodz.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:50",
+      "end": "17:10",
+      "reason": "She spends the rest of the day in Lodz before her evening train.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "17:10",
+      "end": "18:35",
+      "reason": "She is traveling by train from Lodz Fabryczna to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:35",
+      "end": "19:30",
+      "reason": "She travels from Warsaw station back home to Chmielna.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "19:30",
+      "end": "24:00",
+      "reason": "She is back home in her apartment settling in after the trip.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

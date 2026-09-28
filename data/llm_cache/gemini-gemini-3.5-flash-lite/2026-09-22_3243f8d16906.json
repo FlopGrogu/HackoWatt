@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-22",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:27:51",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "08:30",
+      "reason": "She is sleeping at the hotel in Gdańsk as part of her business trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "08:30",
+      "end": "09:00",
+      "reason": "She travels from her hotel to the port substation for her site visit.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "12:00",
+      "reason": "She attends the site visit at the Port of Gdańsk.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "12:00",
+      "end": "13:10",
+      "reason": "She travels from the port to Gdańsk Główny station.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:10",
+      "end": "15:55",
+      "reason": "She is on the train from Gdańsk back to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "15:55",
+      "end": "16:45",
+      "reason": "She travels from Warszawa Centralna back to her apartment.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "16:45",
+      "end": "19:00",
+      "reason": "She is back home settling in after her trip.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "19:00",
+      "end": "19:40",
+      "reason": "She travels from home to Warsaw Chopin Airport to pick up Paul.",
+      "away_score": 90,
+      "people": 1
+    },
+    {
+      "start": "19:40",
+      "end": "20:30",
+      "reason": "Paul's flight lands at Warsaw Chopin Airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "20:30",
+      "end": "21:15",
+      "reason": "She travels back from the airport to her apartment with Paul.",
+      "away_score": 20,
+      "people": 2
+    },
+    {
+      "start": "21:15",
+      "end": "24:00",
+      "reason": "She is relaxing at home with Paul for the evening.",
+      "away_score": 0,
+      "people": 2
+    }
+  ]
+}

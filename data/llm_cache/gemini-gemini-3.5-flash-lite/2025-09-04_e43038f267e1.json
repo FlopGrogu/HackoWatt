@@ -1,0 +1,64 @@
+{
+  "date": "2025-09-04",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T00:49:48",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "06:00",
+      "reason": "She is sleeping at home after her bouldering session the previous evening.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "06:00",
+      "end": "08:15",
+      "reason": "She wakes up and has her usual morning routine at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:00",
+      "reason": "She commutes from home to her office at Warsaw Spire.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "18:30",
+      "reason": "She is working at her office at Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "18:30",
+      "end": "19:00",
+      "reason": "She commutes from her office to the dinner venue at ul. Wilcza.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "22:00",
+      "reason": "She is at dinner with Bartek at Nolita on ul. Wilcza.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "22:00",
+      "end": "22:30",
+      "reason": "She travels back home from the restaurant.",
+      "away_score": 30,
+      "people": 0
+    },
+    {
+      "start": "22:30",
+      "end": "24:00",
+      "reason": "She is winding down and preparing for bed at home.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

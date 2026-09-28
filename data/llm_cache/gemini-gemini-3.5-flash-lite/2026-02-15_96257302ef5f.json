@@ -1,0 +1,50 @@
+{
+  "date": "2026-02-15",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:19:09",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "07:30",
+      "end": "11:30",
+      "reason": "She is waking up and spending the morning at home with Paul.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "11:30",
+      "end": "12:00",
+      "reason": "She is getting ready and traveling from home to Warszawa Centralna.",
+      "away_score": 30,
+      "people": 2
+    },
+    {
+      "start": "12:00",
+      "end": "12:30",
+      "reason": "She is at Warszawa Centralna for Paul's train back.",
+      "away_score": 90,
+      "people": 0
+    },
+    {
+      "start": "12:30",
+      "end": "13:00",
+      "reason": "She is traveling back home from the railway station.",
+      "away_score": 30,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "24:00",
+      "reason": "She is back home for the rest of the day after Paul's departure.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "date": "2026-07-28",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:32:14",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home after working from home on Monday.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "08:15",
+      "reason": "She is waking up and getting ready for her office day.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "08:15",
+      "end": "09:00",
+      "reason": "She is commuting from her home to the office at Warsaw Spire.",
+      "away_score": 85,
+      "people": 0
+    },
+    {
+      "start": "09:00",
+      "end": "13:00",
+      "reason": "She is working at the office in Warsaw Spire.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:00",
+      "end": "14:00",
+      "reason": "She is attending the Sales & partnerships weekly meeting at the office.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "14:00",
+      "end": "19:00",
+      "reason": "She continues working at the office until returning home in the evening.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:00",
+      "end": "20:30",
+      "reason": "She has returned home from work and is resting or eating dinner.",
+      "away_score": 10,
+      "people": 1
+    },
+    {
+      "start": "20:30",
+      "end": "21:00",
+      "reason": "She is traveling from home to Park Szczęśliwicki for the open-air cinema.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "23:30",
+      "reason": "She is attending the open-air cinema at Park Szczęśliwicki with Ola.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "23:30",
+      "end": "24:00",
+      "reason": "She is returning home from the park to prepare for sleep and her next day trip.",
+      "away_score": 30,
+      "people": 1
+    }
+  ]
+}

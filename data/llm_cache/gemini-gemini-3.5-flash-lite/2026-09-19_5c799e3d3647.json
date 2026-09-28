@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-19",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:45:52",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "07:30",
+      "reason": "She is sleeping at home after her board game night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "07:30",
+      "end": "09:30",
+      "reason": "She is waking up and getting ready for the trip at home.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "10:00",
+      "reason": "She meets Bartek and departs from home for Mazury.",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "10:00",
+      "end": "24:00",
+      "reason": "She is travelling and staying in Mazury for Marta's 40th birthday.",
+      "away_score": 100,
+      "people": 0
+    }
+  ]
+}

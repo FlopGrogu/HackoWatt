@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-10",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-28T21:57:41",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "01:00",
+      "reason": "She is sleeping at home after her flight from Stockholm late on Friday night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "01:00",
+      "end": "09:00",
+      "reason": "She sleeps at home through the night.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "09:00",
+      "end": "09:30",
+      "reason": "She gets ready and travels from home to Hala Mirowska.",
+      "away_score": 50,
+      "people": 1
+    },
+    {
+      "start": "09:30",
+      "end": "11:00",
+      "reason": "She is shopping for pierogi night at Hala Mirowska.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "11:00",
+      "end": "11:30",
+      "reason": "She travels back home from Hala Mirowska.",
+      "away_score": 50,
+      "people": 1
+    },
+    {
+      "start": "11:30",
+      "end": "12:00",
+      "reason": "She is at home preparing for Paul's arrival.",
+      "away_score": 0,
+      "people": 1
+    },
+    {
+      "start": "12:00",
+      "end": "12:30",
+      "reason": "She travels from home to Warsaw Chopin Airport (WAW).",
+      "away_score": 80,
+      "people": 0
+    },
+    {
+      "start": "12:30",
+      "end": "13:15",
+      "reason": "She meets Paul landing at Warsaw Chopin Airport.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:15",
+      "end": "14:00",
+      "reason": "She travels back home from the airport together with Paul.",
+      "away_score": 20,
+      "people": 2
+    },
+    {
+      "start": "14:00",
+      "end": "18:30",
+      "reason": "She is at home with Paul preparing dough and getting ready for the evening.",
+      "away_score": 0,
+      "people": 2
+    },
+    {
+      "start": "18:30",
+      "end": "24:00",
+      "reason": "She is hosting the pierogi night at home with Paul and invited guests.",
+      "away_score": 0,
+      "people": 7
+    }
+  ]
+}

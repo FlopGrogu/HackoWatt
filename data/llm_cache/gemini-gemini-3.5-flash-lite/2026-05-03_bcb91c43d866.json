@@ -1,0 +1,36 @@
+{
+  "date": "2026-05-03",
+  "model": "gemini:gemini-3.5-flash-lite",
+  "created": "2026-09-29T01:25:41",
+  "attempts": 1,
+  "intervals": [
+    {
+      "start": "00:00",
+      "end": "13:30",
+      "reason": "She is staying overnight in Zakopane as part of her holiday trip.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "13:30",
+      "end": "19:50",
+      "reason": "She is traveling by train from Zakopane to Warsaw.",
+      "away_score": 100,
+      "people": 0
+    },
+    {
+      "start": "19:50",
+      "end": "21:00",
+      "reason": "She is traveling back home from the Warsaw train station.",
+      "away_score": 70,
+      "people": 0
+    },
+    {
+      "start": "21:00",
+      "end": "24:00",
+      "reason": "She is back at home resting for the night.",
+      "away_score": 0,
+      "people": 1
+    }
+  ]
+}
