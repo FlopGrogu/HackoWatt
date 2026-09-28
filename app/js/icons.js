@@ -29,6 +29,11 @@
     washer: svg('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 7h16M7 5h.01"/><circle cx="12" cy="14" r="4.5"/>'),
     heatpump: svg('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="3.5"/><path d="M9 8.5v7M5.5 12h7M15 9h3M15 12h3M15 15h3"/>'),
     laptop: svg('<rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 18.5h18"/>'),
+    clock: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    pin: svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>'),
+    chevron: svg('<path d="m9 6 6 6-6 6"/>'),
+    refresh: svg('<path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/>'),
+    upload: svg('<path d="M12 15V4m-4.500 4L12 3.500 16.5 8M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>'),
     status: '<svg viewBox="0 0 66 12" width="66" height="12" aria-hidden="true" fill="currentColor">' +
             '<rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/>' +
             '<rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/>' +

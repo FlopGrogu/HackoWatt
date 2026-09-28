@@ -7,10 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
 
   <!-- App scripts (order matters: namespace → helpers → data → service → state → screens), then Alpine -->
+  <script defer src="vendor/leaflet/leaflet.js"></script>
   <script defer src="js/config.js"></script>
   <script defer src="js/icons.js"></script>
   <script defer src="js/charts.js"></script>
@@ -20,6 +22,7 @@
   <script defer src="js/screens/home.js"></script>
   <script defer src="js/screens/usage.js"></script>
   <script defer src="js/screens/devices.js"></script>
+  <script defer src="js/screens/settings.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
 <body>
@@ -35,10 +38,10 @@
     <section x-data="homeScreen" x-show="$store.nav.screen === 'home'">
       <header class="welcome">
         <div>
-          <h1>Welcome home, <span class="accent" x-text="user.name"></span></h1>
+          <h1>Welcome home, <span class="accent" x-text="$store.profile.name"></span></h1>
           <p class="status-line"><i class="dot green"></i><span x-text="user.status"></span></p>
         </div>
-        <div class="avatar" x-text="user.initials"></div>
+        <div class="avatar" x-text="$store.profile.initials"></div>
       </header>
 
       <!-- Energy Usage -->
@@ -73,9 +76,11 @@
         <p class="muted">Time-of-use rates</p>
         <div class="tariff">
           <template x-for="seg in tariff">
-            <div class="tariff-seg" :class="[seg.tone, { now: isNow(seg) }]" :style="`flex:${seg.to - seg.from}`">
-              <span class="now-label" x-show="isNow(seg)">Now</span>
-              <span x-text="$euro(seg.price)"></span>
+            <div class="tariff-seg" :style="`flex:${seg.to - seg.from}`">
+              <div class="tariff-fill" :class="[seg.tone, { now: isNow(seg) }]">
+                <span class="now-label" x-show="isNow(seg) && seg.to - seg.from > 3">Now</span>
+                <span x-text="$euro(seg.price)"></span>
+              </div>
             </div>
           </template>
           <span class="tariff-marker" :style="nowStyle"></span>
@@ -216,10 +221,51 @@
       </template>
     </section>
 
+    <!-- =============================== PROFILE =============================== -->
+    <section x-data="settingsScreen" x-show="$store.nav.screen === 'profile'" class="settings">
+      <header class="profile-head">
+        <img class="profile-avatar" src="assets/avatar.png" alt="">
+        <div>
+          <input class="inline-edit name" x-model="$store.profile.name" @change="$store.profile.save()"
+                 aria-label="Name" autocomplete="off" spellcheck="false">
+          <input class="inline-edit email" type="email" x-model="$store.profile.email" @change="$store.profile.save()"
+                 aria-label="Email" autocomplete="off" spellcheck="false">
+        </div>
+      </header>
+
+      <h3 class="settings-title">Settings</h3>
+      <button class="setting-row" @click="editingTime = !editingTime">
+        <span class="setting-icon" x-html="$icon('clock')"></span>
+        <span class="setting-text"><strong>Current Time</strong><span x-text="clock.label"></span></span>
+        <span class="chevron" :class="{ open: editingTime }" x-html="$icon('chevron')"></span>
+      </button>
+      <input class="time-input" type="datetime-local" x-show="editingTime"
+             :value="clock.iso" @change="clock.set($event.target.value)" aria-label="Current time">
+      <button class="setting-row" @click="editingLocation = !editingLocation">
+        <span class="setting-icon" x-html="$icon('pin')"></span>
+        <span class="setting-text"><strong>Location</strong><span x-text="$store.profile.location.name"></span></span>
+        <span class="chevron" :class="{ open: editingLocation }" x-html="$icon('chevron')"></span>
+      </button>
+      <div class="location-editor" x-show="editingLocation">
+        <input class="time-input" type="search" placeholder="Search a city…" x-model="query"
+               @input.debounce.350ms="search()" aria-label="Search location">
+        <ul class="place-list" x-show="places.length || searchError">
+          <template x-for="p in places"><li><button @click="pick(p)" x-text="p.name"></button></li></template>
+          <li class="muted" x-show="searchError" x-text="searchError"></li>
+        </ul>
+        <div class="map" x-ref="map"></div>
+      </div>
+
+      <h3 class="settings-title data">Data Management</h3>
+      <button class="btn primary"><span x-html="$icon('refresh')"></span>Generate 30-Day Mock Data</button>
+      <button class="btn outline"><span x-html="$icon('upload')"></span>Upload Data</button>
+      <p class="settings-hint">Generate realistic energy consumption data or upload your own CSV file</p>
+    </section>
+
     <!-- ========================= NOT IN THE DEMO YET ========================= -->
-    <section class="placeholder" x-show="['search', 'profile'].includes($store.nav.screen)">
-      <span class="icon-bubble big" x-html="$icon($store.nav.screen)"></span>
-      <h2 x-text="$store.nav.screen === 'search' ? 'Search' : 'Profile'"></h2>
+    <section class="placeholder" x-show="$store.nav.screen === 'search'">
+      <span class="icon-bubble big" x-html="$icon('search')"></span>
+      <h2>Search</h2>
       <p class="muted">Not part of the demo yet.</p>
     </section>
   </main>

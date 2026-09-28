@@ -1,9 +1,7 @@
 /* Static demo data (no logic). Values are taken from / shaped like the simulated household
    (1 Sep – 12 Oct 2026). Replace by real forecast output through js/services/api.js, not here. */
 HW.demo = {
-  user: { name: 'Aleksandra', initials: 'A', status: 'All systems running normally' },
-
-  now: { hour: 6.25 },   // 06:15
+  user: { status: 'All systems running normally' },
 
   // kWh per day, averaged over 4 days: 7 metered points (1–28 Sep) + 2 forecast points (29 Sep – 5 Oct)
   overview: {
@@ -18,11 +16,6 @@ HW.demo = {
             0.20, 0.14, 0.13, 0.14, 0.13, 0.15, 0.22, 0.33, 0.25, 0.24, 0.20, 0.12],
     from: 18, to: 21,
     text: 'Your highest energy demand is typically between 18–22 h on weekdays.',
-  },
-
-  home: {
-    temperature: { value: '21.4°C', state: 'Auto' },
-    humidity: { value: '45%', state: 'Good' },
   },
 
   // Energy Usage screen, one entry per time range
