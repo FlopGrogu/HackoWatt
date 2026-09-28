@@ -1,0 +1,338 @@
+{
+  "meta": {
+    "generated": "2026-09-28T23:01:25",
+    "now": "2026-09-28T17:00",
+    "llm": "gemini:gemini-3.5-flash-lite",
+    "llm_days": 42,
+    "price_now": 0.4
+  },
+  "user": {
+    "name": "Aleksandra",
+    "initials": "A",
+    "status": "All systems running normally"
+  },
+  "now": {
+    "hour": 17.0
+  },
+  "overview": {
+    "actual": [
+      4.6,
+      6.4,
+      5.1,
+      3.5,
+      5.4,
+      7.2,
+      4.6
+    ],
+    "forecast": [
+      3.3,
+      5.1
+    ],
+    "labels": [
+      "1 Sep",
+      "15 Sep",
+      "28 Sep"
+    ]
+  },
+  "peak": {
+    "hours": [
+      0.118,
+      0.085,
+      0.071,
+      0.091,
+      0.084,
+      0.159,
+      0.604,
+      0.894,
+      0.227,
+      0.134,
+      0.124,
+      0.102,
+      0.175,
+      0.143,
+      0.144,
+      0.146,
+      0.186,
+      0.178,
+      0.245,
+      0.331,
+      0.289,
+      0.453,
+      0.315,
+      0.17
+    ],
+    "from": 5,
+    "to": 8,
+    "text": "Your highest energy demand is typically between 5–9 h on weekdays."
+  },
+  "home": {
+    "temperature": {
+      "value": "22.8°C",
+      "state": "Auto"
+    }
+  },
+  "usage": {
+    "24h": {
+      "title": "Forecast Profile",
+      "subtitle": "Hour-level granularity (next 24 h)",
+      "labels": [
+        "17:00",
+        "23:00",
+        "05:00",
+        "11:00",
+        "16:00"
+      ],
+      "values": [
+        0.079,
+        0.105,
+        0.159,
+        0.187,
+        0.73,
+        0.79,
+        0.299,
+        0.104,
+        0.087,
+        0.071,
+        0.091,
+        0.084,
+        1.307,
+        0.091,
+        0.089,
+        0.108,
+        0.11,
+        0.088,
+        0.076,
+        0.094,
+        0.088,
+        0.077,
+        0.095,
+        0.089
+      ],
+      "highlights": [
+        {
+          "index": 5,
+          "title": "Washer / dishwasher",
+          "detail": "22:00 • 0.79 kWh"
+        },
+        {
+          "index": 12,
+          "title": "Hot-water reheat",
+          "detail": "05:00 • 1.31 kWh"
+        }
+      ],
+      "incidents": [
+        {
+          "title": "Away mode",
+          "value": "−€1.82",
+          "time": "Mon 17:30",
+          "tone": "green"
+        },
+        {
+          "title": "Dishwasher",
+          "value": "−€0.17",
+          "time": "Mon 20:00",
+          "tone": "green"
+        },
+        {
+          "title": "Hot-water",
+          "value": "+1.3 kW",
+          "time": "Tue 05:00",
+          "tone": "accent"
+        }
+      ],
+      "summaryTitle": "Daily Summary",
+      "summary": [
+        {
+          "label": "Total",
+          "value": "5.1 kWh",
+          "delta": "22% vs yesterday",
+          "good": true
+        },
+        {
+          "label": "Peak usage",
+          "value": "1.3 kW",
+          "delta": "2% vs normal",
+          "good": true
+        },
+        {
+          "label": "Total cost",
+          "value": "€1.40",
+          "delta": "€0.14 to save",
+          "good": true,
+          "accent": true
+        }
+      ]
+    },
+    "3d": {
+      "title": "Forecast Profile",
+      "subtitle": "4-hour granularity (next 3 days)",
+      "labels": [
+        "Mon",
+        "Tue",
+        "Wed"
+      ],
+      "values": [
+        0.132,
+        0.481,
+        0.083,
+        0.399,
+        0.092,
+        0.088,
+        0.088,
+        0.09,
+        0.083,
+        0.206,
+        0.092,
+        0.088,
+        0.088,
+        0.29,
+        0.083,
+        0.272,
+        0.097,
+        0.088
+      ],
+      "highlights": [
+        {
+          "index": 1,
+          "title": "Washer / dishwasher",
+          "detail": "Mon 28 Sep 21:00 • 1.92 kWh"
+        },
+        {
+          "index": 3,
+          "title": "Hot-water reheat",
+          "detail": "Tue 29 Sep 05:00 • 1.60 kWh"
+        }
+      ],
+      "incidents": [
+        {
+          "title": "Away mode",
+          "value": "−€1.82",
+          "time": "Mon 17:30",
+          "tone": "green"
+        },
+        {
+          "title": "Dishwasher",
+          "value": "−€0.17",
+          "time": "Mon 20:00",
+          "tone": "green"
+        },
+        {
+          "title": "Hot-water",
+          "value": "+1.3 kW",
+          "time": "Tue 05:00",
+          "tone": "accent"
+        }
+      ],
+      "summaryTitle": "3-Day Summary",
+      "summary": [
+        {
+          "label": "Avg daily",
+          "value": "3.8 kWh",
+          "delta": "15% vs prev 3 d",
+          "good": true
+        },
+        {
+          "label": "Peak usage",
+          "value": "1.3 kW",
+          "delta": "5% vs normal",
+          "good": false
+        },
+        {
+          "label": "Total cost",
+          "value": "€3.26",
+          "delta": "€1.03 to save",
+          "good": true,
+          "accent": true
+        }
+      ]
+    },
+    "7d": {
+      "title": "Forecast Profile",
+      "subtitle": "12-hour granularity (next 7 days)",
+      "labels": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "values": [
+        0.232,
+        0.193,
+        0.087,
+        0.129,
+        0.154,
+        0.152,
+        0.087,
+        0.248,
+        0.087,
+        0.19,
+        0.189,
+        0.184,
+        0.097,
+        0.486
+      ],
+      "highlights": [
+        {
+          "index": 0,
+          "title": "Washer / dishwasher",
+          "detail": "Mon 28 Sep 17:00 • 2.78 kWh"
+        },
+        {
+          "index": 7,
+          "title": "Space heating",
+          "detail": "Fri 2 Oct 05:00 • 2.97 kWh"
+        },
+        {
+          "index": 13,
+          "title": "Washer / dishwasher",
+          "detail": "Mon 5 Oct 05:00 • 5.83 kWh"
+        }
+      ],
+      "incidents": [
+        {
+          "title": "HP schedule",
+          "value": "−€1.39",
+          "time": "Mon 17:00",
+          "tone": "green"
+        },
+        {
+          "title": "Away mode",
+          "value": "−€1.61",
+          "time": "Mon 17:30",
+          "tone": "green"
+        },
+        {
+          "title": "Hot-water",
+          "value": "+1.7 kW",
+          "time": "Mon 07:00",
+          "tone": "accent"
+        }
+      ],
+      "summaryTitle": "Weekly Summary",
+      "summary": [
+        {
+          "label": "Avg daily",
+          "value": "4.3 kWh",
+          "delta": "29% vs prev wk",
+          "good": true
+        },
+        {
+          "label": "Peak usage",
+          "value": "1.7 kW",
+          "delta": "9% vs normal",
+          "good": false
+        },
+        {
+          "label": "Total cost",
+          "value": "€8.42",
+          "delta": "€1.91 to save",
+          "good": true,
+          "accent": true
+        }
+      ]
+    }
+  }
+}

@@ -3,8 +3,8 @@ Results are cached in data/llm_cache/<provider>_<model>/; a day is only sent aga
 
 Usage:  python3 src/interpret_calendar.py              # all days 1 Sep – 12 Oct
         python3 src/interpret_calendar.py 2026-09-22   # one day: prints the prompt and the result
-Provider: ISHOME_PROVIDER=ollama (default; needs `ollama serve` + `ollama pull qwen3:8b`)
-          ISHOME_PROVIDER=gemini (needs GEMINI_API_KEY or API_KEY=... in .secret)
+Provider: ISHOME_PROVIDER=gemini (default; needs GEMINI_API_KEY or API_KEY=... in .secret)
+          ISHOME_PROVIDER=ollama (needs `ollama serve` + `ollama pull qwen3:8b`)
           ISHOME_PROVIDER=claude (needs ANTHROPIC_API_KEY or `ant auth login`)
 """
 import sys
