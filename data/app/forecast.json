@@ -177,7 +177,7 @@
           "detail": "22:00 • 0.79 kWh",
           "explain": [
             "0.57 of 0.79 kWh: washing machine / dishwasher run",
-            "0.58 kWh above a typical hour · €0.22 at €0.28/kWh"
+            "0.58 kWh above a typical hour · 22¢ at 28¢/kWh"
           ]
         },
         {
@@ -186,7 +186,7 @@
           "detail": "05:00 • 1.31 kWh",
           "explain": [
             "1.20 of 1.31 kWh: the heat pump refills the hot-water tank",
-            "1.09 kWh above a typical hour · €0.24 at €0.18/kWh"
+            "1.09 kWh above a typical hour · 24¢ at 18¢/kWh"
           ]
         }
       ],
@@ -199,7 +199,7 @@
         },
         {
           "title": "Dishwasher",
-          "value": "−€0.17",
+          "value": "−17¢",
           "time": "Mon 20:00",
           "tone": "green"
         },
@@ -227,7 +227,7 @@
         {
           "label": "Total cost",
           "value": "€1.40",
-          "delta": "€0.14 to save",
+          "delta": "14¢ to save",
           "good": true,
           "accent": true
         }
@@ -292,7 +292,7 @@
           "detail": "Mon 28 Sep 21:00 • 1.92 kWh",
           "explain": [
             "1.16 of 1.92 kWh: washing machine / dishwasher run (washing machine: evening before a trip, 70% likely; dishwasher: emptying before a trip, 60% likely)",
-            "1.29 kWh above a typical 4-hour block · €0.62 at €0.32/kWh"
+            "1.29 kWh above a typical 4-hour block · 62¢ at 32¢/kWh"
           ]
         },
         {
@@ -301,7 +301,7 @@
           "detail": "Tue 29 Sep 05:00 • 1.60 kWh",
           "explain": [
             "1.20 of 1.60 kWh: the heat pump refills the hot-water tank",
-            "0.96 kWh above a typical 4-hour block · €0.32 at €0.20/kWh"
+            "0.96 kWh above a typical 4-hour block · 32¢ at 20¢/kWh"
           ]
         }
       ],
@@ -314,7 +314,7 @@
         },
         {
           "title": "Dishwasher",
-          "value": "−€0.17",
+          "value": "−17¢",
           "time": "Mon 20:00",
           "tone": "green"
         },
@@ -400,7 +400,7 @@
           "detail": "Mon 28 Sep • 5.10 kWh",
           "explain": [
             "1.16 of 5.10 kWh: washing machine / dishwasher run (washing machine: evening before a trip, 70% likely; dishwasher: emptying before a trip, 60% likely)",
-            "0.79 kWh above a typical day · €1.40 at €0.28/kWh"
+            "0.79 kWh above a typical day · €1.40 at 28¢/kWh"
           ]
         },
         {
@@ -409,7 +409,7 @@
           "detail": "Sat 3 Oct • 4.47 kWh",
           "explain": [
             "1.22 of 4.47 kWh: the heat pump refills the hot-water tank",
-            "0.16 kWh above a typical day · €1.13 at €0.25/kWh"
+            "0.16 kWh above a typical day · €1.13 at 25¢/kWh"
           ]
         },
         {
@@ -418,7 +418,7 @@
           "detail": "Sun 4 Oct • 7.00 kWh",
           "explain": [
             "1.36 of 7.00 kWh: washing machine / dishwasher run (washing machine: after a 5-night trip + 7 days since last wash, 87% likely)",
-            "2.69 kWh above a typical day · €1.96 at €0.28/kWh"
+            "2.69 kWh above a typical day · €1.96 at 28¢/kWh"
           ]
         }
       ],

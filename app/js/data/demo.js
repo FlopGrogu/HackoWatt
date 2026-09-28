@@ -39,7 +39,7 @@ HW.demo = {
       summary: [
         { label: 'Total', value: '4.6 kWh', delta: '8% vs yesterday', good: true },
         { label: 'Peak usage', value: '1.5 kW', delta: '5% vs normal', good: false },
-        { label: 'Total cost', value: '€1.35', delta: '€0.21 saved', good: true, accent: true },
+        { label: 'Total cost', value: '€1.35', delta: '21¢ saved', good: true, accent: true },
       ],
     },
     '3d': {
@@ -59,7 +59,7 @@ HW.demo = {
       summary: [
         { label: 'Avg daily', value: '4.8 kWh', delta: '3% vs last 3 days', good: true },
         { label: 'Peak usage', value: '2.1 kW', delta: '9% vs normal', good: false },
-        { label: 'Total cost', value: '€4.10', delta: '€0.55 saved', good: true, accent: true },
+        { label: 'Total cost', value: '€4.10', delta: '55¢ saved', good: true, accent: true },
       ],
     },
     '7d': {

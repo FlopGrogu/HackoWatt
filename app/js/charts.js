@@ -77,17 +77,20 @@
     },
 
     /**
-     * Forecast profile: the predicted kWh per block. Highlighted points are ringed and explain themselves in the
-     * tooltip. Scheduling a shiftable device moves its energy, so the line is `values` plus the deltas of the
-     * confirmed shifts; pending (not yet confirmed) shifts are drawn as a dashed green alternative line with a
-     * clickable marker at the cheaper time. `shifts` = { pending, confirmed }, `onPick(shift)` = marker clicked.
+     * Forecast profile: the predicted kWh per block, over a step-function background of the tariff. Highlighted
+     * points are ringed and explain themselves in the tooltip. Scheduling a shiftable device moves its energy, so
+     * the line is `values` plus the deltas of the confirmed shifts; pending (not yet confirmed) shifts are drawn
+     * as a dashed green alternative line with a clickable marker at the cheaper time (the forecast turns grey
+     * while that alternative is on screen). `shifts` = { pending, confirmed }, `onPick(shift)` = marker clicked,
+     * `onFocus(blockIndex)` = the pointer is over that block (the devices list follows it).
      */
-    profile({ values, highlights }, { start, stepHours, shifts = {}, onPick } = {}) {
+    profile({ values, highlights }, { start, stepHours, shifts = {}, onPick, onFocus } = {}) {
       const t = theme();
       const green = token('--green');
       const step = stepHours || 1;
       const count = values.length;
       const { pending = [], confirmed = [] } = shifts;
+      const line = pending.length ? t.forecast : t.accent;     // grey while the green alternative is offered
 
       // --- apply shifts: {hour offset: kWh} maps are added to / removed from the block containing that hour ---
       const bucketed = (shift) => {
@@ -108,6 +111,13 @@
       const markers = new Map(pending.map((sh) => [Math.floor(sh.idealIndex / step), sh])
         .filter(([b]) => b < count));
 
+      // --- tariff per block (average over its hours), drawn as a step function behind the forecast ---
+      const rate = (hour) => (HW.config.tariff.find((seg) => hour % 24 >= seg.from && hour % 24 < seg.to) ?? {}).price ?? 0;
+      const prices = start ? values.map((_, i) => {
+        const first = start.getHours() + i * step;
+        return Array.from({ length: step }, (_, k) => rate(first + k)).reduce((a, b) => a + b, 0) / step;
+      }) : null;
+
       const byIndex = new Map(highlights.map((h) => [h.index, h]));
       const when = (i) => (start && stepHours
         ? new Date(start.getTime() + i * stepHours * 3600_000).toLocaleString('en-US', {
@@ -123,41 +133,17 @@
         return lines;
       }, []);
 
-      const state = { selected: null };
-      let peak = null;                                   // pre-selected: the highest highlighted point
-      highlights.forEach((h) => { if (peak === null || main[h.index] > main[peak]) peak = h.index; });
-      state.selected = peak;
-
-      const show = (chart) => {
-        if (state.selected === null) return;
-        const el = chart.getDatasetMeta(0).data[state.selected];
-        if (!el) return;
-        const active = [{ datasetIndex: 0, index: state.selected }];
-        chart.setActiveElements(active);
-        const { x, y } = el.getProps(['x', 'y'], true);   // final position, not the mid-animation one
-        chart.tooltip.setActiveElements(active, { x, y });
-      };
-      const isSelected = (c) => c.dataIndex === state.selected;
-
       return {
         id: `profile-${count}-${step}`,        // same id = same chart: data changes animate instead of redrawing
-        ready(chart) {           // show the selected tooltip once the entrance animation is done
-          setTimeout(() => {
-            if (Chart.getChart(chart.canvas) === chart && !chart.tooltip.getActiveElements().length) {
-              show(chart);
-              chart.update('none');
-            }
-          }, 1100);
-        },
         config: {
           type: 'line',
           data: { labels: values.map((_, i) => i), datasets: [{
-            data: main, borderColor: t.accent, borderWidth: 3, cubicInterpolationMode: 'monotone',
+            data: main, borderColor: line, borderWidth: 3, cubicInterpolationMode: 'monotone',
             pointRadius: (c) => (byIndex.has(c.dataIndex) ? 8 : 0),
             pointHoverRadius: (c) => (byIndex.has(c.dataIndex) ? 9 : 5),
-            pointBackgroundColor: (c) => (isSelected(c) ? '#fff' : t.card),
-            pointHoverBackgroundColor: (c) => (byIndex.has(c.dataIndex) ? '#fff' : t.accent),
-            pointBorderColor: t.accent, pointBorderWidth: 2, pointHoverBorderColor: t.accent, pointHoverBorderWidth: 2,
+            pointBackgroundColor: t.card,
+            pointHoverBackgroundColor: (c) => (byIndex.has(c.dataIndex) ? '#fff' : line),
+            pointBorderColor: line, pointBorderWidth: 2, pointHoverBorderColor: line, pointHoverBorderWidth: 2,
           }, {
             data: altData, borderColor: green, borderWidth: 2.5, borderDash: [6, 5], cubicInterpolationMode: 'monotone',
             spanGaps: false, order: -1,
@@ -166,17 +152,23 @@
             pointHoverRadius: (c) => (markers.has(c.dataIndex) ? 11 : 0),
             pointBackgroundColor: t.card, pointHoverBackgroundColor: green,
             pointBorderColor: green, pointBorderWidth: 3, pointHoverBorderColor: green,
+          }, {
+            data: prices ?? values.map(() => null), yAxisID: 'price', stepped: 'after', fill: 'origin', order: 10,
+            borderColor: 'rgba(255, 255, 255, .16)', borderWidth: 1.5, backgroundColor: 'rgba(255, 255, 255, .045)',
+            pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0,
           }] },
           options: base(t, {
             layout: { padding: { top: 96, bottom: 10, left: 12, right: 12 } },
             interaction: { mode: 'hw', intersect: false },
-            scales: scales(t, { grace: '10%' }),
+            scales: { ...scales(t, { grace: '10%' }), price: { display: false, min: 0, max: 0.85 } },
+            onHover(_evt, elements) {
+              const el = elements.find((e) => e.datasetIndex === 0);
+              if (el) onFocus?.(el.index);
+            },
             onClick(evt, _els, chart) {
-              const alt = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true)
+              const marker = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true)
                 .find((e) => e.datasetIndex === 1 && markers.has(e.index));
-              if (alt) { onPick?.(markers.get(alt.index)); return; }
-              const hit = chart.getElementsAtEventForMode(evt, 'nearest', { axis: 'x', intersect: false }, true)[0];
-              if (hit && byIndex.has(hit.index)) { state.selected = hit.index; chart.update('none'); }
+              if (marker) onPick?.(markers.get(marker.index));
             },
             plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
               title: (items) => {
@@ -188,20 +180,16 @@
                 if (item.datasetIndex === 1) {
                   const sh = markers.get(item.dataIndex);
                   return [`Run at ${at(sh.ideal)} instead of ${at(sh.usual)}`,
-                          `Saves ≈ €${sh.saving.toFixed(2)} · tap to schedule`];
+                          `Saves ≈ ${HW.fmt.money(sh.saving)} · tap to schedule`];
                 }
                 const h = byIndex.get(item.dataIndex);
-                return h ? [h.detail, ...(h.explain || []).flatMap((line) => wrap(line))]
-                  : `${item.parsed.y.toFixed(2)} kWh`;
+                const lines = h ? [h.detail, ...(h.explain || []).flatMap((l) => wrap(l))]
+                  : [`${item.parsed.y.toFixed(2)} kWh`];
+                if (prices) lines.push(`Price: ${HW.fmt.money(prices[item.dataIndex])}/kWh`);
+                return lines;
               },
             } } },
           }),
-          plugins: [{
-            id: 'restoreSelection',                       // when the pointer leaves, show the selected point again
-            afterEvent(chart, args) {
-              if (args.event.type === 'mouseout') { show(chart); args.changed = true; }
-            },
-          }],
         },
       };
     },

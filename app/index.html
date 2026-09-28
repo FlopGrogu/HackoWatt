@@ -74,7 +74,7 @@
             <template x-for="seg in tariff">
               <div class="tariff-seg" :style="`flex:${seg.to - seg.from}`">
                 <div class="tariff-fill" :class="[seg.tone, seg.to - seg.from <= 2 && 'narrow']">
-                  <span class="price" x-text="$euro(seg.price)"></span>
+                  <span class="price" x-text="$money(seg.price)"></span>
                 </div>
               </div>
             </template>
@@ -143,9 +143,10 @@
           <div class="axis">
             <template x-for="label in data?.labels"><span x-text="label"></span></template>
           </div>
-          <div class="legend bottom" x-show="pendingCount">
-            <span><i class="dot orange"></i>Forecast</span>
-            <span><i class="dot green"></i>If shifted to a cheaper time</span>
+          <div class="legend bottom">
+            <span><i class="dot" :class="pendingCount ? 'grey' : 'orange'"></i>Forecast</span>
+            <span x-show="pendingCount"><i class="dot green"></i>If shifted</span>
+            <span><i class="square faint"></i>Price</span>
           </div>
           <p class="muted hint" x-show="pendingCount">Tap a green marker to schedule the device there.</p>
         </article>
@@ -161,13 +162,15 @@
         <div x-data="deviceList" class="device-groups">
           <div class="devices-head">
             <h3 class="section-title">Devices</h3>
-            <span class="muted" x-text="`${format(total)} now · ${activeCount} of ${devices.length} running`"></span>
+            <span class="devices-date" x-text="dateLabel"></span>
           </div>
+          <p class="muted devices-sum" x-text="`${format(total)} · ${activeCount} of ${devices.length} running`"></p>
+          <p class="muted empty" x-show="!groups.length">No devices are running at this time.</p>
           <template x-for="group in groups">
             <article class="card room">
               <div class="room-head">
                 <h2><i class="dot orange"></i><span x-text="group.title"></span></h2>
-                <span class="muted" x-text="`${format(groupTotal(group))} now`"></span>
+                <span class="muted" x-text="format(groupTotal(group))"></span>
               </div>
               <p class="muted group-hint" x-text="group.hint"></p>
               <template x-for="device in group.devices">
@@ -243,11 +246,11 @@
             <h2 x-text="`Schedule the ${$store.shifts.selected.device.toLowerCase()}?`"></h2>
             <p class="muted" x-text="`Likely needed ${$when($store.shifts.selected.usual)} (${$store.shifts.selected.reason}, ${Math.round($store.shifts.selected.p * 100)}% likely).`"></p>
             <div class="sheet-times">
-              <div><span class="muted">Usual</span><strong x-text="$when($store.shifts.selected.usual)"></strong><span class="muted" x-text="$euro($store.shifts.selected.usualPrice) + '/kWh'"></span></div>
+              <div><span class="muted">Usual</span><strong x-text="$when($store.shifts.selected.usual)"></strong><span class="muted" x-text="$money($store.shifts.selected.usualPrice) + '/kWh'"></span></div>
               <span class="accent" x-html="$icon('chevron')"></span>
-              <div class="cheap"><span class="muted">Cheaper</span><strong x-text="$when($store.shifts.selected.ideal)"></strong><span class="muted" x-text="$euro($store.shifts.selected.idealPrice) + '/kWh'"></span></div>
+              <div class="cheap"><span class="muted">Cheaper</span><strong x-text="$when($store.shifts.selected.ideal)"></strong><span class="muted" x-text="$money($store.shifts.selected.idealPrice) + '/kWh'"></span></div>
             </div>
-            <p class="sheet-save" x-text="`Saves ≈ ${$euro($store.shifts.selected.saving)} and smooths out your evening load.`"></p>
+            <p class="sheet-save" x-text="`Saves ≈ ${$money($store.shifts.selected.saving)} and smooths out your evening load.`"></p>
             <div class="sheet-actions">
               <button class="btn outline" @click="$store.shifts.cancel()">Not now</button>
               <button class="btn primary" @click="$store.shifts.confirm()">Schedule</button>

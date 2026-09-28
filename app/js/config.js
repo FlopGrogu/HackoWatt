@@ -2,7 +2,6 @@
 window.HW = window.HW || {};
 
 HW.config = {
-  currency: '€',
   // Forecast written by src/export_app_data.py. Relative to index.html: serve the repository root (e.g.
   // `python -m http.server` there, then open /app/). If it cannot be loaded the app falls back to js/data/demo.js.
   forecastUrl: '../data/app/forecast.json',
@@ -27,4 +26,9 @@ HW.config = {
     { id: 'forecast', label: 'Forecast' },
     { id: 'profile', label: 'Profile' },
   ],
+};
+
+HW.fmt = {
+  /** Amounts under one euro are shown in cents ("28¢"), larger ones in euros ("€1.40"). */
+  money: (euros) => (Math.abs(euros) < 1 ? `${Math.round(euros * 100)}¢` : `€${euros.toFixed(2)}`),
 };

@@ -233,7 +233,9 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 .device-groups { display: flex; flex-direction: column; gap: 18px; }
 .devices-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 6px; }
 .devices-head .section-title { margin: 0; }
-.devices-head .muted { font-size: 13px; }
+.devices-date { font-size: 14px; font-weight: 600; color: var(--accent); }
+.devices-sum { margin: -12px 0 0 !important; font-size: 13px; }
+.empty { padding: 6px 0; }
 .group-hint { margin: -2px 0 4px !important; font-size: 13px; }
 
 /* forecast: explanation card, scheduled devices, confirmation sheet */
@@ -257,3 +259,5 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 .sheet-save { margin-bottom: 20px; color: #c8c4bf; font-size: 14px; }
 .sheet-actions { display: flex; gap: 10px; }
 .sheet-actions .btn { flex: 1; margin: 0; }
+
+.square.faint { background: rgba(255, 255, 255, .16); }

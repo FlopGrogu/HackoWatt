@@ -165,10 +165,13 @@ document.addEventListener('alpine:init', () => {
   });
   Alpine.store('shifts').load();
 
+  // The forecast time the user last pointed at on the chart (ms); the devices list shows that moment.
+  Alpine.store('focus', { time: null });
+
   /** "Tue 03:00" for an ISO timestamp. */
   Alpine.magic('when', () => (iso) =>
     new Date(iso).toLocaleString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }));
 
   Alpine.magic('icon', () => (name) => HW.icons[name] || '');
-  Alpine.magic('euro', () => (value) => `${HW.config.currency}${value.toFixed(2)}`);
+  Alpine.magic('money', () => HW.fmt.money);
 });

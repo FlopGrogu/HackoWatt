@@ -34,6 +34,11 @@ document.addEventListener('alpine:init', () => {
         stepHours: this.data.stepHours,                        // … and the spacing between points
         shifts: { pending: shifts.pending, confirmed: shifts.confirmed },
         onPick: (shift) => shifts.select(shift),
+        onFocus: (block) => {                                  // remember the last hovered block for the devices list
+          if (this.meta?.now && this.data.stepHours) {
+            Alpine.store('focus').time = new Date(this.meta.now).getTime() + block * this.data.stepHours * 3600_000;
+          }
+        },
       });
     },
     get pendingCount() {

@@ -57,6 +57,11 @@ RANGES = {"24h": (24, 1, "Hour-level granularity (next 24 h)"),
           "7d": (168, 24, "Daily totals (next 7 days)")}
 
 
+def cents(euros):
+    """Amounts under one euro are shown in cents (¢) in the app, larger ones in euros."""
+    return f"{euros * 100:.0f}¢" if abs(euros) < 1 else f"€{euros:.2f}"
+
+
 def r1(x, n=1):
     return round(x, n)
 
@@ -138,7 +143,7 @@ def highlights(rows, size, count, runs=()):
         vs = total - sum(sum(p.values()) for p in parts) / len(parts)
         more = f"{abs(vs):.2f} kWh {'above' if vs >= 0 else 'below'} a typical {UNIT[size]}"
         points.append(dict(index=i, title=BLOCK_TITLES[driver], detail=f"{when} • {total:.2f} kWh",
-                           explain=[why_line[0].upper() + why_line[1:], f"{more} · €{cost:.2f} at €{rate:.2f}/kWh"],
+                           explain=[why_line[0].upper() + why_line[1:], f"{more} · {cents(cost)} at {cents(rate)}/kWh"],
                            total=total))
     gap = 3 if size == 1 else 1 if size < 24 else 0     # don't pick neighbouring points of the same peak
     top = []
@@ -196,7 +201,7 @@ def incidents(now, hours, rows, runs, trips, llm):
     short = {"away-mode reminder": "Away mode", "dishwasher tip": "Dishwasher", "washing machine tip": "Washer",
              "heat pump setting tip": "HP schedule"}
     for t in reminders_and_tips(now, hours, rows, runs, trips, llm=llm)[:2]:
-        out.append({"title": short.get(t["kind"], t["kind"]), "value": f"−€{t['saving_eur']:.2f}",
+        out.append({"title": short.get(t["kind"], t["kind"]), "value": f"−{cents(t['saving_eur'])}",
                     "time": f"{t['send_at']:%a %H:%M}", "tone": "green"})
     for r in sorted(rows, key=lambda r: -r["total_real_kwh"]):
         if len(out) == 3:
@@ -226,7 +231,7 @@ def summary(now, hours, rows):
          "good": change <= 0},
         {"label": "Peak usage", "value": f"{peak:.1f} kW", "delta": f"{abs(peak_change):.0%} vs normal",
          "good": peak_change <= 0},
-        {"label": "Total cost", "value": f"€{cost:.2f}", "delta": f"€{saved:.2f} to save", "good": True,
+        {"label": "Total cost", "value": cents(cost), "delta": f"{cents(saved)} to save", "good": True,
          "accent": True},
     ]
 
