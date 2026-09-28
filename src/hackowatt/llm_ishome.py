@@ -1,7 +1,7 @@
 """isHome – LLM step: an LLM reads one calendar day and returns when the user is home and with whom.
 
-Provider chosen with ISHOME_PROVIDER: "ollama" (default, local, free – model qwen3:8b), "gemini"
-(Google Gemini API, key in GEMINI_API_KEY or API_KEY in .secret, model gemini-3.5-flash-lite) or "claude" (Anthropic API, model
+Provider chosen with ISHOME_PROVIDER: "gemini" (default; Google Gemini API, key in GEMINI_API_KEY or API_KEY
+in .secret, model gemini-3.5-flash-lite), "ollama" (local, free – model qwen3:8b) or "claude" (Anthropic API, model
 claude-opus-5). ISHOME_MODEL overrides the model. The reason is asked before the score so the model
 decides the number after describing the interval.
 
@@ -28,7 +28,7 @@ from .calendar_parse import entries_by_day, format_day
 from .paths import ROOT
 from .profile import profile_text
 
-PROVIDER = os.environ.get("ISHOME_PROVIDER", "ollama")
+PROVIDER = os.environ.get("ISHOME_PROVIDER", "gemini")
 MODEL = os.environ.get("ISHOME_MODEL", {"ollama": "qwen3:8b", "gemini": "gemini-3.5-flash-lite",
                                         "claude": "claude-opus-5"}[PROVIDER])
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
