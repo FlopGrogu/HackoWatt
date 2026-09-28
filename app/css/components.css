@@ -1,0 +1,159 @@
+/* Reusable building blocks, in the order they appear in the mockups. */
+
+/* ---------- dots, legends ---------- */
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+.dot.green { background: var(--green); }
+.dot.orange { background: var(--accent); }
+.dot.grey { background: #5b5856; }
+.square { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 8px; vertical-align: -2px; }
+.square.orange { background: var(--accent); }
+.square.grey { background: var(--line); }
+.legend { display: flex; gap: 16px; font-size: 13px; color: #c8c4bf; white-space: nowrap; }
+.legend.bottom { margin-top: 18px; }
+
+/* ---------- home header ---------- */
+.welcome { position: relative; padding: 18px 0 0; }
+.welcome h1 { white-space: nowrap; font-size: 22px; }
+.status-line { margin-top: 6px; color: #c8c4bf; font-size: 15px; }
+.avatar {
+  position: absolute; top: 4px; right: -4px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #6a4a32, #2d4a3a);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 18px rgba(255, 176, 102, .35);
+  font-weight: 700; font-size: 22px;
+}
+
+/* ---------- cards ---------- */
+.card { background: var(--card); border-radius: var(--radius); padding: 22px 20px; }
+.card .muted { margin-top: 4px; line-height: 1.4; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.card-head .legend { padding-top: 4px; }
+.tappable { cursor: pointer; }
+.tappable:active { transform: scale(.99); }
+
+/* ---------- line charts ---------- */
+.chart { position: relative; height: 130px; margin-top: 18px; }
+.chart.tall { height: 190px; margin-top: 26px; }
+.chart svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.chart .grid { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart .line { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.chart .line.forecast { stroke: #6f6c69; stroke-dasharray: 5 6; }
+.chart-dot {
+  position: absolute; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent); transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 5px rgba(255, 176, 102, .18);
+}
+.chart .stripes {
+  position: absolute; inset: 0 0 20px;
+  background: repeating-linear-gradient(90deg, rgba(122, 86, 56, .35) 0 5px, transparent 5px 14px);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+}
+.chart-point {
+  position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card); border: 2px solid var(--accent);
+}
+.chart-point::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); opacity: .45; }
+.chart-point.selected { background: #fff; box-shadow: 0 0 0 3px var(--accent); }
+.chart-point.selected::after { display: none; }
+.tooltip {
+  position: absolute; z-index: 2;
+  transform: translate(-50%, calc(-100% - 18px));
+  padding: 9px 14px; border-radius: 14px;
+  background: #211f1d; border: 1.5px solid var(--accent);
+  display: flex; flex-direction: column; gap: 3px; white-space: nowrap;
+  font-size: 13px; color: #c8c4bf;
+}
+.tooltip strong { color: var(--accent); font-size: 15px; font-weight: 600; }
+.axis { display: flex; justify-content: space-between; margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* ---------- time-of-use tariff bar ---------- */
+.tariff { position: relative; display: flex; height: 50px; margin-top: 24px; border-radius: 16px; overflow: visible; }
+.tariff-seg {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-size: 15px; font-weight: 600; color: #cfcbc6;
+}
+.tariff-seg:first-child { border-radius: 16px 0 0 16px; }
+.tariff-seg:last-child { border-radius: 0 16px 16px 0; font-size: 11px; overflow: visible; white-space: nowrap; }
+.tariff-seg.low { background: #4b4948; }
+.tariff-seg.mid { background: #6b4c33; }
+.tariff-seg.high { background: var(--accent); color: #fff; }
+.tariff-seg .now-label { color: var(--accent); font-size: 13px; margin-left: 8px; }
+.tariff-seg.high .now-label { color: #1c1b1a; }
+.tariff-marker { position: absolute; top: -6px; bottom: 0; width: 2px; background: var(--accent); }
+.tariff-marker::before {
+  content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top: 9px solid var(--accent);
+}
+.tariff-axis { display: flex; margin-top: 10px; font-size: 11.5px; color: var(--muted); }
+.tariff-axis span { white-space: nowrap; min-width: 0; }
+.tariff-axis span:last-child { text-align: right; }
+
+/* ---------- peak demand bars ---------- */
+.bars { display: flex; align-items: flex-end; gap: 3px; height: 130px; margin-top: 30px; }
+.bar { flex: 1; min-height: 10%; border-radius: 5px 5px 3px 3px; background: #3c3a38; }
+.bar.hot { background: var(--accent); }
+
+/* ---------- tiles ---------- */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tile { background: var(--card); border-radius: var(--radius-sm); padding: 14px 12px 16px; border: 1.5px solid transparent; }
+.tile.highlight { border-color: var(--accent-dark); background: #29231f; }
+.tile-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.tile-state { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+.tile-value { font-size: 26px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 3px; white-space: nowrap; }
+.tile-value.small { font-size: 20px; margin: 4px 0 8px; }
+.tile.compact { padding: 14px 11px; }
+.tile.compact .caps { font-size: 10.5px; letter-spacing: .3px; white-space: nowrap; }
+.tile.compact .tile-value { font-size: 21px; margin: 8px 0 6px; }
+.tile .muted { font-size: 13px; }
+.delta { font-size: 10.5px; font-weight: 500; display: flex; gap: 4px; white-space: nowrap; }
+
+.icon-bubble {
+  display: grid; place-items: center; flex: none;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: #353331; color: #bdb9b4;
+}
+.icon-bubble svg { width: 20px; height: 20px; }
+.icon-bubble.warm { background: var(--accent-soft); color: var(--accent); }
+.icon-bubble.square { border-radius: 12px; width: 44px; height: 44px; }
+.icon-bubble.big { width: 72px; height: 72px; }
+.icon-bubble.big svg { width: 32px; height: 32px; }
+
+/* ---------- sub-screen top bar, segmented control ---------- */
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 6px; }
+.topbar h1 { font-size: 24px; font-weight: 600; }
+.topbar.left { justify-content: flex-start; gap: 18px; }
+.icon-btn {
+  display: grid; place-items: center; width: 50px; height: 50px;
+  border-radius: 14px; background: var(--card); color: var(--text);
+}
+.icon-btn.round { border-radius: 50%; border: 1px solid var(--line); background: transparent; }
+.section-title { font-size: 19px; font-weight: 600; color: #c8c4bf; margin-top: 6px; }
+
+.segmented { display: flex; padding: 5px; border-radius: 16px; background: var(--card); }
+.segmented button {
+  flex: 1; height: 44px; border-radius: 12px;
+  font-size: 18px; font-weight: 600; color: #c8c4bf;
+}
+.segmented button.active { background: var(--accent); color: #1c1b1a; }
+
+/* ---------- devices ---------- */
+.room { padding: 18px 18px 6px; }
+.room-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.room-head h2 { font-size: 21px; font-weight: 700; }
+.device { display: flex; align-items: center; gap: 14px; padding: 12px 0; }
+.device + .device { border-top: 1px solid var(--line); }
+.device-info { flex: 1; min-width: 0; }
+.device-name { font-size: 17px; font-weight: 500; margin-bottom: 5px; }
+.badge {
+  display: inline-block; padding: 2px 7px; border-radius: 5px;
+  border: 1px solid var(--accent-dark); background: var(--accent-soft);
+  color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+}
+.watts { color: var(--accent); font-size: 20px; font-weight: 700; white-space: nowrap; }
+
+/* ---------- placeholder screens ---------- */
+.placeholder { align-items: center; justify-content: center; text-align: center; min-height: 60vh; gap: 12px; }
