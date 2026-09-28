@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Energy Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --bg: #f4f6fb;
+      --card: #fff;
+      --tx: #1b2333;
+      --mu: #6b7488;
+      --gr: #e6e9f1;
+      --ac: #4f46e5
+    }
+
+    @media(prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e1220;
+        --card: #171d31;
+        --tx: #e8ebf5;
+        --mu: #95a0ba;
+        --gr: #262e48;
+        --ac: #8b85ff
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0e1220;
+      --card: #171d31;
+      --tx: #e8ebf5;
+      --mu: #95a0ba;
+      --gr: #262e48;
+      --ac: #8b85ff
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font: 14px/1.5 Inter, system-ui, Segoe UI, sans-serif
+    }
+
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 18px 48px
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 22px
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -.02em
+    }
+
+    h1 span {
+      color: var(--ac)
+    }
+
+    p.sub {
+      margin: 4px 0 0;
+      color: var(--mu)
+    }
+
+    button {
+      font: 600 13px Inter, sans-serif;
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 14px;
+      background: var(--ac);
+      color: #fff;
+      cursor: pointer;
+      margin-left: 8px
+    }
+
+    button.alt {
+      background: transparent;
+      color: var(--ac);
+      box-shadow: inset 0 0 0 1.5px var(--ac)
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 1px 2px #0001, 0 8px 24px -12px #2233661f
+    }
+
+    .kpi b {
+      display: block;
+      font-size: 26px;
+      letter-spacing: -.02em
+    }
+
+    .kpi small {
+      color: var(--mu)
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px
+    }
+
+    .wide {
+      grid-column: 1/-1
+    }
+
+    h2 {
+      margin: 0 0 2px;
+      font-size: 15px
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--mu);
+      font-size: 12.5px
+    }
+
+    .box {
+      position: relative;
+      height: 340px
+    }
+
+    .wide .box {
+      height: 380px
+    }
+
+    @media(max-width:820px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Aleksandra's <span>energy</span> dashboard</h1>
+        <p class="sub">Minute-level appliance simulation · 1 Sep – 12 Oct 2026 · history until 28 Sep, forecast after
+        </p>
+      </div>
+      <div><button id="dl1">⬇ Hourly CSV</button><button id="dl2" class="alt">⬇ Events CSV</button></div>
+    </header>
+    <section class="kpis" id="kpis"></section>
+    <section class="grid">
+      <div class="card wide">
+        <h2>Daily energy by appliance</h2>
+        <p>Stacked kWh per day; red dashed line splits history from prediction.</p>
+        <div class="box"><canvas id="c1"></canvas></div>
+      </div>
+      <div class="card wide">
+        <h2>Apartment thermal dynamics</h2>
+        <p>Indoor temperature vs heating setpoint (left) and outdoor temperature (right).</p>
+        <div class="box"><canvas id="c3"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Average hourly load by occupancy</h2>
+        <p>Mean kWh for each hour of day.</p>
+        <div class="box"><canvas id="c2"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>At home vs away</h2>
+        <p>Average kWh per day per device.</p>
+        <div class="box"><canvas id="c4"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Hourly variance share</h2>
+        <p>Which devices drive volatility in the load.</p>
+        <div class="box"><canvas id="c5"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Energy by appliance run events</h2>
+        <p>Total kWh across logged runs.</p>
+        <div class="box"><canvas id="c6"></canvas></div>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <!-- ===================== EnergySim: browser-safe port of the Python simulator ===================== -->
+  <script>
+    const EnergySim = (() => {
+      const APPLIANCES = ["fridge", "heat_pump_space_heating", "heat_pump_hot_water", "kettle", "coffee_machine", "oven", "washing_machine", "dishwasher", "tv", "laptop", "wifi_router", "lighting", "phone_tablet_charging", "standby"];
+      const NDAYS = 42, N = NDAYS * 1440, HIST = 28 * 1440, CYCLE = 36;
+      // "MM-DD HH:MM" -> minute index from 1 Sep 00:00
+      const mi = s => ((+s.slice(0, 2) == 9 ? +s.slice(3, 5) - 1 : 30 + +s.slice(3, 5) - 1) * 1440) + +s.slice(6, 8) * 60 + +s.slice(9, 11);
+      const mulberry = a => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296 };
+      const P = { // day plan (from the calendar)
+        AWAY: [["09-01 00:00", "09-01 13:20"], ["09-02 08:15", "09-02 21:20"], ["09-03 15:20", "09-04 22:20"], ["09-05 09:30", "09-05 10:30"], ["09-05 14:55", "09-05 16:30"], ["09-06 11:05", "09-06 14:30"], ["09-07 11:45", "09-07 12:45"], ["09-08 08:10", "09-08 17:50"], ["09-08 19:10", "09-08 22:35"], ["09-09 05:50", "09-09 22:50"], ["09-10 07:40", "09-10 09:05"], ["09-11 14:30", "09-13 22:20"], ["09-14 08:15", "09-14 18:10"], ["09-15 06:20", "09-17 20:25"], ["09-19 09:30", "09-20 17:40"], ["09-21 12:35", "09-22 16:35"], ["09-22 19:00", "09-22 20:50"], ["09-24 08:20", "09-24 18:15"], ["09-25 08:15", "09-25 23:20"], ["09-26 08:50", "09-27 19:05"], ["09-28 08:15", "09-28 18:00"], ["09-28 18:15", "09-28 19:35"], ["09-29 05:30", "10-04 22:55"], ["10-05 18:40", "10-05 21:20"], ["10-06 08:10", "10-06 17:45"], ["10-07 05:30", "10-09 22:20"], ["10-10 09:15", "10-10 11:10"], ["10-10 12:00", "10-10 13:45"], ["10-11 10:15", "10-11 11:45"], ["10-11 14:40", "10-11 16:40"]],
+        HOLIDAY: [["09-15 06:20", "09-17 20:25"], ["09-26 08:50", "09-27 19:05"], ["10-07 05:30", "10-09 22:20"]],
+        PAUL_STAY: [["09-05 16:30", "09-07 11:45"], ["09-22 20:50", "09-24 05:45"], ["10-10 13:45", "10-12 14:30"]],
+        PAUL_OUT: [["09-06 11:05", "09-06 14:30"], ["09-07 11:45", "09-07 12:45"], ["10-11 10:15", "10-11 11:45"]],
+        GUESTS: [["09-18 19:00", "09-18 23:40", 5], ["09-23 19:00", "09-23 23:00", 2], ["10-10 18:30", "10-11 00:20", 5]],
+        SLEEP: [["09-01 22:45", "09-02 06:40"], ["09-02 23:15", "09-03 06:35"], ["09-04 23:15", "09-05 07:45"], ["09-05 23:45", "09-06 08:30"], ["09-06 23:30", "09-07 07:00"], ["09-07 23:00", "09-08 06:30"], ["09-08 23:10", "09-09 05:15"], ["09-09 23:20", "09-10 06:50"], ["09-10 23:00", "09-11 06:45"], ["09-13 23:15", "09-14 06:40"], ["09-14 22:45", "09-15 05:30"], ["09-17 23:00", "09-18 07:00"], ["09-19 00:15", "09-19 08:00"], ["09-20 22:45", "09-21 06:45"], ["09-22 23:30", "09-23 07:00"], ["09-23 23:45", "09-24 05:30"], ["09-24 22:45", "09-25 06:40"], ["09-25 23:50", "09-26 07:30"], ["09-27 23:00", "09-28 06:35"], ["09-28 23:00", "09-29 04:50"], ["10-04 23:30", "10-05 07:00"], ["10-05 23:15", "10-06 06:30"], ["10-06 22:45", "10-07 04:50"], ["10-09 23:10", "10-10 08:00"], ["10-11 00:45", "10-11 09:00"], ["10-11 23:30", "10-12 07:00"], ["10-12 22:45", "10-13 06:40"]],
+        WFH: [["09-03 08:15", "09-03 15:10"], ["09-07 08:30", "09-07 11:40"], ["09-07 12:50", "09-07 17:30"], ["09-10 09:10", "09-10 18:00"], ["09-11 08:30", "09-11 14:20"], ["09-18 08:45", "09-18 16:45"], ["09-21 08:15", "09-21 12:20"], ["09-23 08:30", "09-23 17:30"], ["10-05 08:30", "10-05 13:55"], ["10-05 15:30", "10-05 18:20"], ["10-12 08:30", "10-12 17:30"]],
+        PAUL_LAPTOP: [["09-07 08:30", "09-07 11:30"], ["09-23 09:00", "09-23 17:30"], ["10-12 09:00", "10-12 14:00"]],
+        TV: [["09-05 21:30", 105, "Evening with Paul"], ["09-06 20:00", 150, "Movie night with Paul"], ["09-20 20:00", 120, "Tired after Mazury"], ["10-11 20:30", 120, "Evening with Paul"]],
+        OVEN: [["09-01 19:15", 25, "Frozen pizza"], ["09-05 18:45", 55, "Duck breast + veg"], ["09-10 19:00", 30, "Baked salmon"], ["09-18 17:50", 65, "Lasagne"], ["09-22 21:00", 25, "Late pizza"], ["09-23 19:30", 40, "Käsespätzle gratin"], ["09-23 20:15", 35, "Apple crumble"], ["09-24 19:15", 25, "Reheating leftovers"], ["09-28 19:45", 35, "Chicken traybake"], ["10-06 19:00", 35, "Roasted vegetables"], ["10-10 19:00", 40, "Baked pierogi"], ["10-12 18:45", 45, "Roasted veg + halloumi"]],
+        WASHER: [["09-01 14:00", "hot", "Holiday laundry #1"], ["09-01 16:30", "normal", "Holiday laundry #2"], ["09-03 07:30", "normal", "Before Stockholm"], ["09-05 11:00", "normal", "After Stockholm"], ["09-11 07:15", "normal", "Before Berlin"], ["09-14 20:00", "normal", "Before Brussels"], ["09-18 08:30", "normal", "After Brussels"], ["09-20 18:30", "normal", "Smoky bonfire clothes"], ["09-22 17:00", "normal", "After Gdańsk"], ["09-24 19:00", "hot", "Bed sheets"], ["09-28 20:30", "normal", "Before Berlin week"], ["10-05 08:00", "normal", "After Berlin #1"], ["10-05 10:30", "normal", "After Berlin #2"], ["10-06 21:00", "normal", "Before Stockholm"], ["10-10 08:15", "normal", "After Stockholm"], ["10-12 15:00", "hot", "Bed sheets"]],
+        DISH: [["09-05 22:45", "Dinner with Paul"], ["09-07 21:30", "Weekend dishes"], ["09-10 21:30", "Salmon dinner"], ["09-14 22:00", "Before trip"], ["09-18 23:45", "Board game night"], ["09-23 23:15", "Dinner guests"], ["09-27 21:30", "Week's dishes"], ["09-28 22:30", "Before Berlin week"], ["10-06 21:30", "Before Stockholm"], ["10-11 00:25", "Pierogi night #1"], ["10-11 12:00", "Pierogi night #2"], ["10-12 21:00", "Weekend with Paul"]],
+        KETTLE: [["09-18 22:30", "Tea for guests"], ["09-18 22:40", "Tea for guests"], ["09-23 22:00", "Tea for guests"], ["10-10 18:40", "Water for pierogi"], ["10-10 19:20", "Water for pierogi"], ["10-10 20:00", "Water for pierogi"], ["10-10 20:40", "Water for pierogi"]],
+        RESTOCK: ["09-01 18:00", "09-05 17:00", "09-18 16:00", "09-22 16:40", "10-05 17:00", "10-10 11:10"],
+        SPORT: ["09-02 21:25", "09-05 10:35", "10-05 21:25", "10-11 11:50"],
+        TRIPCHG: ["09-03 07:40", "09-08 22:30", "09-11 08:00", "09-14 21:00", "09-18 23:00", "09-21 09:00", "09-25 23:30", "09-28 21:00", "10-06 21:30"],
+        SVC_OFF: ["10-05 14:00", "10-05 15:10"], SVC_TEST: ["10-05 15:10", "10-05 15:30"]
+      };
+
+      // Weather: pass Open-Meteo JSON ({hourly:{temperature_2m,cloud_cover,shortwave_radiation},daily:{sunrise,sunset}}) or fall back to a Warsaw-like synthetic climate.
+      function synthWeather(seed) {
+        const r = mulberry(seed + 1), temp = [], cloud = [], rad = [], sr = [], ss = []; let anom = 0, cl = 50;
+        for (let d = 0; d < NDAYS; d++) {
+          anom = .6 * anom + r() * 5 - 2.5; cl = Math.min(100, Math.max(0, cl + r() * 70 - 35));
+          const mean = 17.5 - 7 * d / 41 + anom, amp = 2.5 + 3.5 * (1 - cl / 100), rise = 350 + d * 60 / 41, set = 1175 - d * 105 / 41, peak = 720 - d * 250 / 41;
+          sr.push(rise); ss.push(set);
+          for (let h = 0; h < 24; h++) {
+            const c = Math.min(100, Math.max(0, cl + r() * 20 - 10)), m = h * 60 + 30, f = (m - rise) / (set - rise);
+            temp.push(+(mean + amp * Math.sin(2 * Math.PI * (h - 9) / 24)).toFixed(1)); cloud.push(Math.round(c));
+            rad.push(f > 0 && f < 1 ? Math.round(Math.sin(Math.PI * f) * peak * (1 - .75 * (c / 100) ** 3)) : 0);
+          }
+        }
+        return { temp, cloud, rad, sr, ss, src: "synthetic" };
+      }
+      function fromOpenMeteo(w) {
+        const h = w.hourly, mm = s => +s.slice(11, 13) * 60 + +s.slice(14, 16);
+        return { temp: h.temperature_2m, cloud: h.cloud_cover, rad: h.shortwave_radiation, sr: w.daily.sunrise.map(mm), ss: w.daily.sunset.map(mm), src: "open-meteo" };
+      }
+
+      function run(opts = {}) {
+        const seed = opts.seed ?? 2026, rng = mulberry(seed), uni = (a, b) => a + (b - a) * rng(), ri = (a, b) => a + Math.floor(rng() * (b - a + 1)), r2 = (x, d = 2) => +x.toFixed(d);
+        const W = opts.weather ? fromOpenMeteo(opts.weather) : synthWeather(seed);
+        const mask = L => { const a = new Uint8Array(N); for (const [s, e] of L) for (let i = Math.max(0, mi(s)); i < Math.min(N, mi(e)); i++)a[i] = 1; return a };
+        const interp = arr => { const o = new Float64Array(N); for (let i = 0; i < N; i++) { const h = i / 60 | 0, f = (i % 60) / 60, a = arr[h], b = arr[Math.min(h + 1, arr.length - 1)]; o[i] = a + (b - a) * f } return o };
+        const T_OUT = interp(W.temp), RAD = interp(W.rad);
+        const away = mask(P.AWAY), asleep = mask(P.SLEEP), holiday = mask(P.HOLIDAY), pin = mask(P.PAUL_STAY), pout = mask(P.PAUL_OUT);
+        const guests = new Int8Array(N); for (const [a, b, n] of P.GUESTS) for (let i = mi(a); i < Math.min(N, mi(b)); i++)guests[i] = n;
+        const mod = i => i % 1440, aHome = new Uint8Array(N), aAwake = new Uint8Array(N), pHome = new Uint8Array(N), pAwake = new Uint8Array(N), awake = new Uint8Array(N);
+        for (let i = 0; i < N; i++) {
+          aHome[i] = !away[i]; pHome[i] = pin[i] && !pout[i]; aAwake[i] = aHome[i] && !asleep[i];
+          pAwake[i] = pHome[i] && (aAwake[i] || (!aHome[i] && mod(i) >= 450 && mod(i) < 1410)); awake[i] = aAwake[i] || pAwake[i] || guests[i] > 0
+        }
+        const loads = {}; APPLIANCES.forEach(a => loads[a] = new Float64Array(N));
+        const events = [], dhw = new Float64Array(N), draw = (i, v) => { if (i < N) dhw[i] += v };
+        const add = (app, s, prof, why, needAwake = true) => {
+          if (typeof s === "string") s = mi(s); let kwh = 0, used = 0;
+          for (let k = 0; k < prof.length; k++) { const i = s + k; if (i >= N) break; if (needAwake && !awake[i]) break; loads[app][i] += prof[k]; kwh += prof[k] / 60; used++ }
+          if (used) events.push({ appliance: app, start: s, end: s + used, peak_kw: r2(Math.max(...prof.slice(0, used)), 3), kwh: r2(kwh, 4), reason: why })
+        };
+        const rep = (n, f) => Array.from({ length: n }, f);
+        const kettle = () => rep(ri(3, 5), () => 2), coffee = () => { const p = r2(uni(1, 1.5)); return rep(ri(5, 10), () => p) };
+        const oven = d => { const p = r2(uni(2, 2.5)); return rep(d, (_, k) => k < 12 || (k - 12) % 6 < 3 ? p : 0) };
+        const washer = k => { const t = k === "hot" ? uni(.9, 1) : uni(.6, .85), h = Math.round((t - .247) * 30); return [...rep(3, () => .03), ...rep(h, () => 2), ...rep(55, () => .15), ...rep(20, () => .1), ...rep(10, () => .45)] };
+        const dish = () => { const t = uni(.8, 1.2), h = Math.round((t - .055) * 30), h1 = Math.round(h * .55); return [...rep(4, () => .02), ...rep(h1, () => 2), ...rep(35, () => .08), ...rep(3, () => .05), ...rep(h - h1, () => 2), ...rep(25, () => .01)] };
+        const laptop = d => { let p = uni(.045, .07); return rep(d, () => (p = Math.min(.08, Math.max(.04, p + uni(-.004, .004))), r2(p, 4))) };
+        const charger = (k, w = 10) => rep(Math.max(1, Math.round(k / (w / 1000) * 60)), () => w / 1000);
+        const jit = (m, lo, hi) => m + ri(lo, hi);
+        // morning routine
+        for (const [, wk] of P.SLEEP) {
+          const w = mi(wk); if (w >= N) continue; const md = mod(w);
+          add("kettle", jit(w, 5, 12), kettle(), "Morning tea"); add("coffee_machine", jit(w, 10, 20), coffee(), "Morning coffee"); draw(jit(w, 15, 30), uni(1.4, 1.8));
+          if (pHome[w]) { add("coffee_machine", jit(w, 25, 40), coffee(), "Coffee for Paul"); draw(jit(w, 40, 55), uni(1.6, 2)) }
+          if ((md >= 450) || md >= 480) add("coffee_machine", jit(w, 80, 110), coffee(), "Second weekend coffee")
+        }
+        P.SPORT.forEach(s => draw(mi(s), uni(1.2, 1.6)));
+        // work from home
+        for (const [a, b] of P.WFH) {
+          const s = mi(a), e = mi(b), lunch = mi(a.slice(0, 5) + " 12:30") + ri(-15, 20);
+          if (s < lunch && lunch < e - 60) {
+            add("laptop", s, laptop(lunch - s), "Work from home"); const back = lunch + ri(30, 45);
+            add("laptop", back, laptop(e - back), "Work from home"); add("kettle", lunch + 5, kettle(), "Lunch break"); add("coffee_machine", back - 8, coffee(), "Post-lunch coffee");
+            if (e - back > 150) add("kettle", back + ri(90, 150), kettle(), "Afternoon tea")
+          }
+          else add("laptop", s, laptop(e - s), "Work from home")
+        }
+        P.PAUL_LAPTOP.forEach(([a, b]) => add("laptop", a, laptop(mi(b) - mi(a)), "Paul working remotely"));
+        P.OVEN.forEach(([s, d, w]) => add("oven", s, oven(d), w));
+        P.WASHER.forEach(([s, k, w]) => add("washing_machine", s, washer(k), w, false));
+        P.DISH.forEach(([s, w]) => add("dishwasher", s, dish(), w, false));
+        P.KETTLE.forEach(([s, w]) => add("kettle", s, kettle(), w));
+        P.TV.forEach(([s, d, w]) => add("tv", s, rep(d, () => r2(uni(.08, .15), 3)), w));
+        const boost = P.RESTOCK.map(mi), tvDays = new Set(P.TV.map(x => x[0].slice(0, 5)));
+        // random evening habits
+        for (let d = 0; d < NDAYS; d++) {
+          const probe = d * 1440 + 1230, mdk = d < 30 ? `09-${String(d + 1).padStart(2, "0")}` : `10-${String(d - 29).padStart(2, "0")}`;
+          if (aAwake[probe] && !guests[probe]) {
+            if (rng() < .6) add("kettle", probe + ri(-30, 75), kettle(), "Evening tea");
+            if (!tvDays.has(mdk) && rng() < .55) add("tv", probe + ri(-30, 45), rep(ri(45, 150), () => r2(uni(.08, .15), 3)), "Evening TV / streaming");
+            if (rng() < .35) add("laptop", d * 1440 + 1260 + ri(0, 60), laptop(ri(20, 70)), "Personal laptop")
+          }
+        }
+        // overnight charging
+        for (const [bed] of P.SLEEP) {
+          const b = mi(bed) - 10; if (b >= N) continue;
+          add("phone_tablet_charging", b, charger(uni(.012, .018)), "Phone overnight", false);
+          if (rng() < .5) add("phone_tablet_charging", b + 2, charger(uni(.012, .02), 12), "Tablet overnight", false);
+          if (pHome[b]) add("phone_tablet_charging", b + 5, charger(uni(.012, .018)), "Paul's phone", false)
+        }
+        P.TRIPCHG.forEach(s => add("phone_tablet_charging", s, charger(.035, 15), "Power bank before trip", false));
+        // continuous loads
+        for (let i = 0; i < N; i++) {
+          const h = i / 60 | 0, d = i / 1440 | 0;
+          loads.wifi_router[i] = .011 + .002 * (((h * 7919) % 5) - 2) / 2;
+          loads.standby[i] = (aHome[i] || pHome[i]) ? (awake[i] ? .038 : .03) : (holiday[i] ? .02 : .034);
+          const m = mod(i), cl = W.cloud[h], mg = cl > 75 ? 15 : 0, dark = m < W.sr[d] + 15 + mg || m > W.ss[d] - 25 - mg;
+          if (awake[i]) {
+            let lv; if (dark) lv = guests[i] ? .14 : m >= 1350 ? .06 : m >= 1020 ? .1 + .02 * pHome[i] : .07; else lv = cl > 85 ? .03 : 0;
+            loads.lighting[i] = lv * (.9 + .2 * ((h * 104729) % 11) / 10)
+          }
+        }
+        // thermal model: fridge + heat pump
+        const UA = 60, C = 8e6, SOLAR = 1.4, DHW_LOSS = .05 / 60, DHW_P = 1.6, DHW_COP = 2.5, FR = .095;
+        const sp_ = i => holiday[i] ? 16 : (mod(i) >= 360 && mod(i) < 1350 ? 21 : 18), cop = t => Math.min(4.5, Math.max(2.2, 2.6 + .09 * t));
+        const svcOff = mask([P.SVC_OFF]), svcTest = mask([P.SVC_TEST]), T_IN = new Float64Array(N), SP = new Float64Array(N);
+        let tin = 24, hpOn = false, hpSince = -999, dhwOn = false, deficit = 1, fLeft = 0, run_ = null;
+        const colOf = m => m === "space" ? "heat_pump_space_heating" : "heat_pump_hot_water";
+        for (let i = 0; i < N; i++) {
+          if (i % CYCLE === 0) {
+            let du = .4 + .015 * (tin - 20) + .05 * aAwake[i] + .08 * (guests[i] > 0); if (boost.some(r => i - r >= 0 && i - r < 240)) du += .15;
+            du = Math.min(.75, Math.max(.3, du + uni(-.04, .04))); fLeft = Math.round(du * CYCLE)
+          }
+          if (fLeft > 0) { loads.fridge[i] = FR; fLeft-- }
+          deficit += DHW_LOSS + dhw[i] + (awake[i] ? .05 / 60 : 0) + (guests[i] ? .3 / 60 : 0);
+          if ((1 + (i / 1440 | 0)) % 7 === 6 && mod(i) === 120 && !holiday[i]) deficit += 1.2; // weekly anti-legionella cycle (Sun 02:00)
+          const sp = sp_(i), tout = T_OUT[i]; let mode = null, p = 0, q = 0;
+          if (svcOff[i]) { dhwOn = hpOn = false }
+          else if (svcTest[i]) { mode = "space"; p = 2.4; q = p * cop(tout) }
+          else if (!holiday[i] && (dhwOn || deficit > 2)) { dhwOn = true; mode = "dhw"; p = DHW_P; deficit -= DHW_P * DHW_COP / 60; if (deficit <= 0) { deficit = 0; dhwOn = false } }
+          else {
+            if (hpOn && tin >= sp + .3 && i - hpSince >= 15) { hpOn = false; hpSince = i } else if (!hpOn && tin < sp - .3 && i - hpSince >= 10) { hpOn = true; hpSince = i }
+            if (hpOn) { mode = "space"; p = Math.min(3, Math.max(1, 1 + .8 * (sp - tin + .3))); q = p * cop(tout) }
+          }
+          if (mode) loads[colOf(mode)][i] = p;
+          if (run_ && run_.m !== mode) {
+            const c = colOf(run_.m), seg = loads[c].slice(run_.s, i);
+            events.push({ appliance: c, start: run_.s, end: i, peak_kw: r2(Math.max(...seg), 3), kwh: r2(seg.reduce((a, b) => a + b, 0) / 60, 4), reason: svcTest[run_.s] ? "Test run after annual service" : run_.m === "space" ? "Space heating (thermostat)" : "Hot-water tank reheat" }); run_ = null
+          }
+          if (mode && !run_) run_ = { m: mode, s: i };
+          let g = 0; for (const a of APPLIANCES) if (!a.startsWith("heat_pump")) g += loads[a][i]; g *= 900;
+          g += 80 * (aAwake[i] + pAwake[i]) + 60 * ((aHome[i] && asleep[i] ? 1 : 0) + (pHome[i] && !pAwake[i] ? 1 : 0)) + 90 * guests[i] + 40 + SOLAR * RAD[i];
+          let ua = UA; if (tout < tin) { if (awake[i] && tin > 24) ua += 120; else if ((aHome[i] || pHome[i]) && tin > 23.5) ua += 50 }
+          tin += (ua * (tout - tin) + q * 1000 + g) * 60 / C; T_IN[i] = tin; SP[i] = sp
+        }
+        // hourly aggregation
+        const occ = i => guests[i] ? "home+guests" : aHome[i] && pHome[i] ? "home+Paul" : aHome[i] ? "home" : pHome[i] ? "Paul only" : "away";
+        const ts = h => { const d = h / 24 | 0, md = d < 30 ? `09-${String(d + 1).padStart(2, "0")}` : `10-${String(d - 29).padStart(2, "0")}`; return `2026-${md}T${String(h % 24).padStart(2, "0")}:00:00+02:00` };
+        const hourly = [];
+        for (let h = 0; h < N / 60; h++) {
+          const s = h * 60, cnt = {}; let ti = 0, sp = 0, ah = 0, ph = 0, gm = 0, hol = 0;
+          for (let i = s; i < s + 60; i++) { const o = occ(i); cnt[o] = (cnt[o] || 0) + 1; ti += T_IN[i]; sp += SP[i]; ah += aHome[i]; ph += pHome[i]; gm = Math.max(gm, guests[i]); hol |= holiday[i] }
+          const row = {
+            timestamp: ts(h), period: s < HIST ? "history" : "future", weather_source: W.src, temp_out_c: W.temp[h], cloud_cover_pct: W.cloud[h], shortwave_radiation_wm2: W.rad[h],
+            indoor_temp_c: r2(ti / 60), heating_setpoint_c: r2(sp / 60, 1), occupancy: Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][0], aleksandra_home_share: r2(ah / 60), paul_home_share: r2(ph / 60), guests: gm, heat_pump_holiday_mode: hol
+          };
+          let tot = 0; for (const a of APPLIANCES) { let x = 0; for (let i = s; i < s + 60; i++)x += loads[a][i]; x /= 60; row[a + "_kwh"] = r2(x, 4); tot += x }
+          row.total_kwh = r2(tot, 4); hourly.push(row)
+        }
+        const fm = m => ts(Math.floor(m / 60)).slice(0, 11).replace("T", " ") + String(Math.floor(m / 60) % 24).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+        const ev = events.sort((a, b) => a.start - b.start || a.appliance.localeCompare(b.appliance)).map(e => ({ appliance: e.appliance, start: fm(e.start), end: fm(e.end), duration_min: e.end - e.start, peak_kw: e.peak_kw, kwh: e.kwh, reason: e.reason }));
+        return { hourly, events: ev, appliances: APPLIANCES, historyEnd: "2026-09-29" };
+      }
+      const toCSV = rows => { if (!rows.length) return ""; const k = Object.keys(rows[0]), q = v => /[",\n]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : v; return [k.join(","), ...rows.map(r => k.map(c => q(r[c])).join(","))].join("\n") };
+      return { run, toCSV, APPLIANCES };
+    })();
+  </script>
+
+  <!-- ===================== Dashboard ===================== -->
+  <script>
+    const D = EnergySim.run({ seed: 2026 }), H = D.hourly, E = D.events, AP = D.appliances;
+    const nice = a => a.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+    const css = getComputedStyle(document.documentElement), tx = css.getPropertyValue("--tx").trim(), mu = css.getPropertyValue("--mu").trim(), gr = css.getPropertyValue("--gr").trim();
+    Chart.defaults.color = mu; Chart.defaults.font.family = "Inter,system-ui,sans-serif"; Chart.defaults.borderColor = gr;
+    Chart.defaults.maintainAspectRatio = false; Chart.defaults.plugins.legend.labels.usePointStyle = true; Chart.defaults.plugins.legend.labels.boxWidth = 8;
+    const PAL = ["#4f8df5", "#ef4444", "#f97316", "#eab308", "#92400e", "#dc2626", "#06b6d4", "#14b8a6", "#8b5cf6", "#22c55e", "#94a3b8", "#facc15", "#ec4899", "#64748b"];
+    const cutIdx = 28; // 29 Sep
+    const cut = {
+      id: "cut", afterDatasetsDraw(c, _, o) {
+        if (!o.at) return; const x = c.scales.x, px = (x.getPixelForValue(o.at - 1) + x.getPixelForValue(o.at)) / 2, { top, bottom } = c.chartArea, g = c.ctx;
+        g.save(); g.strokeStyle = "#ef4444"; g.lineWidth = 2; g.setLineDash([6, 5]); g.beginPath(); g.moveTo(px, top); g.lineTo(px, bottom); g.stroke();
+        g.setLineDash([]); g.fillStyle = "#ef4444"; g.font = "600 11px Inter,sans-serif"; g.fillText("Prediction split →", px + 6, top + 12); g.restore()
+      }
+    };
+    Chart.register(cut);
+    const sum = (a) => a.reduce((x, y) => x + y, 0);
+    // KPIs
+    const total = sum(H.map(r => r.total_kwh)), hist = sum(H.filter(r => r.period === "history").map(r => r.total_kwh)), peak = H.reduce((a, b) => b.total_kwh > a.total_kwh ? b : a);
+    document.getElementById("kpis").innerHTML = [[total.toFixed(0) + " kWh", "Total, 42 days"], [hist.toFixed(0) + " kWh", "History (to 28 Sep)"], [(total / 42).toFixed(1) + " kWh", "Average per day"], [peak.total_kwh.toFixed(2) + " kWh", "Peak hour · " + peak.timestamp.slice(5, 13).replace("T", " ") + "h"]]
+      .map(([v, l]) => `<div class="card kpi"><b>${v}</b><small>${l}</small></div>`).join("");
+    // 1 daily breakdown
+    const days = [...new Set(H.map(r => r.timestamp.slice(0, 10)))];
+    const daily = AP.map(a => days.map(d => +sum(H.filter(r => r.timestamp.startsWith(d)).map(r => r[a + "_kwh"])).toFixed(3)));
+    new Chart(c1, {
+      type: "bar", data: { labels: days.map(d => d.slice(5)), datasets: AP.map((a, i) => ({ label: nice(a), data: daily[i], backgroundColor: PAL[i], borderRadius: 0 })) },
+      options: { plugins: { cut: { at: cutIdx }, legend: { position: "bottom" }, tooltip: { mode: "index" } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, title: { display: true, text: "kWh / day" } } } }
+    });
+    // 2 hourly profile
+    const occs = [...new Set(H.map(r => r.occupancy))], OC = ["#4f46e5", "#10b981", "#f59e0b", "#ef4444", "#06b6d4"];
+    new Chart(c2, {
+      type: "line", data: {
+        labels: [...Array(24).keys()], datasets: occs.map((o, i) => ({
+          label: o, borderColor: OC[i % 5], backgroundColor: OC[i % 5], tension: .35, borderWidth: 2.5, pointRadius: 3,
+          data: [...Array(24).keys()].map(h => { const v = H.filter(r => r.occupancy === o && +r.timestamp.slice(11, 13) === h).map(r => r.total_kwh); return v.length ? +(sum(v) / v.length).toFixed(3) : null })
+        }))
+      },
+      options: { plugins: { legend: { position: "bottom" } }, scales: { x: { title: { display: true, text: "Hour of day" }, grid: { display: false } }, y: { title: { display: true, text: "Avg kWh / hour" } } } }
+    });
+    // 3 thermal
+    const lab = H.map(r => r.timestamp.slice(5, 10));
+    new Chart(c3, {
+      type: "line", data: {
+        labels: lab, datasets: [
+          { label: "Indoor (°C)", data: H.map(r => r.indoor_temp_c), borderColor: "#e11d48", borderWidth: 1.6, pointRadius: 0, yAxisID: "y" },
+          { label: "Setpoint (°C)", data: H.map(r => r.heating_setpoint_c), borderColor: "#f59e0b", borderDash: [5, 4], borderWidth: 1.3, pointRadius: 0, yAxisID: "y" },
+          { label: "Outdoor (°C)", data: H.map(r => r.temp_out_c), borderColor: "#38bdf8", borderWidth: 1.2, pointRadius: 0, yAxisID: "y2" }]
+      },
+      options: {
+        interaction: { mode: "index", intersect: false }, plugins: { cut: { at: cutIdx * 24 }, legend: { position: "top" } },
+        scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, callback: (v, i) => i % 72 === 0 ? lab[i] : "" } }, y: { min: 0, title: { display: true, text: "Indoor °C" } }, y2: { position: "right", grid: { display: false }, title: { display: true, text: "Outdoor °C" } } }
+      }
+    });
+    // 4 home vs away
+    const isHome = H.map(r => r.aleksandra_home_share > 0), hd = isHome.filter(Boolean).length / 24, ad = isHome.filter(x => !x).length / 24;
+    const avg = (a, f, d) => sum(H.filter((_, i) => isHome[i] === f).map(r => r[a + "_kwh"])) / d;
+    const ord = [...AP].sort((a, b) => avg(b, true, hd) - avg(a, true, hd));
+    new Chart(c4, {
+      type: "bar", data: { labels: ord.map(nice), datasets: [{ label: "At home", data: ord.map(a => +avg(a, true, hd).toFixed(3)), backgroundColor: "#2ecc71", borderRadius: 4 }, { label: "Away", data: ord.map(a => +avg(a, false, ad).toFixed(3)), backgroundColor: "#e74c3c", borderRadius: 4 }] },
+      options: { indexAxis: "y", plugins: { legend: { position: "bottom" } }, scales: { x: { title: { display: true, text: "kWh / day" } }, y: { grid: { display: false } } } }
+    });
+    // 5 variance
+    const mean = a => sum(H.map(r => r[a + "_kwh"])) / H.length, vr = a => sum(H.map(r => (r[a + "_kwh"] - mean(a)) ** 2)) / (H.length - 1), tv = sum(AP.map(vr));
+    const vs = AP.map(a => [nice(a), vr(a) / tv * 100]).sort((a, b) => b[1] - a[1]);
+    new Chart(c5, {
+      type: "bar", data: { labels: vs.map(v => `${v[0]} · ${v[1].toFixed(1)}%`), datasets: [{ data: vs.map(v => +v[1].toFixed(2)), backgroundColor: vs.map((_, i) => `hsl(${300 - i * 14} 70% ${52 + i}%)`), borderRadius: 4 }] },
+      options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: "% of total household variance" } }, y: { grid: { display: false } } } }
+    });
+    // 6 events
+    const es = AP.map(a => [nice(a), sum(E.filter(e => e.appliance === a).map(e => e.kwh)), E.filter(e => e.appliance === a).length]).filter(x => x[2]).sort((a, b) => b[1] - a[1]);
+    new Chart(c6, {
+      type: "bar", data: { labels: es.map(e => `${e[0]} (${e[2]} runs)`), datasets: [{ data: es.map(e => +e[1].toFixed(2)), backgroundColor: es.map((_, i) => `hsl(${160 + i * 18} 65% ${42 + i * 2}%)`), borderRadius: 4 }] },
+      options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: "Total kWh" } }, y: { grid: { display: false } } } }
+    });
+    // CSV downloads
+    async function dl(name, text) {
+      try { const d = await window.claude?.use("downloads"); if (d) { await d.save({ filename: name, data: text }); return } } catch (e) { if (e && e.code === "declined") return }
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" })); a.download = name; a.click()
+    }
+    dl1.onclick = () => dl("hourly_consumption.csv", EnergySim.toCSV(H));
+    dl2.onclick = () => dl("appliance_events.csv", EnergySim.toCSV(E));
+  </script>
+</body>
+
+</html>
