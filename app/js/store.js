@@ -82,6 +82,7 @@ document.addEventListener('alpine:init', () => {
       this.now = Date.now();
       this.offset = new Date(iso).getTime() - this.now;
       try { localStorage.setItem(OFFSET_KEY, String(this.offset)); } catch { /* ignore */ }
+      location.reload();        // the data window and the forecast slot follow the new date: load them again
     },
     get date() { return new Date(this.now + this.offset); },
     get iso() { return toLocalIso(this.date); },

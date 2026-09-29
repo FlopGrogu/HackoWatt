@@ -5,6 +5,16 @@ HW.config = {
   // Forecast written by src/export_app_data.py. Relative to index.html: serve the repository root (e.g.
   // `python -m http.server` there, then open /app/). If it cannot be loaded the app falls back to js/data/demo.js.
   forecastUrl: '../data/app/forecast.json',
+  // One file per day with the forecasts for 00/06/12/18 h (src/export_app_data.py --all); {date} = YYYY-MM-DD of 2026.
+  forecastDayUrl: '../data/app/forecast/{date}.json',
+  // The generated year (src/generate_all.py): the app reads all of it but only ever looks at the last 30 days.
+  dataUrls: {
+    consumption: '../data/consumption/hourly_consumption.csv',
+    weather: '../data/weather/weather_hourly.csv',
+    positions: '../data/geolocation/positions.csv',
+    calendar: '../data/calendar/aleksandra_calendar_2026.ics',
+  },
+  home: { lat: 52.2296, lon: 21.0030 },               // ul. Chmielna 71 (phone within 150 m = at home)
   // Official HackoWatt time-of-use tariff (common challenge assumptions)
   tariff: [
     { from: 0, to: 6, price: 0.18, tone: 'low' },
@@ -26,6 +36,15 @@ HW.config = {
     { id: 'forecast', label: 'Forecast' },
     { id: 'profile', label: 'Profile' },
   ],
+};
+
+/** The fake "current time" at page load: system clock + the offset saved by the Current Time setting. */
+HW.nowAtLoad = () => {
+  try {
+    const saved = Number(localStorage.getItem('hw.clockOffset'));
+    if (Number.isFinite(saved)) return new Date(Date.now() + saved);
+  } catch { /* storage unavailable */ }
+  return new Date();
 };
 
 HW.fmt = {

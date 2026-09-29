@@ -76,7 +76,7 @@ Scripts in `src/`, each run on its own (shared code in `src/hackowatt/`):
 2. `interpret_calendar.py` – the LLM reads each calendar day (cached in `data/llm_cache/<provider>_<model>/`)
 3. `run_forecast.py <start> <hours>` – forecast, reminders and tips
 4. `backtest.py` – forecasts over 29 Sep – 12 Oct vs actual
-5. `export_app_data.py [now] [--out file]` – writes the forecast as JSON for the app (`data/app/forecast.json`, same keys as the app's demo data)
+5. `export_app_data.py --all` – precomputes the forecast for every day of 2026 at 00/06/12/18 h (`data/app/forecast/<date>.json`, read by the app); `export_app_data.py [now] [--out file]` writes a single moment (`data/app/forecast.json`, fallback)
 
 | Topic | Assumption |
 |---|---|
@@ -104,3 +104,11 @@ Scripts in `src/`, each run on its own (shared code in `src/hackowatt/`):
 | Away score correct (confident hours) | habits 8/11 | LLM 307/310 (99 %) |
 | Presence correct, all 336 hours (home = away score < 50) | 63 % | 98 % |
 
+
+## App: reading the generated year, 30-day window
+
+- The app reads all generated files itself (`js/services/dataset.js`): consumption, weather, phone positions and the calendar; the forecast comes from the per-day files above.
+- It only ever considers the 30 days before the (fake) current time, in the app **and** in the Python forecast (`hackowatt/wrap.py`): history, positions and thermostat reading are cut to the window.
+- The date can be changed in Profile → Current Time. Any year is wrapped onto the same month/day of 2026 (29 Feb → 28 Feb): 2024-09-12 uses 12 Aug – 12 Sep 2026. The year is circular: 10 Jan uses 11 Dec – 10 Jan (December glued in front of January). Charts, forecast and shifts are labelled with the year the user picked; changing the time reloads the app.
+- The forecast used is the latest precomputed slot (00/06/12/18 h) at or before the chosen time.
+- Home tiles come from the data: outdoor temperature/humidity (observed weather), phone at home/away, today's plan and the next trip (calendar). Devices are still the demo list.
