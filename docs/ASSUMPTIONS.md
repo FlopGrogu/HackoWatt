@@ -30,7 +30,7 @@ destinations are real cities with fixed coordinates. Airports are ~12 km out of 
 
 - About 51 % of hours away from the flat (trips ~44 %, plus office days and evenings out); trips are irregular: one night, or 3–4 days for work, weekends with Paul in Berlin, family in Łódź, one ski week and one summer week.
 - Wake 06:30–07:00 on weekdays (normal, σ 18 min), later at weekends; she wakes ~70 min before an early departure; bedtime ~23:00.
-- Before/after trips: laundry (100 % when the calendar says "Laundry + pack", ~80 % after a trip), full dishwasher, comfort boost (+1 K for 2.5 h) after returning, groceries after long trips, power bank charging. Working from home adds daytime laptop/kettle/coffee use.
+- Before/after trips: laundry (100 % when the calendar says "Laundry + pack", ~80 % after a trip), full dishwasher, comfort boost (+1 K for 2.5 h) after returning, groceries after long trips, power bank charging; the evening before a trip (packing, e-mails, cooking, extra wash) and the day of return (catching up, TV, warmer flat for 4 h) are busier than a normal home day (return-day non-heating use ≈ a full home day even though she is out part of it). Working from home adds daytime laptop/kettle/coffee use.
 - She remembers holiday mode / the power strip on only 30 % of trips; ~4 % of departures leave lights on for 0.5–12 h.
 - Seasons: heating on when the 3-day mean outdoor temperature is < 13 °C, off > 16 °C (frost protection 15 °C); colder mains water in winter means larger hot-water draws; more TV/tea in winter and on cloudy evenings; lighting follows daily sunrise/sunset and cloud cover; blinds halve solar gains above 24 °C; windows are aired when warm.
 
