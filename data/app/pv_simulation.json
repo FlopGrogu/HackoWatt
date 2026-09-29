@@ -1,0 +1,1439 @@
+{
+  "meta": {
+    "source": "PVGIS 5.3 (JRC, European Commission), radiation database PVGIS-SARAH3, year 2023",
+    "url": "https://re.jrc.ec.europa.eu/api/v5_3/seriescalc?lat=52.2297&lon=21.0122&peakpower=1&loss=14&angle=35&aspect=0&pvcalculation=1&outputformat=json&startyear=2023&endyear=2023",
+    "location": {
+      "lat": 52.2297,
+      "lon": 21.0122
+    },
+    "system": {
+      "tilt_deg": 35,
+      "azimuth": "south",
+      "losses_pct": 14
+    },
+    "yield_kwh_per_kwp": 1038,
+    "cost_per_kwp": 1300.0,
+    "export_price": 0.08,
+    "operating_cost_share": 0.01,
+    "tariff": "00–06 €0.18 · 06–17 €0.28 · 17–22 €0.40 · 22–24 €0.28",
+    "consumption_kwh": 2885,
+    "cost_without_pv": 866.32,
+    "year": "2026-01-01 – 2026-12-31"
+  },
+  "sizes": [
+    {
+      "kwp": 0,
+      "investment": 0.0,
+      "operating_cost": 0.0,
+      "production": 0.0,
+      "A": {
+        "cost": 866.32,
+        "saving": 0.0,
+        "grid": 2885.3,
+        "grid_reduction": 0.0,
+        "used": 0.0,
+        "export": 0.0,
+        "moved": 0.0,
+        "self_sufficiency": 0.0,
+        "self_consumption": 0.0,
+        "payback_years": null,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 374.4,
+            "export": 0.0
+          },
+          {
+            "demand": 347.2,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 347.2,
+            "export": 0.0
+          },
+          {
+            "demand": 254.2,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 254.2,
+            "export": 0.0
+          },
+          {
+            "demand": 183.8,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 183.8,
+            "export": 0.0
+          },
+          {
+            "demand": 183.3,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 183.3,
+            "export": 0.0
+          },
+          {
+            "demand": 135.6,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 135.6,
+            "export": 0.0
+          },
+          {
+            "demand": 152.7,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 152.7,
+            "export": 0.0
+          },
+          {
+            "demand": 146.5,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 146.5,
+            "export": 0.0
+          },
+          {
+            "demand": 155.9,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 155.9,
+            "export": 0.0
+          },
+          {
+            "demand": 246.0,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 246.0,
+            "export": 0.0
+          },
+          {
+            "demand": 315.1,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 315.1,
+            "export": 0.0
+          },
+          {
+            "demand": 390.6,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 390.6,
+            "export": 0.0
+          }
+        ]
+      },
+      "B": {
+        "cost": 794.07,
+        "saving": 72.24,
+        "grid": 2885.3,
+        "grid_reduction": 0.0,
+        "used": 0.0,
+        "export": 0.0,
+        "moved": 569.5,
+        "self_sufficiency": 0.0,
+        "self_consumption": 0.0,
+        "payback_years": null,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 373.5,
+            "export": 0.0
+          },
+          {
+            "demand": 347.4,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 347.4,
+            "export": 0.0
+          },
+          {
+            "demand": 254.9,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 254.9,
+            "export": 0.0
+          },
+          {
+            "demand": 182.7,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 182.7,
+            "export": 0.0
+          },
+          {
+            "demand": 182.8,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 182.8,
+            "export": 0.0
+          },
+          {
+            "demand": 136.2,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 136.2,
+            "export": 0.0
+          },
+          {
+            "demand": 153.6,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 153.6,
+            "export": 0.0
+          },
+          {
+            "demand": 146.5,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 146.5,
+            "export": 0.0
+          },
+          {
+            "demand": 155.9,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 155.9,
+            "export": 0.0
+          },
+          {
+            "demand": 246.0,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 246.0,
+            "export": 0.0
+          },
+          {
+            "demand": 315.1,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 315.1,
+            "export": 0.0
+          },
+          {
+            "demand": 390.6,
+            "production": 0.0,
+            "used": 0.0,
+            "grid": 390.6,
+            "export": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 1,
+      "investment": 1300.0,
+      "operating_cost": 13.0,
+      "production": 1037.6977499999996,
+      "A": {
+        "cost": 698.31,
+        "saving": 155.01,
+        "grid": 2481.7,
+        "grid_reduction": 403.5,
+        "used": 403.5,
+        "export": 634.2,
+        "moved": 0.0,
+        "self_sufficiency": 0.14,
+        "self_consumption": 0.389,
+        "payback_years": 8.4,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 24.9,
+            "used": 20.0,
+            "grid": 354.3,
+            "export": 4.8
+          },
+          {
+            "demand": 347.2,
+            "production": 44.9,
+            "used": 25.4,
+            "grid": 321.8,
+            "export": 19.5
+          },
+          {
+            "demand": 254.2,
+            "production": 78.1,
+            "used": 37.5,
+            "grid": 216.7,
+            "export": 40.6
+          },
+          {
+            "demand": 183.8,
+            "production": 107.5,
+            "used": 35.3,
+            "grid": 148.4,
+            "export": 72.2
+          },
+          {
+            "demand": 183.3,
+            "production": 153.0,
+            "used": 50.6,
+            "grid": 132.7,
+            "export": 102.4
+          },
+          {
+            "demand": 135.6,
+            "production": 138.4,
+            "used": 41.0,
+            "grid": 94.6,
+            "export": 97.4
+          },
+          {
+            "demand": 152.7,
+            "production": 140.6,
+            "used": 45.4,
+            "grid": 107.3,
+            "export": 95.2
+          },
+          {
+            "demand": 146.5,
+            "production": 121.1,
+            "used": 41.1,
+            "grid": 105.5,
+            "export": 80.0
+          },
+          {
+            "demand": 155.9,
+            "production": 124.6,
+            "used": 41.5,
+            "grid": 114.4,
+            "export": 83.0
+          },
+          {
+            "demand": 246.0,
+            "production": 55.7,
+            "used": 30.3,
+            "grid": 215.7,
+            "export": 25.4
+          },
+          {
+            "demand": 315.1,
+            "production": 31.4,
+            "used": 19.6,
+            "grid": 295.5,
+            "export": 11.8
+          },
+          {
+            "demand": 390.6,
+            "production": 17.5,
+            "used": 15.7,
+            "grid": 374.9,
+            "export": 1.8
+          }
+        ]
+      },
+      "B": {
+        "cost": 604.11,
+        "saving": 249.21,
+        "grid": 2225.5,
+        "grid_reduction": 659.7,
+        "used": 659.7,
+        "export": 378.0,
+        "moved": 567.5,
+        "self_sufficiency": 0.229,
+        "self_consumption": 0.636,
+        "payback_years": 5.2,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 24.9,
+            "used": 23.1,
+            "grid": 350.4,
+            "export": 1.8
+          },
+          {
+            "demand": 347.4,
+            "production": 44.9,
+            "used": 33.8,
+            "grid": 313.6,
+            "export": 11.0
+          },
+          {
+            "demand": 254.9,
+            "production": 78.1,
+            "used": 56.9,
+            "grid": 197.9,
+            "export": 21.2
+          },
+          {
+            "demand": 182.7,
+            "production": 107.5,
+            "used": 65.6,
+            "grid": 117.1,
+            "export": 41.9
+          },
+          {
+            "demand": 182.8,
+            "production": 153.0,
+            "used": 86.9,
+            "grid": 96.0,
+            "export": 66.1
+          },
+          {
+            "demand": 136.2,
+            "production": 138.4,
+            "used": 73.2,
+            "grid": 63.1,
+            "export": 65.2
+          },
+          {
+            "demand": 153.6,
+            "production": 140.6,
+            "used": 83.1,
+            "grid": 70.4,
+            "export": 57.5
+          },
+          {
+            "demand": 146.5,
+            "production": 121.1,
+            "used": 68.3,
+            "grid": 78.2,
+            "export": 52.8
+          },
+          {
+            "demand": 155.9,
+            "production": 124.6,
+            "used": 74.9,
+            "grid": 81.0,
+            "export": 49.7
+          },
+          {
+            "demand": 246.0,
+            "production": 55.7,
+            "used": 48.7,
+            "grid": 197.2,
+            "export": 7.0
+          },
+          {
+            "demand": 315.1,
+            "production": 31.4,
+            "used": 27.8,
+            "grid": 287.3,
+            "export": 3.6
+          },
+          {
+            "demand": 390.6,
+            "production": 17.5,
+            "used": 17.3,
+            "grid": 373.3,
+            "export": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 2,
+      "investment": 2600.0,
+      "operating_cost": 26.0,
+      "production": 2075.395499999999,
+      "A": {
+        "cost": 588.89,
+        "saving": 251.42,
+        "grid": 2359.3,
+        "grid_reduction": 525.9,
+        "used": 525.9,
+        "export": 1549.5,
+        "moved": 0.0,
+        "self_sufficiency": 0.182,
+        "self_consumption": 0.253,
+        "payback_years": 10.3,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 49.8,
+            "used": 32.5,
+            "grid": 341.9,
+            "export": 17.3
+          },
+          {
+            "demand": 347.2,
+            "production": 89.7,
+            "used": 38.2,
+            "grid": 309.0,
+            "export": 51.5
+          },
+          {
+            "demand": 254.2,
+            "production": 156.3,
+            "used": 49.2,
+            "grid": 205.0,
+            "export": 107.0
+          },
+          {
+            "demand": 183.8,
+            "production": 215.0,
+            "used": 42.1,
+            "grid": 141.6,
+            "export": 172.9
+          },
+          {
+            "demand": 183.3,
+            "production": 306.0,
+            "used": 62.7,
+            "grid": 120.6,
+            "export": 243.3
+          },
+          {
+            "demand": 135.6,
+            "production": 276.7,
+            "used": 49.2,
+            "grid": 86.3,
+            "export": 227.5
+          },
+          {
+            "demand": 152.7,
+            "production": 281.3,
+            "used": 55.9,
+            "grid": 96.8,
+            "export": 225.3
+          },
+          {
+            "demand": 146.5,
+            "production": 242.2,
+            "used": 50.6,
+            "grid": 95.9,
+            "export": 191.6
+          },
+          {
+            "demand": 155.9,
+            "production": 249.2,
+            "used": 48.1,
+            "grid": 107.8,
+            "export": 201.1
+          },
+          {
+            "demand": 246.0,
+            "production": 111.5,
+            "used": 40.3,
+            "grid": 205.7,
+            "export": 71.2
+          },
+          {
+            "demand": 315.1,
+            "production": 62.8,
+            "used": 30.4,
+            "grid": 284.7,
+            "export": 32.4
+          },
+          {
+            "demand": 390.6,
+            "production": 35.0,
+            "used": 26.7,
+            "grid": 364.0,
+            "export": 8.4
+          }
+        ]
+      },
+      "B": {
+        "cost": 490.65,
+        "saving": 349.67,
+        "grid": 2037.6,
+        "grid_reduction": 847.6,
+        "used": 847.6,
+        "export": 1227.8,
+        "moved": 550.9,
+        "self_sufficiency": 0.294,
+        "self_consumption": 0.408,
+        "payback_years": 7.4,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 49.8,
+            "used": 42.6,
+            "grid": 331.0,
+            "export": 7.2
+          },
+          {
+            "demand": 347.4,
+            "production": 89.7,
+            "used": 50.1,
+            "grid": 297.4,
+            "export": 39.7
+          },
+          {
+            "demand": 254.9,
+            "production": 156.3,
+            "used": 79.9,
+            "grid": 174.9,
+            "export": 76.4
+          },
+          {
+            "demand": 182.7,
+            "production": 215.0,
+            "used": 77.9,
+            "grid": 104.7,
+            "export": 137.1
+          },
+          {
+            "demand": 182.8,
+            "production": 306.0,
+            "used": 98.2,
+            "grid": 84.6,
+            "export": 207.8
+          },
+          {
+            "demand": 136.2,
+            "production": 276.7,
+            "used": 82.4,
+            "grid": 53.9,
+            "export": 194.4
+          },
+          {
+            "demand": 153.6,
+            "production": 281.3,
+            "used": 96.3,
+            "grid": 57.3,
+            "export": 185.0
+          },
+          {
+            "demand": 146.5,
+            "production": 242.2,
+            "used": 80.6,
+            "grid": 65.9,
+            "export": 161.6
+          },
+          {
+            "demand": 155.9,
+            "production": 249.2,
+            "used": 86.8,
+            "grid": 69.1,
+            "export": 162.3
+          },
+          {
+            "demand": 246.0,
+            "production": 111.5,
+            "used": 74.7,
+            "grid": 171.3,
+            "export": 36.7
+          },
+          {
+            "demand": 315.1,
+            "production": 62.8,
+            "used": 44.7,
+            "grid": 270.4,
+            "export": 18.1
+          },
+          {
+            "demand": 390.6,
+            "production": 35.0,
+            "used": 33.4,
+            "grid": 357.2,
+            "export": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 3,
+      "investment": 3900.0,
+      "operating_cost": 39.0,
+      "production": 3113.0932500000035,
+      "A": {
+        "cost": 489.6,
+        "saving": 337.72,
+        "grid": 2284.3,
+        "grid_reduction": 601.0,
+        "used": 601.0,
+        "export": 2512.1,
+        "moved": 0.0,
+        "self_sufficiency": 0.208,
+        "self_consumption": 0.193,
+        "payback_years": 11.5,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 74.6,
+            "used": 40.8,
+            "grid": 333.6,
+            "export": 33.8
+          },
+          {
+            "demand": 347.2,
+            "production": 134.6,
+            "used": 45.7,
+            "grid": 301.5,
+            "export": 88.9
+          },
+          {
+            "demand": 254.2,
+            "production": 234.4,
+            "used": 57.0,
+            "grid": 197.2,
+            "export": 177.4
+          },
+          {
+            "demand": 183.8,
+            "production": 322.5,
+            "used": 46.5,
+            "grid": 137.3,
+            "export": 276.0
+          },
+          {
+            "demand": 183.3,
+            "production": 458.9,
+            "used": 69.1,
+            "grid": 114.2,
+            "export": 389.8
+          },
+          {
+            "demand": 135.6,
+            "production": 415.1,
+            "used": 54.8,
+            "grid": 80.8,
+            "export": 360.3
+          },
+          {
+            "demand": 152.7,
+            "production": 421.9,
+            "used": 62.5,
+            "grid": 90.2,
+            "export": 359.4
+          },
+          {
+            "demand": 146.5,
+            "production": 363.3,
+            "used": 55.3,
+            "grid": 91.2,
+            "export": 308.0
+          },
+          {
+            "demand": 155.9,
+            "production": 373.8,
+            "used": 51.2,
+            "grid": 104.7,
+            "export": 322.5
+          },
+          {
+            "demand": 246.0,
+            "production": 167.2,
+            "used": 46.2,
+            "grid": 199.8,
+            "export": 121.0
+          },
+          {
+            "demand": 315.1,
+            "production": 94.2,
+            "used": 38.1,
+            "grid": 277.0,
+            "export": 56.1
+          },
+          {
+            "demand": 390.6,
+            "production": 52.6,
+            "used": 33.6,
+            "grid": 357.0,
+            "export": 19.0
+          }
+        ]
+      },
+      "B": {
+        "cost": 391.74,
+        "saving": 435.57,
+        "grid": 1943.9,
+        "grid_reduction": 941.4,
+        "used": 941.4,
+        "export": 2171.7,
+        "moved": 542.1,
+        "self_sufficiency": 0.326,
+        "self_consumption": 0.302,
+        "payback_years": 9.0,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 74.6,
+            "used": 57.9,
+            "grid": 315.7,
+            "export": 16.8
+          },
+          {
+            "demand": 347.4,
+            "production": 134.6,
+            "used": 60.8,
+            "grid": 286.6,
+            "export": 73.8
+          },
+          {
+            "demand": 254.9,
+            "production": 234.4,
+            "used": 89.2,
+            "grid": 165.6,
+            "export": 145.2
+          },
+          {
+            "demand": 182.7,
+            "production": 322.5,
+            "used": 82.7,
+            "grid": 100.0,
+            "export": 239.8
+          },
+          {
+            "demand": 182.8,
+            "production": 458.9,
+            "used": 102.1,
+            "grid": 80.7,
+            "export": 356.9
+          },
+          {
+            "demand": 136.2,
+            "production": 415.1,
+            "used": 85.8,
+            "grid": 50.4,
+            "export": 329.3
+          },
+          {
+            "demand": 153.6,
+            "production": 421.9,
+            "used": 101.7,
+            "grid": 51.8,
+            "export": 320.2
+          },
+          {
+            "demand": 146.5,
+            "production": 363.3,
+            "used": 85.3,
+            "grid": 61.2,
+            "export": 278.0
+          },
+          {
+            "demand": 155.9,
+            "production": 373.8,
+            "used": 91.1,
+            "grid": 64.8,
+            "export": 282.7
+          },
+          {
+            "demand": 246.0,
+            "production": 167.2,
+            "used": 83.0,
+            "grid": 162.9,
+            "export": 84.2
+          },
+          {
+            "demand": 315.1,
+            "production": 94.2,
+            "used": 56.6,
+            "grid": 258.5,
+            "export": 37.7
+          },
+          {
+            "demand": 390.6,
+            "production": 52.6,
+            "used": 45.1,
+            "grid": 345.5,
+            "export": 7.4
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 4,
+      "investment": 5200.0,
+      "operating_cost": 52.0,
+      "production": 4150.790999999998,
+      "A": {
+        "cost": 394.82,
+        "saving": 419.49,
+        "grid": 2229.9,
+        "grid_reduction": 655.3,
+        "used": 655.3,
+        "export": 3495.5,
+        "moved": 0.0,
+        "self_sufficiency": 0.227,
+        "self_consumption": 0.158,
+        "payback_years": 12.4,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 99.5,
+            "used": 46.8,
+            "grid": 327.6,
+            "export": 52.8
+          },
+          {
+            "demand": 347.2,
+            "production": 179.5,
+            "used": 51.8,
+            "grid": 295.4,
+            "export": 127.6
+          },
+          {
+            "demand": 254.2,
+            "production": 312.6,
+            "used": 62.0,
+            "grid": 192.2,
+            "export": 250.6
+          },
+          {
+            "demand": 183.8,
+            "production": 430.0,
+            "used": 50.1,
+            "grid": 133.7,
+            "export": 379.9
+          },
+          {
+            "demand": 183.3,
+            "production": 611.9,
+            "used": 73.4,
+            "grid": 109.9,
+            "export": 538.5
+          },
+          {
+            "demand": 135.6,
+            "production": 553.5,
+            "used": 58.9,
+            "grid": 76.7,
+            "export": 494.6
+          },
+          {
+            "demand": 152.7,
+            "production": 562.5,
+            "used": 67.0,
+            "grid": 85.7,
+            "export": 495.5
+          },
+          {
+            "demand": 146.5,
+            "production": 484.4,
+            "used": 58.7,
+            "grid": 87.8,
+            "export": 425.7
+          },
+          {
+            "demand": 155.9,
+            "production": 498.3,
+            "used": 53.5,
+            "grid": 102.4,
+            "export": 444.9
+          },
+          {
+            "demand": 246.0,
+            "production": 222.9,
+            "used": 50.7,
+            "grid": 195.3,
+            "export": 172.2
+          },
+          {
+            "demand": 315.1,
+            "production": 125.6,
+            "used": 43.5,
+            "grid": 271.6,
+            "export": 82.1
+          },
+          {
+            "demand": 390.6,
+            "production": 70.1,
+            "used": 39.0,
+            "grid": 351.6,
+            "export": 31.1
+          }
+        ]
+      },
+      "B": {
+        "cost": 297.95,
+        "saving": 516.37,
+        "grid": 1882.0,
+        "grid_reduction": 1003.3,
+        "used": 1003.3,
+        "export": 3147.5,
+        "moved": 534.2,
+        "self_sufficiency": 0.348,
+        "self_consumption": 0.242,
+        "payback_years": 10.1,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 99.5,
+            "used": 69.7,
+            "grid": 303.9,
+            "export": 29.8
+          },
+          {
+            "demand": 347.4,
+            "production": 179.5,
+            "used": 69.9,
+            "grid": 277.5,
+            "export": 109.6
+          },
+          {
+            "demand": 254.9,
+            "production": 312.6,
+            "used": 95.3,
+            "grid": 159.6,
+            "export": 217.3
+          },
+          {
+            "demand": 182.7,
+            "production": 430.0,
+            "used": 84.3,
+            "grid": 98.4,
+            "export": 345.7
+          },
+          {
+            "demand": 183.6,
+            "production": 611.9,
+            "used": 104.7,
+            "grid": 78.9,
+            "export": 507.3
+          },
+          {
+            "demand": 135.5,
+            "production": 553.5,
+            "used": 88.1,
+            "grid": 47.4,
+            "export": 465.3
+          },
+          {
+            "demand": 153.6,
+            "production": 562.5,
+            "used": 104.3,
+            "grid": 49.3,
+            "export": 458.2
+          },
+          {
+            "demand": 146.5,
+            "production": 484.4,
+            "used": 88.1,
+            "grid": 58.4,
+            "export": 396.3
+          },
+          {
+            "demand": 155.9,
+            "production": 498.3,
+            "used": 92.6,
+            "grid": 63.3,
+            "export": 405.7
+          },
+          {
+            "demand": 246.0,
+            "production": 222.9,
+            "used": 88.0,
+            "grid": 158.0,
+            "export": 134.9
+          },
+          {
+            "demand": 315.1,
+            "production": 125.6,
+            "used": 65.3,
+            "grid": 249.8,
+            "export": 60.3
+          },
+          {
+            "demand": 390.6,
+            "production": 70.1,
+            "used": 53.0,
+            "grid": 337.7,
+            "export": 17.1
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 5,
+      "investment": 6500.0,
+      "operating_cost": 65.0,
+      "production": 5188.488749999996,
+      "A": {
+        "cost": 302.72,
+        "saving": 498.6,
+        "grid": 2188.3,
+        "grid_reduction": 696.9,
+        "used": 696.9,
+        "export": 4491.6,
+        "moved": 0.0,
+        "self_sufficiency": 0.242,
+        "self_consumption": 0.134,
+        "payback_years": 13.0,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 124.4,
+            "used": 51.4,
+            "grid": 323.0,
+            "export": 73.0
+          },
+          {
+            "demand": 347.2,
+            "production": 224.3,
+            "used": 56.7,
+            "grid": 290.5,
+            "export": 167.6
+          },
+          {
+            "demand": 254.2,
+            "production": 390.7,
+            "used": 65.4,
+            "grid": 188.8,
+            "export": 325.3
+          },
+          {
+            "demand": 183.8,
+            "production": 537.5,
+            "used": 53.3,
+            "grid": 130.5,
+            "export": 484.2
+          },
+          {
+            "demand": 183.3,
+            "production": 764.9,
+            "used": 76.6,
+            "grid": 106.7,
+            "export": 688.3
+          },
+          {
+            "demand": 135.6,
+            "production": 691.8,
+            "used": 62.1,
+            "grid": 73.4,
+            "export": 629.7
+          },
+          {
+            "demand": 152.7,
+            "production": 703.1,
+            "used": 70.4,
+            "grid": 82.3,
+            "export": 632.7
+          },
+          {
+            "demand": 146.5,
+            "production": 605.5,
+            "used": 60.9,
+            "grid": 85.6,
+            "export": 544.6
+          },
+          {
+            "demand": 155.9,
+            "production": 622.9,
+            "used": 54.9,
+            "grid": 101.0,
+            "export": 568.0
+          },
+          {
+            "demand": 246.0,
+            "production": 278.7,
+            "used": 54.1,
+            "grid": 191.9,
+            "export": 224.6
+          },
+          {
+            "demand": 315.1,
+            "production": 157.0,
+            "used": 47.6,
+            "grid": 267.5,
+            "export": 109.4
+          },
+          {
+            "demand": 390.6,
+            "production": 87.6,
+            "used": 43.4,
+            "grid": 347.3,
+            "export": 44.2
+          }
+        ]
+      },
+      "B": {
+        "cost": 206.72,
+        "saving": 594.59,
+        "grid": 1835.6,
+        "grid_reduction": 1049.6,
+        "used": 1049.6,
+        "export": 4138.8,
+        "moved": 525.5,
+        "self_sufficiency": 0.364,
+        "self_consumption": 0.202,
+        "payback_years": 10.9,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 124.4,
+            "used": 77.3,
+            "grid": 296.2,
+            "export": 47.1
+          },
+          {
+            "demand": 347.4,
+            "production": 224.3,
+            "used": 76.9,
+            "grid": 270.5,
+            "export": 147.4
+          },
+          {
+            "demand": 254.9,
+            "production": 390.7,
+            "used": 98.7,
+            "grid": 156.2,
+            "export": 292.0
+          },
+          {
+            "demand": 182.7,
+            "production": 537.5,
+            "used": 86.5,
+            "grid": 96.2,
+            "export": 451.0
+          },
+          {
+            "demand": 183.6,
+            "production": 764.9,
+            "used": 106.8,
+            "grid": 76.8,
+            "export": 658.1
+          },
+          {
+            "demand": 135.5,
+            "production": 691.8,
+            "used": 89.8,
+            "grid": 45.7,
+            "export": 602.0
+          },
+          {
+            "demand": 153.6,
+            "production": 703.1,
+            "used": 106.1,
+            "grid": 47.4,
+            "export": 597.0
+          },
+          {
+            "demand": 146.5,
+            "production": 605.5,
+            "used": 89.8,
+            "grid": 56.7,
+            "export": 515.7
+          },
+          {
+            "demand": 155.9,
+            "production": 622.9,
+            "used": 94.3,
+            "grid": 61.6,
+            "export": 528.6
+          },
+          {
+            "demand": 246.0,
+            "production": 278.7,
+            "used": 91.4,
+            "grid": 154.5,
+            "export": 187.2
+          },
+          {
+            "demand": 315.1,
+            "production": 157.0,
+            "used": 73.1,
+            "grid": 242.0,
+            "export": 84.0
+          },
+          {
+            "demand": 390.6,
+            "production": 87.6,
+            "used": 58.9,
+            "grid": 331.7,
+            "export": 28.6
+          }
+        ]
+      }
+    },
+    {
+      "kwp": 6,
+      "investment": 7800.0,
+      "operating_cost": 78.0,
+      "production": 6226.186500000007,
+      "A": {
+        "cost": 212.14,
+        "saving": 576.17,
+        "grid": 2154.0,
+        "grid_reduction": 731.2,
+        "used": 731.2,
+        "export": 5495.0,
+        "moved": 0.0,
+        "self_sufficiency": 0.253,
+        "self_consumption": 0.117,
+        "payback_years": 13.5,
+        "monthly": [
+          {
+            "demand": 374.4,
+            "production": 149.3,
+            "used": 55.0,
+            "grid": 319.4,
+            "export": 94.3
+          },
+          {
+            "demand": 347.2,
+            "production": 269.2,
+            "used": 60.2,
+            "grid": 287.1,
+            "export": 209.0
+          },
+          {
+            "demand": 254.2,
+            "production": 468.8,
+            "used": 68.1,
+            "grid": 186.1,
+            "export": 400.7
+          },
+          {
+            "demand": 183.8,
+            "production": 645.0,
+            "used": 56.1,
+            "grid": 127.7,
+            "export": 588.9
+          },
+          {
+            "demand": 183.3,
+            "production": 917.9,
+            "used": 79.3,
+            "grid": 104.0,
+            "export": 838.6
+          },
+          {
+            "demand": 135.6,
+            "production": 830.2,
+            "used": 65.1,
+            "grid": 70.5,
+            "export": 765.1
+          },
+          {
+            "demand": 152.7,
+            "production": 843.8,
+            "used": 73.6,
+            "grid": 79.1,
+            "export": 770.2
+          },
+          {
+            "demand": 146.5,
+            "production": 726.6,
+            "used": 62.7,
+            "grid": 83.8,
+            "export": 663.8
+          },
+          {
+            "demand": 155.9,
+            "production": 747.5,
+            "used": 56.2,
+            "grid": 99.7,
+            "export": 691.3
+          },
+          {
+            "demand": 246.0,
+            "production": 334.4,
+            "used": 56.8,
+            "grid": 189.2,
+            "export": 277.6
+          },
+          {
+            "demand": 315.1,
+            "production": 188.4,
+            "used": 51.0,
+            "grid": 264.1,
+            "export": 137.5
+          },
+          {
+            "demand": 390.6,
+            "production": 105.1,
+            "used": 47.2,
+            "grid": 343.4,
+            "export": 57.9
+          }
+        ]
+      },
+      "B": {
+        "cost": 117.05,
+        "saving": 671.27,
+        "grid": 1797.8,
+        "grid_reduction": 1087.4,
+        "used": 1087.4,
+        "export": 5138.8,
+        "moved": 526.4,
+        "self_sufficiency": 0.377,
+        "self_consumption": 0.175,
+        "payback_years": 11.6,
+        "monthly": [
+          {
+            "demand": 373.5,
+            "production": 149.3,
+            "used": 83.1,
+            "grid": 290.4,
+            "export": 66.1
+          },
+          {
+            "demand": 347.4,
+            "production": 269.2,
+            "used": 82.7,
+            "grid": 264.7,
+            "export": 186.5
+          },
+          {
+            "demand": 254.9,
+            "production": 468.8,
+            "used": 101.2,
+            "grid": 153.7,
+            "export": 367.7
+          },
+          {
+            "demand": 182.7,
+            "production": 645.0,
+            "used": 88.6,
+            "grid": 94.1,
+            "export": 556.4
+          },
+          {
+            "demand": 183.6,
+            "production": 917.9,
+            "used": 109.3,
+            "grid": 74.3,
+            "export": 808.6
+          },
+          {
+            "demand": 135.5,
+            "production": 830.2,
+            "used": 91.3,
+            "grid": 44.2,
+            "export": 738.9
+          },
+          {
+            "demand": 153.6,
+            "production": 843.8,
+            "used": 107.8,
+            "grid": 45.8,
+            "export": 736.0
+          },
+          {
+            "demand": 146.5,
+            "production": 726.6,
+            "used": 90.8,
+            "grid": 55.7,
+            "export": 635.8
+          },
+          {
+            "demand": 155.9,
+            "production": 747.5,
+            "used": 95.1,
+            "grid": 60.8,
+            "export": 652.4
+          },
+          {
+            "demand": 246.0,
+            "production": 334.4,
+            "used": 94.6,
+            "grid": 151.4,
+            "export": 239.8
+          },
+          {
+            "demand": 315.1,
+            "production": 188.4,
+            "used": 78.6,
+            "grid": 236.5,
+            "export": 109.9
+          },
+          {
+            "demand": 390.6,
+            "production": 105.1,
+            "used": 64.4,
+            "grid": 326.2,
+            "export": 40.7
+          }
+        ]
+      }
+    }
+  ]
+}

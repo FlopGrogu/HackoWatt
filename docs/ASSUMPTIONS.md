@@ -112,3 +112,16 @@ Scripts in `src/`, each run on its own (shared code in `src/hackowatt/`):
 - The date can be changed in Profile → Current Time. Any year is wrapped onto the same month/day of 2026 (29 Feb → 28 Feb): 2024-09-12 uses 12 Aug – 12 Sep 2026. The year is circular: 10 Jan uses 11 Dec – 10 Jan (December glued in front of January). Charts, forecast and shifts are labelled with the year the user picked; changing the time reloads the app.
 - The forecast used is the latest precomputed slot (00/06/12/18 h) at or before the chosen time.
 - Home tiles come from the data: outdoor temperature/humidity (observed weather), phone at home/away, today's plan and the next trip (calendar). Devices are still the demo list.
+
+# PV simulator (src/simulate_pv.py → data/app/pv_simulation.json)
+
+| Topic | Assumption |
+|---|---|
+| Production | PVGIS 5.3 hourly series (JRC, European Commission), radiation database PVGIS-SARAH3, year 2023 (latest available), for 1 kWp at 52.2297 N, 21.0122 E: south, 35° tilt, 14 % system losses (PVGIS defaults) → 1,038 kWh/kWp/year. Scaled linearly to 1–6 kWp; mapped onto 2026 by date and local hour. Cached in `data/weather/pvgis_warsaw_2023.json` (request URL in `.url`). |
+| Shared / community PV | Her share counts hour by hour as if it were on her own meter: used directly up to her demand, the rest exported. |
+| Consumption | The simulated year 2026 (`data/consumption/hourly_consumption.csv`, 2,885 kWh). |
+| Prices | Grid purchases at the official time-of-use tariff; export €0.08/kWh; investment €1,300/kWp; operating cost 1 %/year of the investment. No degradation, no financing, no subsidies. |
+| Scenario A | No change of habits: consumption as simulated. |
+| Scenario B | Shifting: washing-machine and dishwasher runs keep their shape but may start 0–23 h later (delay-start), at the start hour with the lowest cost given PV surplus and tariff; the washing machine must finish while she is home (and she is still home the hour after). Hot-water heating of each day (up to one tank ≈ 2.8 kWh electricity) is re-placed within the same day at ≤ 1.6 kWh/h. Energy is conserved. |
+| Results | Per size: production, share of her consumption covered by PV, change in grid purchases, annual saving vs. today (after operating cost), simple payback = investment / annual saving. The 0 kWp row shows what shifting alone saves (it is included in the scenario B savings). |
+
