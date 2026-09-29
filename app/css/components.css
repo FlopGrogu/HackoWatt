@@ -324,3 +324,30 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 .ev-title { font-size: 15px; font-weight: 600; }
 .ev-loc { grid-column: 2; font-size: 12px; }
 .day-events li:not(:has(.ev-loc:not([style*="none"]))) .ev-time { grid-row: auto; }
+
+.time-editor { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.time-editor .btn { margin: 0; }
+.btn:disabled { opacity: .4; cursor: default; }
+.seasons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+.seasons .btn { margin: 0; flex-direction: column; gap: 2px; padding: 12px 0; }
+.seasons .btn small { font-size: 12px; font-weight: 500; opacity: .75; }
+
+.info-btn { width: 30px; height: 30px; display: grid; place-items: center; color: var(--accent); border-radius: 50%; }
+.info-btn svg { width: 24px; height: 24px; }
+.cal-explain ul { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.cal-explain li { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: start; }
+.cal-explain li div { display: flex; flex-direction: column; gap: 2px; }
+.cal-explain li .muted { font-size: 13px; line-height: 1.35; }
+.cal-explain li b { font-size: 15px; color: #c8c4bf; }
+.swatch { width: 22px; height: 22px; border-radius: 7px; margin-top: 1px; }
+.swatch.home { background: color-mix(in srgb, var(--green) 62%, var(--card-2)); }
+.swatch.partly { background: color-mix(in srgb, var(--accent) 68%, var(--card-2)); }
+.swatch.away { background: color-mix(in srgb, #a29e99 60%, var(--card-2)); }
+.cal-note { margin-top: 16px; font-size: 12px; line-height: 1.4; }
+
+/* "Why?" toggle in the forecast profile card */
+.why-btn { display: inline-flex; align-items: center; gap: 2px; padding: 5px 8px 5px 12px; border-radius: 999px; border: 1px solid var(--accent-dark); color: var(--accent); font-size: 13px; font-weight: 600; }
+.why-btn svg { width: 16px; height: 16px; transition: transform .2s; }
+.why-btn.open svg { transform: rotate(90deg); }
+.why-panel { margin: 10px 0 14px; padding: 4px 12px; border-radius: 14px; background: var(--card-2); }
+.why-panel .why-line { padding: 9px 0; }

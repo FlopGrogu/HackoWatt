@@ -41,7 +41,7 @@ document.addEventListener('alpine:init', () => {
       const { lat, lon } = Alpine.store('profile').location;
       let weather = null;
       try {
-        weather = await HW.api.getWeather({ lat, lon });
+        weather = await HW.api.getWeather({ ...Alpine.store('profile').location, lat, lon });
       } catch (err) {
         console.warn('Weather unavailable', err);
       }

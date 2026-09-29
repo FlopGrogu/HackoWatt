@@ -45,21 +45,19 @@
         <header class="welcome">
           <div>
             <h1><span x-text="greeting"></span> <span class="accent" x-text="$store.profile.name"></span></h1>
-            <p class="status-line"><i class="dot" :class="away ? 'orange' : 'green'"></i><span x-text="statusLine"></span></p>
+            <p class="status-line"><i class="dot" :class="away ? 'orange' : 'green'"></i><span
+                x-text="statusLine"></span></p>
           </div>
           <button class="avatar" @click="$store.nav.go('profile')" aria-label="Profile"><img src="assets/avatar.png"
               alt=""></button>
         </header>
 
         <!-- Next 7 days: expected at home or not (tap for the month view) -->
-        <article class="card tappable week-card" x-show="week.length" @click="$store.nav.go('calendar')">
+        <article class="card week-card" x-show="week.length">
           <div class="card-head">
             <h2>This Week</h2>
-            <div class="legend">
-              <span><i class="dot green"></i>Home</span>
-              <span><i class="dot orange"></i>Out</span>
-              <span><i class="dot grey"></i>Away</span>
-            </div>
+            <button class="info-btn" @click="$store.nav.go('calendar')"
+              aria-label="What do the colours mean? Open the calendar" x-html="$icon('info')"></button>
           </div>
           <div class="week">
             <template x-for="d in week">
@@ -145,13 +143,18 @@
       <!-- ============================== CALENDAR ============================== -->
       <section x-data="calendarScreen" x-show="$store.nav.screen === 'calendar'">
         <header class="topbar left cal-top">
-          <button class="back" @click="$store.nav.go('home')" aria-label="Back to Home"><span x-html="$icon('chevron')"></span></button>
-          <div><h1>Calendar</h1><p class="muted cal-today" x-text="todayLabel"></p></div>
+          <button class="back" @click="$store.nav.go('home')" aria-label="Back to Home"><span
+              x-html="$icon('chevron')"></span></button>
+          <div>
+            <h1>Calendar</h1>
+            <p class="muted cal-today" x-text="todayLabel"></p>
+          </div>
         </header>
 
         <div class="card cal">
           <div class="cal-nav">
-            <button @click="step(-1)" class="prev" aria-label="Previous month"><span x-html="$icon('chevron')"></span></button>
+            <button @click="step(-1)" class="prev" aria-label="Previous month"><span
+                x-html="$icon('chevron')"></span></button>
             <h2 x-text="title"></h2>
             <button @click="step(1)" aria-label="Next month"><span x-html="$icon('chevron')"></span></button>
           </div>
@@ -160,19 +163,39 @@
           </div>
           <div class="cal-grid">
             <template x-for="c in cells">
-              <button class="cal-cell" :class="[c.state, { out: !c.inMonth, today: c.today, selected: selected && selected.date === c.date }]"
+              <button class="cal-cell"
+                :class="[c.state, { out: !c.inMonth, today: c.today, selected: selected && selected.date === c.date }]"
                 :style="`--f:${c.fade}`" @click="selected = c; $store.day.show(c)">
                 <span class="cal-num" x-text="c.day"></span>
                 <span class="cal-label" x-text="c.label"></span>
               </button>
             </template>
           </div>
-          <div class="legend bottom cal-legend">
-            <span><i class="dot green"></i><span x-text="`Home ${summary.home}`"></span></span>
-            <span><i class="dot orange"></i><span x-text="`Out ${summary.partly}`"></span></span>
-            <span><i class="dot grey"></i><span x-text="`Away ${summary.away}`"></span></span>
-          </div>
         </div>
+
+        <article class="card cal-explain">
+          <h2>Legend</h2>
+          <ul>
+            <li>
+              <i class="swatch home"></i>
+              <div><strong>Home</strong><span class="muted">At home all day: working from home or a free day.</span>
+              </div>
+              <b x-text="summary.home"></b>
+            </li>
+            <li>
+              <i class="swatch partly"></i>
+              <div><strong>Out</strong><span class="muted">Leaves for part of the day but sleeps at home. E.g. office
+                  days, day trips.</span></div>
+              <b x-text="summary.partly"></b>
+            </li>
+            <li>
+              <i class="swatch away"></i>
+              <div><strong>Away</strong><span class="muted">Away all day in the middle of a trip, with nights away from
+                  home.</span></div>
+              <b x-text="summary.away"></b>
+            </li>
+          </ul>
+        </article>
       </section>
 
       <!-- ============================== FORECAST ============================== -->
@@ -189,8 +212,20 @@
         </div>
 
         <article class="card profile">
-          <h2 x-text="data?.title"></h2>
+          <div class="card-head">
+            <h2 x-text="data?.title"></h2>
+            <button class="why-btn" x-show="data?.why?.length" :class="{ open: whyOpen }" @click="whyOpen = !whyOpen"
+              :aria-expanded="whyOpen">
+              Why?<span x-html="$icon('chevron')"></span>
+            </button>
+          </div>
           <p class="muted" x-text="data?.subtitle"></p>
+          <div class="why-panel" x-show="whyOpen && data?.why?.length" x-transition.opacity.duration.200ms>
+            <template x-for="w in data?.why">
+              <p class="why-line"><span :class="w.delta > 0 ? 'red' : 'green'"
+                  x-text="w.delta > 0 ? '↑' : '↓'"></span><span x-text="w.text"></span></p>
+            </template>
+          </div>
           <div class="chart tall">
             <div class="stripes"></div>
             <canvas x-chart="profileSpec"></canvas>
@@ -202,15 +237,10 @@
           </div>
           <p class="muted hint" x-show="pendingCount">Tap a green marker to schedule the device there.</p>
           <template x-for="s in $store.shifts.confirmed" :key="s.id">
-            <p class="hint scheduled">✓ <span x-text="s.device"></span> scheduled <span x-text="$when(s.ideal)"></span> ·
-              <button @click="$store.shifts.undo(s)">Undo</button></p>
-          </template>
-        </article>
-
-        <article class="card why" x-show="data?.why?.length">
-          <h2>Why this forecast?</h2>
-          <template x-for="w in data?.why">
-            <p class="why-line"><span :class="w.delta > 0 ? 'red' : 'green'" x-text="w.delta > 0 ? '↑' : '↓'"></span><span x-text="w.text"></span></p>
+            <p class="hint scheduled">✓ <span x-text="s.device"></span> scheduled <span x-text="$when(s.ideal)"></span>
+              ·
+              <button @click="$store.shifts.undo(s)">Undo</button>
+            </p>
           </template>
         </article>
 
@@ -268,8 +298,10 @@
           <span class="setting-text"><strong>Current Time</strong><span x-text="clock.label"></span></span>
           <span class="chevron" :class="{ open: editingTime }" x-html="$icon('chevron')"></span>
         </button>
-        <input class="time-input" type="datetime-local" x-show="editingTime" x-effect="document.activeElement !== $el && ($el.value = clock.iso)"
-          @change="clock.set($event.target.value)" aria-label="Current time">
+        <div class="time-editor" x-show="editingTime">
+          <input class="time-input" type="datetime-local" x-model="draft" aria-label="Current time">
+          <button class="btn primary" :disabled="!canApply" @click="applyDraft()">Set this date</button>
+        </div>
         <button class="setting-row" @click="editingLocation = !editingLocation">
           <span class="setting-icon" x-html="$icon('pin')"></span>
           <span class="setting-text"><strong>Location</strong><span x-text="$store.profile.location.name"></span></span>
@@ -288,25 +320,39 @@
         </div>
 
         <h3 class="settings-title data">Data Management</h3>
-        <button class="btn primary"><span x-html="$icon('refresh')"></span>Generate 30-Day Mock Data</button>
-        <button class="btn outline"><span x-html="$icon('upload')"></span>Upload Data</button>
-        <p class="settings-hint">Generate realistic energy consumption data or upload your own CSV file</p>
+        <div class="seasons">
+          <template x-for="season in seasons">
+            <button class="btn" :class="season.active(clock.date) ? 'primary' : 'outline'" @click="pickSeason(season)">
+              <span x-text="season.name"></span><small x-text="season.short"></small>
+            </button>
+          </template>
+        </div>
+        <p class="settings-hint">Jump to a season of the generated year: sets the current date to the 15th of that month
+        </p>
       </section>
     </main>
 
     <!-- Confirm scheduling a shiftable device at the cheaper time -->
-    <div class="sheet-backdrop" x-data x-show="$store.shifts.selected" x-transition.opacity @click.self="$store.shifts.cancel()">
-      <div class="sheet" x-show="$store.shifts.selected" x-transition:enter="sheet-in" x-transition:enter-start="sheet-from">
+    <div class="sheet-backdrop" x-data x-show="$store.shifts.selected" x-transition.opacity
+      @click.self="$store.shifts.cancel()">
+      <div class="sheet" x-show="$store.shifts.selected" x-transition:enter="sheet-in"
+        x-transition:enter-start="sheet-from">
         <template x-if="$store.shifts.selected">
           <div>
             <h2 x-text="`Schedule the ${$store.shifts.selected.device.toLowerCase()}?`"></h2>
-            <p class="muted" x-text="`Likely needed ${$when($store.shifts.selected.usual)} (${$store.shifts.selected.reason}, ${Math.round($store.shifts.selected.p * 100)}% likely).`"></p>
+            <p class="muted"
+              x-text="`Likely needed ${$when($store.shifts.selected.usual)} (${$store.shifts.selected.reason}, ${Math.round($store.shifts.selected.p * 100)}% likely).`">
+            </p>
             <div class="sheet-times">
-              <div><span class="muted">Usual</span><strong x-text="$when($store.shifts.selected.usual)"></strong><span class="muted" x-text="$money($store.shifts.selected.usualPrice) + '/kWh'"></span></div>
+              <div><span class="muted">Usual</span><strong x-text="$when($store.shifts.selected.usual)"></strong><span
+                  class="muted" x-text="$money($store.shifts.selected.usualPrice) + '/kWh'"></span></div>
               <span class="accent" x-html="$icon('chevron')"></span>
-              <div class="cheap"><span class="muted">Cheaper</span><strong x-text="$when($store.shifts.selected.ideal)"></strong><span class="muted" x-text="$money($store.shifts.selected.idealPrice) + '/kWh'"></span></div>
+              <div class="cheap"><span class="muted">Cheaper</span><strong
+                  x-text="$when($store.shifts.selected.ideal)"></strong><span class="muted"
+                  x-text="$money($store.shifts.selected.idealPrice) + '/kWh'"></span></div>
             </div>
-            <p class="sheet-save" x-text="`Saves ≈ ${$money($store.shifts.selected.saving)} and smooths out your evening load.`"></p>
+            <p class="sheet-save"
+              x-text="`Saves ≈ ${$money($store.shifts.selected.saving)} and smooths out your evening load.`"></p>
             <div class="sheet-actions">
               <button class="btn outline" @click="$store.shifts.cancel()">Not now</button>
               <button class="btn primary" @click="$store.shifts.confirm()">Schedule</button>
@@ -318,7 +364,8 @@
 
     <!-- All entries of the tapped calendar day -->
     <div class="sheet-backdrop" x-data x-show="$store.day.cell" x-transition.opacity @click.self="$store.day.close()">
-      <div class="sheet day-sheet" x-show="$store.day.cell" x-transition:enter="sheet-in" x-transition:enter-start="sheet-from">
+      <div class="sheet day-sheet" x-show="$store.day.cell" x-transition:enter="sheet-in"
+        x-transition:enter-start="sheet-from">
         <div class="day-head">
           <div>
             <h2 x-text="$store.day.title"></h2>

@@ -22,7 +22,7 @@
     return r.text();
   });
   const table = (csv) => {
-    const [head, ...lines] = csv.trim().split('\n');
+    const [head, ...lines] = csv.trim().split(/\r?\n/);
     const cols = head.split(',');
     return lines.map((l) => l.split(','))
       .map((cells) => Object.fromEntries(cols.map((c, i) => [c, cells[i]])));
@@ -48,6 +48,7 @@
   const sources = {
     hourly: soft(text(HW.config.dataUrls.consumption).then(table), 'Consumption'),
     weather: soft(text(HW.config.dataUrls.weather).then(table), 'Weather'),
+    sun: soft(text(HW.config.dataUrls.sun).then(table), 'Sun times'),
     positions: soft(text(HW.config.dataUrls.positions).then(table), 'Positions'),
     calendar: soft(text(HW.config.dataUrls.calendar).then((ics) => parseIcs(ics)), 'Calendar'),
   };
@@ -100,7 +101,7 @@
 
   /** The view of the data for one moment `now` (a Date in any year). */
   async function at(now) {
-    const [hourly, weather, positions, calendar] = await Promise.all(Object.values(sources));
+    const { hourly, weather, sun, positions, calendar } = Object.fromEntries(await Promise.all(Object.entries(sources).map(async ([k, v]) => [k, await v])));
     const idx = hourIndex(now);
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const label = (d) => `${d.getDate()} ${d.toLocaleString('en-US', { month: 'short' })}`;
@@ -152,6 +153,12 @@
       weather() {
         const r = weather?.[wrapHour(idx)];
         return r ? { temperature: Number(r.temp_out_c), humidity: Number(r.relative_humidity_pct) } : null;
+      },
+
+      /** Sunrise / sunset ('HH:MM') of the day at the data location. */
+      sun() {
+        const r = sun?.find((x) => x.date === canonicalDay(now));
+        return r ? { sunrise: r.sunrise, sunset: r.sunset } : null;
       },
 
       /** Where the phone was at the last fix: { home, km, minutesAgo }. */

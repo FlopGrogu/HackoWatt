@@ -11,9 +11,13 @@ HW.config = {
   dataUrls: {
     consumption: '../data/consumption/hourly_consumption.csv',
     weather: '../data/weather/weather_hourly.csv',
+    sun: '../data/weather/sun_times.csv',
     positions: '../data/geolocation/positions.csv',
     calendar: '../data/calendar/aleksandra_calendar_2026.ics',
   },
+  // Location the generated data belongs to (Warsaw) and the real weather year that is replayed as 2026.
+  dataLocation: { lat: 52.2297, lon: 21.0122 },
+  weatherYear: 2025,
   home: { lat: 52.2296, lon: 21.0030 },               // ul. Chmielna 71 (phone within 150 m = at home)
   // Official HackoWatt time-of-use tariff (common challenge assumptions)
   tariff: [

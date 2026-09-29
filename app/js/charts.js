@@ -19,12 +19,47 @@
     return modes.nearest(chart, e, { axis: 'x', intersect: false }, useFinalPosition).filter((el) => el.datasetIndex === 0);
   };
 
+  // Vertical cursor on the profile chart at the moment the devices list is showing: options.plugins.hwCursor =
+  // { time: () => ms, startMs, step: hours per point, count }. Drawn above the data, only inside the chart's range.
+  Chart.register({
+    id: 'hwCursor',
+    afterDatasetsDraw(chart) {
+      const o = chart.options.plugins.hwCursor;
+      if (!o?.startMs) return;
+      const i = (o.time - o.startMs) / (o.step * 3600_000);       // `time` is scriptable: Chart.js already called it
+      if (i < 0 || i > o.count - 1) return;
+      const x = chart.scales.x.getPixelForValue(i);
+      const { top, bottom } = chart.chartArea;
+      const { ctx } = chart;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255, 255, 255, .7)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x, top);
+      ctx.lineTo(x, bottom);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255, 255, 255, .9)';
+      ctx.beginPath();
+      ctx.arc(x, bottom, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    },
+  });
+
   Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
   Chart.defaults.color = token('--muted');
 
+  // Tooltips sit above the hovered point (below it near the top edge) so they never cover it.
+  Chart.Tooltip.positioners.hwAbove = function (items) {
+    if (!items.length) return false;
+    const { x, y } = items[0].element.tooltipPosition();
+    const flip = y - this.chart.chartArea.top < 96;
+    return { x, y: flip ? y + 6 : y - 6, xAlign: 'center', yAlign: flip ? 'top' : 'bottom' };
+  };
+
   const tooltip = (t) => ({
-    backgroundColor: '#211f1d', borderColor: t.accent, borderWidth: 1.5, cornerRadius: 14,
-    padding: { x: 14, y: 9 }, displayColors: false, caretSize: 6, caretPadding: 10, boxPadding: 0,
+    position: 'hwAbove', backgroundColor: '#211f1d', borderColor: `${t.accent}99`, borderWidth: 0.75, cornerRadius: 14,
+    padding: { x: 14, y: 9 }, displayColors: false, caretSize: 6, caretPadding: 12, boxPadding: 0,
     titleColor: t.accent, titleFont: { size: 15, weight: '600' }, titleMarginBottom: 3,
     bodyColor: t.text, bodyFont: { size: 13 },
   });
@@ -139,6 +174,13 @@
 
       return {
         id: `profile-${count}-${step}`,        // same id = same chart: data changes animate instead of redrawing
+        ready(chart) {                         // move the cursor when the hovered block / the clock changes
+          Alpine.effect(() => {
+            void Alpine.store('focus').time;
+            void Alpine.store('clock').now;
+            if (chart.canvas?.isConnected && chart.ctx) chart.draw();
+          });
+        },
         config: {
           type: 'line',
           data: { labels: values.map((_, i) => i), datasets: [{
@@ -192,7 +234,8 @@
                 .find((e) => e.datasetIndex === 1 && markers.has(e.index));
               if (marker) onPick?.(markers.get(marker.index));
             },
-            plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
+            plugins: { hwCursor: { startMs: start?.getTime(), step, count, time: () => Alpine.store('focus').time ?? Alpine.store('clock').date.getTime() },
+              legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
               title: (items) => {
                 const [item] = items;
                 if (item.datasetIndex === 1) return `Shift ${markers.get(item.dataIndex).device}`;

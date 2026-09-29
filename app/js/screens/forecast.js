@@ -3,6 +3,7 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('forecastScreen', () => ({
     ranges: HW.config.ranges,
     range: '7d',
+    whyOpen: false,      // the "Why?" explanation inside the profile card
     data: null,
     meta: null,          // metadata of the loaded forecast (null = demo data)
 

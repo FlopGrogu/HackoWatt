@@ -93,8 +93,30 @@
       });
     },
 
-    /** Outdoor conditions in the current hour, from the generated weather data (null if it could not be read). */
-    getWeather: async () => (await view).weather(),
+    /** Outdoor conditions in the current hour at a location: { temperature, humidity, sunrise, sunset, place }.
+        At the location the data was generated for (Warsaw) they come from the generated files; anywhere else the same date of
+        the replayed weather year is fetched from Open-Meteo for that place (falls back to the generated data when offline). */
+    async getWeather(location = Alpine.store('profile').location) {
+      const ds = await view;
+      const local = ds.weather() && ds.sun() ? { ...ds.weather(), ...ds.sun(), place: location.name, source: 'data' } : ds.weather();
+      const km = Math.hypot((location.lat - HW.config.dataLocation.lat) * 111.32,
+                            (location.lon - HW.config.dataLocation.lon) * 111.32 * Math.cos((location.lat * Math.PI) / 180));
+      if (km < 30) return local;
+      const day = HW.dataset.canonicalDay(now).replace(/^\d{4}/, HW.config.weatherYear);
+      try {
+        const url = 'https://archive-api.open-meteo.com/v1/archive?hourly=temperature_2m,relative_humidity_2m&daily=sunrise,sunset&timezone=auto' +
+                    `&latitude=${location.lat}&longitude=${location.lon}&start_date=${day}&end_date=${day}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const { hourly, daily } = await res.json();
+        const h = now.getHours();
+        return { temperature: hourly.temperature_2m[h], humidity: hourly.relative_humidity_2m[h], place: location.name, source: 'open-meteo',
+                 sunrise: daily.sunrise[0].slice(11, 16), sunset: daily.sunset[0].slice(11, 16) };
+      } catch (err) {
+        console.warn(`Weather for ${location.name} unavailable (${err.message}); using the generated data`);
+        return local;
+      }
+    },
 
     /** Place search for the location setting (Open-Meteo geocoding). */
     async searchPlaces(query) {
@@ -112,12 +134,18 @@
     async getHomeTiles(weather) {
       const [deviceCount, ds] = [(await this.getDevices()).length, await view];
       const humidityState = (h) => (h < 30 ? 'Dry' : h <= 60 ? 'Good' : 'Humid');
+      const city = (weather?.place ?? Alpine.store('profile').location.name).split(',')[0];
       const tiles = [
-        { id: 'temperature', icon: 'thermometer', state: weather ? 'Outside' : '…',
+        { id: 'temperature', icon: 'thermometer', state: weather ? city : '…',
           value: weather ? `${weather.temperature.toFixed(1)}°C` : '–', label: 'Temperature' },
         { id: 'humidity', icon: 'droplet', state: weather ? humidityState(weather.humidity) : '…',
           value: weather ? `${Math.round(weather.humidity)}%` : '–', label: 'Humidity' },
       ];
+      if (weather?.sunrise && weather?.sunset) {
+        const mins = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3));
+        const len = mins(weather.sunset) - mins(weather.sunrise);
+        tiles.push({ id: 'daylight', icon: 'bulb', state: `↑ ${weather.sunrise}`, value: `${Math.floor(len / 60)}h ${String(len % 60).padStart(2, '0')}m`, label: `Daylight · ↓ ${weather.sunset}` });
+      }
       tiles.push({ id: 'devices', icon: 'chip', state: 'Active', value: String(deviceCount), label: 'Devices', target: 'forecast' });
       return tiles;
     },
