@@ -351,3 +351,37 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 .why-btn.open svg { transform: rotate(90deg); }
 .why-panel { margin: 10px 0 14px; padding: 4px 12px; border-radius: 14px; background: var(--card-2); }
 .why-panel .why-line { padding: 9px 0; }
+
+/* ---------- solar potential (Home card + screen) ---------- */
+.square.sun { background: #ffd166; }
+.square.muted-sq { background: #8d8a86; }
+.solar-card .icon-bubble { width: 34px; height: 34px; }
+.solar-headline { margin-top: 10px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+.solar-facts { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; font-size: 13px; color: var(--accent); }
+.chart.solar-mini { height: 90px; margin-top: 14px; }
+.chart.solar-year { height: 200px; }
+.chart.solar-sizes { height: 170px; }
+.solar-body { display: flex; flex-direction: column; gap: 14px; }
+.solar-label { margin: 0 0 -4px; }
+.segmented.scenario button { font-size: 14px; }
+.legend.wrap { flex-wrap: wrap; gap: 8px 16px; white-space: normal; }
+.tile .gain { margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--green); white-space: nowrap; }
+.solar-gain { margin: -2px 2px 0; font-size: 13px; line-height: 1.4; color: var(--green); }
+.card.compare { padding: 18px 18px 8px; }
+.compare-grid { display: grid; grid-template-columns: 1.1fr .85fr .95fr 1fr; column-gap: 12px; align-items: stretch; row-gap: 0; }
+.compare-head { align-self: end; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); text-align: right; padding-bottom: 8px; }
+.compare-row { display: contents; }
+.compare-row > div { padding: 12px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+.compare-now, .compare-shift { align-items: flex-end; }
+.compare-label strong { display: block; font-size: 15px; font-weight: 600; }
+.compare-label span { font-size: 12px; color: var(--muted); }
+.compare-now { text-align: right; font-size: 19px; font-weight: 600; color: #a5a19c; }
+.compare-shift { text-align: right; font-size: 22px; font-weight: 700; }
+.compare-shift small { display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--green); }
+.compare-note { margin-top: 2px !important; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent) !important; }
+.segmented.mini { margin: 12px 0 2px; padding: 4px; }
+.segmented.mini button { height: 34px; font-size: 13px; }
+
+.segmented.mini .thumb { top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / var(--n)); border-radius: 10px; }
+.compare-now.none { color: #6f6c69; font-size: 17px; }
+.compare-head { font-size: 11px !important; }

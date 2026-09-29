@@ -28,6 +28,7 @@
   <script defer src="js/screens/forecast.js"></script>
   <script defer src="js/screens/devices.js"></script>
   <script defer src="js/screens/settings.js"></script>
+  <script defer src="js/screens/solar.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
 
@@ -138,6 +139,25 @@
             </div>
           </template>
         </div>
+
+        <!-- Solar potential (PV simulator) -->
+        <article class="card tappable solar-card" x-data="solarCard" x-show="s.ready" @click="$store.nav.go('solar')">
+          <div class="card-head">
+            <h2>Solar Potential</h2>
+            <span class="icon-bubble warm" x-html="$icon('sun')"></span>
+          </div>
+          <p class="solar-headline" x-text="headline"></p>
+          <div class="solar-facts">
+            <template x-for="f in facts"><span x-text="f"></span></template>
+          </div>
+          <div class="chart solar-mini"><canvas x-chart="spec"></canvas></div>
+          <div class="legend bottom wrap">
+            <span><i class="square orange"></i>From your PV</span>
+            <span><i class="square grey"></i>From the grid</span>
+            <span><i class="square sun"></i>PV production</span>
+          </div>
+          <div class="card-link"><span>Compare sizes &amp; payback</span><span x-html="$icon('chevron')"></span></div>
+        </article>
       </section>
 
       <!-- ============================== CALENDAR ============================== -->
@@ -319,6 +339,14 @@
           <div class="map" x-ref="map"></div>
         </div>
 
+        <h3 class="settings-title data">Solar</h3>
+        <button class="setting-row" @click="$store.nav.go('solar')" :disabled="!$store.solar.ready">
+          <span class="setting-icon" x-html="$icon('sun')"></span>
+          <span class="setting-text"><strong>Solar Potential</strong><span
+              x-text="$store.solar.best ? `Community PV · best: ${$store.solar.best.kwp} kWp, pays back in ${$store.solar.best.B.payback_years.toFixed(1)} years` : 'No simulation data'"></span></span>
+          <span class="chevron" x-html="$icon('chevron')"></span>
+        </button>
+
         <h3 class="settings-title data">Data Management</h3>
         <div class="seasons">
           <template x-for="season in seasons">
@@ -329,6 +357,81 @@
         </div>
         <p class="settings-hint">Jump to a season of the generated year: sets the current date to the 15th of that month
         </p>
+      </section>
+
+      <!-- ============================ SOLAR POTENTIAL ============================ -->
+      <section x-data="solarScreen" x-show="$store.nav.screen === 'solar'">
+        <header class="topbar left cal-top">
+          <button class="back" @click="history.length > 1 ? history.back() : $store.nav.go('home')" aria-label="Back"><span
+              x-html="$icon('chevron')"></span></button>
+          <div>
+            <h1>Solar Potential</h1>
+            <p class="muted cal-today">Your share of a community PV rooftop</p>
+          </div>
+        </header>
+
+        <template x-if="s.ready">
+          <div class="solar-body">
+            <p class="settings-title solar-label">Size of your share (kWp)</p>
+            <div class="segmented" :style="`--i:${s.options.indexOf(s.kwp)};--n:${s.options.length}`">
+              <span class="thumb"></span>
+              <template x-for="k in s.options">
+                <button :class="{ active: s.kwp === k }" @click="s.kwp = k" x-text="k"></button>
+              </template>
+            </div>
+
+            <article class="card compare">
+              <div class="compare-grid">
+                <span></span>
+                <span class="compare-head">Without solar</span>
+                <span class="compare-head">Currently</span>
+                <span class="compare-head accent">With shifting</span>
+                <template x-for="row in rows">
+                  <div class="compare-row">
+                    <div class="compare-label"><strong x-text="row.label"></strong><span x-text="row.hint"></span></div>
+                    <div class="compare-now none" x-text="row.none"></div>
+                    <div class="compare-now" x-text="row.now"></div>
+                    <div class="compare-shift"><span x-text="row.shift"></span><small x-show="row.gain" x-text="row.gain"></small></div>
+                  </div>
+                </template>
+              </div>
+            </article>
+            <p class="solar-gain" x-show="gain" x-text="gain"></p>
+
+            <article class="card">
+              <div class="card-head">
+                <h2>Your year with solar</h2>
+              </div>
+              <div class="segmented mini" :style="`--i:${s.scenario === 'A' ? 0 : 1};--n:2`">
+                <span class="thumb"></span>
+                <button :class="{ active: s.scenario === 'A' }" @click="s.scenario = 'A'">Currently</button>
+                <button :class="{ active: s.scenario === 'B' }" @click="s.scenario = 'B'">With shifting</button>
+              </div>
+              <p class="muted" x-text="summary"></p>
+              <div class="chart solar-year"><canvas x-chart="monthlySpec"></canvas></div>
+              <div class="legend bottom wrap">
+                <span><i class="square orange"></i>From your PV</span>
+                <span><i class="square grey"></i>From the grid</span>
+                <span><i class="square sun"></i>PV production</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h2>Compare sizes</h2>
+              <p class="muted">Years until the share has paid for itself. Bigger shares mostly produce in summer, when you
+                use least – the surplus is exported for only €0.08.</p>
+              <div class="chart solar-sizes"><canvas x-chart="sizesSpec"></canvas></div>
+              <div class="legend bottom">
+                <span><i class="square muted-sq"></i>As you live now</span>
+                <span><i class="square orange"></i>With shifting</span>
+              </div>
+              <p class="muted hint" x-text="shiftNote"></p>
+            </article>
+
+            <p class="footnote" x-text="sourceNote"></p>
+          </div>
+        </template>
+        <p class="muted" x-show="!s.ready">No PV simulation found – run <code>python src/simulate_pv.py</code>.</p>
       </section>
     </main>
 

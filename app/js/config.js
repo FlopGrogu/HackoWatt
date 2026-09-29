@@ -7,6 +7,8 @@ HW.config = {
   forecastUrl: '../data/app/forecast.json',
   // One file per day with the forecasts for 00/06/12/18 h (src/export_app_data.py --all); {date} = YYYY-MM-DD of 2026.
   forecastDayUrl: '../data/app/forecast/{date}.json',
+  // PV simulator results (src/simulate_pv.py): 0–6 kWp, scenarios A (as today) and B (with shifting).
+  pvUrl: '../data/app/pv_simulation.json',
   // The generated year (src/generate_all.py): the app reads all of it but only ever looks at the last 30 days.
   dataUrls: {
     consumption: '../data/consumption/hourly_consumption.csv',

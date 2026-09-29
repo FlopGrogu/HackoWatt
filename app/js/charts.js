@@ -283,6 +283,84 @@
         }),
       } };
     },
+
+    /**
+     * Solar: the year per month – her consumption split into what her PV share covers (accent) and what still comes
+     * from the grid (grey), with the PV production as a line. `months` = pv_simulation.json monthly rows.
+     */
+    solarMonthly(months, { compact = false } = {}) {
+      const t = theme();
+      const sun = '#ffd166';
+      const names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const kwh = (v) => `${Math.round(v)} kWh`;
+      return {
+        id: `solar-monthly-${compact}`,
+        config: {
+          type: 'bar',
+          data: { labels: names, datasets: [
+            { label: 'From your PV', data: months.map((m) => m.used), backgroundColor: t.accent, stack: 'use',
+              borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2 },
+            { label: 'From the grid', data: months.map((m) => m.grid), backgroundColor: t.bar, stack: 'use',
+              borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2 },
+            { label: 'PV production', data: months.map((m) => m.production), type: 'line', borderColor: sun,
+              borderWidth: 2.5, borderDash: [5, 5], pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: sun,
+              cubicInterpolationMode: 'monotone', order: 1 },
+          ] },
+          options: base(t, {
+            interaction: { mode: 'index', intersect: false },
+            layout: { padding: { top: 6 } },
+            scales: {
+              x: { stacked: true, display: !compact, grid: { display: false }, border: { display: false },
+                   ticks: { color: token('--muted'), font: { size: 11 }, maxRotation: 0, autoSkip: false,
+                            callback: (_v, i) => names[i][0] } },
+              y: { stacked: true, display: !compact, beginAtZero: true, grid: { color: t.line, drawTicks: false },
+                   border: { display: false }, ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4 } },
+            },
+            plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
+              title: (items) => names[items[0].dataIndex],
+              label: (item) => `${item.dataset.label}: ${kwh(item.parsed.y)}`,
+              afterBody: (items) => {
+                const m = months[items[0].dataIndex];
+                return m.demand ? [`Covered: ${Math.round((m.used / m.demand) * 100)} % · exported ${kwh(m.export)}`] : [];
+              },
+            } } },
+          }),
+        },
+      };
+    },
+
+    /** Solar: payback years per size, A (as today, grey) next to B (with shifting, accent); the chosen size is solid. */
+    solarSizes(sizes, kwp) {
+      const t = theme();
+      const rows = sizes.filter((r) => r.kwp > 0);
+      const alpha = (c, on) => (on ? c : `${c}66`);
+      const years = (v) => (v == null ? 'no payback' : `${v.toFixed(1)} years`);
+      return {
+        id: 'solar-sizes',
+        config: {
+          type: 'bar',
+          data: { labels: rows.map((r) => `${r.kwp} kWp`), datasets: [
+            { label: 'Currently', data: rows.map((r) => r.A.payback_years), borderRadius: 4,
+              backgroundColor: rows.map((r) => alpha('#8d8a86', r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7 },
+            { label: 'With shifting', data: rows.map((r) => r.B.payback_years), borderRadius: 4,
+              backgroundColor: rows.map((r) => alpha(t.accent, r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7 },
+          ] },
+          options: base(t, {
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              x: { grid: { display: false }, border: { display: false },
+                   ticks: { color: token('--muted'), font: { size: 11 }, maxRotation: 0 } },
+              y: { beginAtZero: true, grid: { color: t.line, drawTicks: false }, border: { display: false },
+                   ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4, callback: (v) => `${v} y` } },
+            },
+            plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
+              title: (items) => `${rows[items[0].dataIndex].kwp} kWp · €${rows[items[0].dataIndex].investment.toLocaleString('en-US')}`,
+              label: (item) => `${item.dataset.label}: ${years(item.parsed.y)}`,
+            } } },
+          }),
+        },
+      };
+    },
   };
 
   /** x-chart="spec": (re)creates a Chart.js chart on this <canvas> whenever the spec changes. */

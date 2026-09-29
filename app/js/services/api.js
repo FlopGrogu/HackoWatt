@@ -118,6 +118,12 @@
       }
     },
 
+    /** PV simulator results (data/app/pv_simulation.json from src/simulate_pv.py); null when missing. */
+    getPvSimulation: () => json(HW.config.pvUrl).catch((err) => {
+      console.warn(`PV simulation not loaded (${err.message})`);
+      return null;
+    }),
+
     /** Place search for the location setting (Open-Meteo geocoding). */
     async searchPlaces(query) {
       const url = `https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&name=${encodeURIComponent(query)}`;

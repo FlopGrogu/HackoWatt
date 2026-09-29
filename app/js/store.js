@@ -1,7 +1,7 @@
 /* Global Alpine state (navigation) + magic helpers shared by all screens.
    The current screen is mirrored in the URL hash (#usage, #devices …): deep links + browser back work. */
 document.addEventListener('alpine:init', () => {
-  const screens = ['home', 'calendar', 'forecast', 'profile'];   // calendar: opened from the Home week card (no tab)
+  const screens = ['home', 'calendar', 'forecast', 'profile', 'solar'];   // calendar, solar: sub-screens without a tab
   const aliases = { usage: 'forecast', devices: 'forecast' };   // old deep links
   const fromHash = () => {
     const id = location.hash.slice(1);
@@ -15,7 +15,7 @@ document.addEventListener('alpine:init', () => {
       if (screen !== this.screen) location.hash = screen;   // hashchange updates `screen`
     },
     get activeTab() {
-      return this.screen === 'calendar' ? 'home' : this.screen;
+      return this.screen === 'calendar' || this.screen === 'solar' ? 'home' : this.screen;
     },
   });
 
@@ -28,7 +28,7 @@ document.addEventListener('alpine:init', () => {
   //    to Home pops it out to the right),
   // Browsers without the API just switch instantly.
   const direction = (from, to) => {
-    const order = ['home', 'calendar', ...HW.config.tabs.map((t) => t.id).filter((id) => id !== 'home')];
+    const order = ['home', 'calendar', 'solar', ...HW.config.tabs.map((t) => t.id).filter((id) => id !== 'home')];
     return order.indexOf(to) > order.indexOf(from) ? 'forward' : 'back';
   };
 
