@@ -37,7 +37,7 @@ MAX_ATTEMPTS = 3              # re-ask when the answer does not cover 00:00–24
 GEMINI_RETRY_WAITS = [10, 20, 40, 60, 60]   # seconds, on 429 (rate limit) / 503 (overloaded) / network errors
 GEMINI_MIN_INTERVAL = 4.5                   # seconds between requests (≈ 13 per minute, below the free-tier RPM)
 _last_gemini_call = 0.0
-FIRST_DAY, LAST_DAY = date(2025, 9, 1), date(2026, 10, 12)
+FIRST_DAY, LAST_DAY = date(2026, 1, 1), date(2026, 12, 31)
 
 SYSTEM = f"""You help a home-energy app predict when its user is physically inside her apartment, based on her
 calendar. The app knows nothing about her life beyond what is written below.

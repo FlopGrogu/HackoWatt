@@ -1,6 +1,5 @@
 """Shared inputs for the forecast: consumption history, weather forecast, tariff, thermostat reading."""
 import csv
-import json
 from datetime import datetime
 from functools import lru_cache
 
@@ -30,11 +29,9 @@ def history():
 
 @lru_cache(maxsize=None)
 def weather_forecast():
-    """Open-Meteo forecast (retrieved 28 Sep, covers 20 Sep – 12 Oct): {timestamp: {temp, rad}}."""
-    d = json.loads((ROOT / "data" / "weather" / "openmeteo_forecast.json").read_text())
-    h = d["hourly"]
-    return {datetime.fromisoformat(t): dict(temp=h["temperature_2m"][i], rad=h["shortwave_radiation"][i])
-            for i, t in enumerate(h["time"])}
+    """Weather forecast as it was issued (Open-Meteo Historical Forecast API, whole year): {timestamp: {temp, rad}}."""
+    with open(ROOT / "data" / "weather" / "weather_forecast_hourly.csv") as f:
+        return {_ts(r["timestamp"]): dict(temp=float(r["temp_out_c"]), rad=float(r["shortwave_radiation_wm2"])) for r in csv.DictReader(f)}
 
 
 def price(ts):
