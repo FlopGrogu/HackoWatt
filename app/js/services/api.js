@@ -64,6 +64,35 @@
     /** All devices (flat), each with the name of its room. */
     getDevices: () => copy(HW.demo.rooms.flatMap((room) => room.devices.map((d) => ({ ...d, room: room.name })))),
 
+    /** Where the phone is now: { home, km } (null if the positions could not be read). */
+    getPresence: async () => (await view).presence(),
+
+    /** The next 7 days starting today: expected presence from the calendar. */
+    async getWeekPlan() {
+      const ds = await view;
+      return Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+        return { date: d.getTime(), weekday: d.toLocaleString('en-US', { weekday: 'short' }), day: d.getDate(), today: i === 0, ...ds.plan(d) };
+      }).filter((d) => d.state);
+    },
+
+    /** All calendar entries of one day (a Date or ms), all-day first. */
+    async getDayEvents(date) {
+      return (await view).events(new Date(date));
+    },
+
+    /** One month of the calendar view (Monday first): [{ day, inMonth, state, label, note, today }] in 6 rows of 7. */
+    async getMonthPlan(year, month) {
+      const ds = await view;
+      const first = new Date(year, month, 1);
+      const offset = (first.getDay() + 6) % 7;
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      return Array.from({ length: 42 }, (_, i) => {
+        const d = new Date(year, month, 1 - offset + i);
+        return { date: d.getTime(), day: d.getDate(), inMonth: d.getMonth() === month, today: d.getTime() === today, ...ds.plan(d) };
+      });
+    },
+
     /** Outdoor conditions in the current hour, from the generated weather data (null if it could not be read). */
     getWeather: async () => (await view).weather(),
 
@@ -83,21 +112,12 @@
     async getHomeTiles(weather) {
       const [deviceCount, ds] = [(await this.getDevices()).length, await view];
       const humidityState = (h) => (h < 30 ? 'Dry' : h <= 60 ? 'Good' : 'Humid');
-      const presence = ds.presence();
-      const agenda = ds.agenda();
       const tiles = [
         { id: 'temperature', icon: 'thermometer', state: weather ? 'Outside' : '…',
           value: weather ? `${weather.temperature.toFixed(1)}°C` : '–', label: 'Temperature' },
         { id: 'humidity', icon: 'droplet', state: weather ? humidityState(weather.humidity) : '…',
           value: weather ? `${Math.round(weather.humidity)}%` : '–', label: 'Humidity' },
       ];
-      if (presence) {
-        tiles.push({ id: 'presence', icon: 'pin', state: 'Phone', value: presence.home ? 'Home' : `${presence.km < 10 ? presence.km.toFixed(1) : Math.round(presence.km)} km`, label: presence.home ? 'You are at home' : 'Away from home' });
-      }
-      if (agenda) {
-        tiles.push({ id: 'today', icon: 'clock', state: 'Calendar', value: agenda.today.split(' – ')[0], label: agenda.today.includes(' – ') ? agenda.today.split(' – ')[1] : 'Today' });
-        if (agenda.next) tiles.push({ id: 'trip', icon: 'clock', state: `in ${agenda.next.in} d`, value: agenda.next.place, label: 'Next trip' });
-      }
       tiles.push({ id: 'devices', icon: 'chip', state: 'Active', value: String(deviceCount), label: 'Devices', target: 'forecast' });
       return tiles;
     },

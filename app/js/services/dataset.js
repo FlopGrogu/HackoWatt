@@ -56,10 +56,18 @@
   function parseIcs(ics) {
     const lines = ics.replace(/\r\n/g, '\n').replace(/\n[ \t]/g, '').split('\n');
     const days = {};
+    const timed = {};                                   // 'YYYY-MM-DD' -> [{ start, end, summary, cat, location }]
     let ev = null;
     for (const line of lines) {
       if (line === 'BEGIN:VEVENT') ev = {};
       else if (line === 'END:VEVENT') {
+        if (ev.startTime) {
+          const key = `${ev.startTime.slice(0, 4)}-${ev.startTime.slice(4, 6)}-${ev.startTime.slice(6, 8)}`;
+          const hm = (t) => `${t.slice(9, 11)}:${t.slice(11, 13)}`;
+          const nextDay = ev.endTime && ev.endTime.slice(0, 8) !== ev.startTime.slice(0, 8);
+          (timed[key] ??= []).push({ start: hm(ev.startTime), end: ev.endTime ? hm(ev.endTime) + (nextDay ? ' (+1)' : '') : '',
+            summary: ev.summary, cat: ev.cat, location: ev.location });
+        }
         if (ev.allDay) {
           for (let t = ev.start; t < ev.end; t += DAY_MS) {
             const d = new Date(t);
@@ -75,12 +83,14 @@
         const unesc = (s) => s.replace(/\\([,;\\])/g, '$1').replace(/\\n/gi, ' ');
         if (key === 'DTSTART' && !val.includes('T')) { ev.allDay = true; ev.start = Date.UTC(+val.slice(0, 4), +val.slice(4, 6) - 1, +val.slice(6, 8)); }
         if (key === 'DTEND' && !val.includes('T')) ev.end = Date.UTC(+val.slice(0, 4), +val.slice(4, 6) - 1, +val.slice(6, 8));
+        if (key === 'DTSTART' && val.includes('T')) ev.startTime = val;
+        if (key === 'DTEND' && val.includes('T')) ev.endTime = val;
         if (key === 'SUMMARY') ev.summary = unesc(val);
         if (key === 'CATEGORIES') ev.cat = val;
         if (key === 'LOCATION') ev.location = unesc(val);
       }
     }
-    return days;
+    return { allDay: days, timed };
   }
 
   const distanceM = (a, b) => {
@@ -153,17 +163,69 @@
         return { home: d < 150, km: d / 1000 };
       },
 
+      /** Expected presence on a day (any year) from the calendar: { state: home | partly | away, label, note }.
+          Trip days are away, the days she leaves / comes back and office days are "partly". */
+      plan(d) {
+        if (!calendar) return null;
+        const plan = this.rawPlan(d);
+        // A real calendar fills up as time goes by: everything up to 2 weeks ahead is booked, then entries thin out
+        // (each trip / day is kept or dropped by a stable hash of its date) until nothing is planned 6 weeks ahead.
+        const ahead = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - startOfDay) / DAY_MS);
+        if (ahead <= 14) return { ...plan, fade: 1 };
+        const fade = Math.max(0, 1 - (ahead - 14) / 28);
+        return this.stable(plan.key) < fade ? { ...plan, fade: Math.max(0.35, fade) } : { state: 'unknown', label: '', note: 'Nothing planned yet', fade: 0 };
+      },
+
+      /** Everything in the calendar on a day: all-day entries first, then timed ones. Empty where nothing is planned (yet). */
+      events(d) {
+        if (!calendar || this.plan(d)?.state === 'unknown') return [];
+        const key = canonicalDay(d);
+        const all = (calendar.allDay[key] ?? []).map((e) => ({ time: 'All day', title: e.summary, location: e.location, cat: e.cat }));
+        const timed = (calendar.timed[key] ?? []).slice().sort((a, b) => a.start.localeCompare(b.start))
+          .map((e) => ({ time: e.end ? `${e.start} – ${e.end}` : e.start, title: e.summary, location: e.location, cat: e.cat }));
+        return [...all, ...timed];
+      },
+
+      /** Stable pseudo-random number in [0, 1) for a string (so the same day always fades out the same way). */
+      stable(key) {
+        let h = 2166136261;
+        for (const ch of key) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+        return ((h >>> 0) % 10007) / 10007;
+      },
+
+      rawPlan(d) {
+        const day = d.getMonth() === 1 && d.getDate() === 29 ? 28 : d.getDate();
+        const utc = Date.UTC(YEAR, d.getMonth(), day);
+        const key0 = canonicalDay(d);
+        const entries = calendar.allDay[key0] ?? [];
+        const trip = entries.find((e) => e.cat.startsWith('TRAVEL'));
+        if (trip) {
+          const place = trip.location.split(',')[0];
+          const single = trip.first === trip.last;
+          const key = `trip-${trip.first}`;
+          if (single) return { key, state: 'partly', label: place, note: `Day trip – ${place}` };
+          if (utc === trip.first) return { key, state: 'partly', label: place, note: `Leaving for ${place}` };
+          if (utc === trip.last) return { key, state: 'partly', label: place, note: `Back from ${place}` };
+          return { key, state: 'away', label: place, note: `Away – ${place}` };
+        }
+        if (entries.some((e) => e.cat === 'OFFICE')) return { key: `day-${key0}`, state: 'partly', label: 'Office', note: 'Out at the office' };
+        const holiday = entries.find((e) => e.summary.startsWith('Public holiday'));
+        if (entries.some((e) => e.cat === 'PAUL')) return { key: `day-${key0}`, state: 'home', label: 'Paul', note: 'Paul is visiting' };
+        if (entries.some((e) => e.cat === 'WFH')) return { key: `day-${key0}`, state: 'home', label: 'WFH', note: 'Working from home' };
+        return { key: `day-${key0}`, state: 'home', label: holiday ? 'Holiday' : '', note: holiday ? holiday.summary : 'At home' };
+      },
+
       /** Today's plan and the next trip from the calendar. */
       agenda() {
         if (!calendar) return null;
         const key = canonicalDay(now);
-        const today = calendar[key] ?? [];
+        const today = calendar.allDay[key] ?? [];
         const mode = today.find((e) => e.cat === 'OFFICE' || e.cat === 'WFH' || e.cat.startsWith('TRAVEL'));
         const dayNumber = (k) => Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8)) / DAY_MS;
         let next = null;
         for (let n = 1; n <= 60 && !next; n++) {            // the year is circular: after 31 Dec comes 1 Jan
           const d = new Date(startOfDay.getFullYear(), startOfDay.getMonth(), startOfDay.getDate() + n);
-          const trip = (calendar[canonicalDay(d)] ?? []).find((e) => e.cat.startsWith('TRAVEL') && e.first === Date.UTC(YEAR, d.getMonth(), d.getDate()));
+          const trip = (calendar.allDay[canonicalDay(d)] ?? []).find((e) => e.cat.startsWith('TRAVEL') && e.first === Date.UTC(YEAR, d.getMonth(), d.getDate()));
           if (trip) next = { in: n, place: trip.location.split(',')[0], summary: trip.summary };
         }
         const traveling = mode?.cat.startsWith('TRAVEL');

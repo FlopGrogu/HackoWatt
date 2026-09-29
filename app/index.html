@@ -24,6 +24,7 @@
   <script defer src="js/services/api.js"></script>
   <script defer src="js/store.js"></script>
   <script defer src="js/screens/home.js"></script>
+  <script defer src="js/screens/calendar.js"></script>
   <script defer src="js/screens/forecast.js"></script>
   <script defer src="js/screens/devices.js"></script>
   <script defer src="js/screens/settings.js"></script>
@@ -43,12 +44,32 @@
       <section x-data="homeScreen" x-show="$store.nav.screen === 'home'">
         <header class="welcome">
           <div>
-            <h1>Welcome home, <span class="accent" x-text="$store.profile.name"></span></h1>
-            <p class="status-line"><i class="dot green"></i><span x-text="user.status"></span></p>
+            <h1><span x-text="greeting"></span> <span class="accent" x-text="$store.profile.name"></span></h1>
+            <p class="status-line"><i class="dot" :class="away ? 'orange' : 'green'"></i><span x-text="statusLine"></span></p>
           </div>
           <button class="avatar" @click="$store.nav.go('profile')" aria-label="Profile"><img src="assets/avatar.png"
               alt=""></button>
         </header>
+
+        <!-- Next 7 days: expected at home or not (tap for the month view) -->
+        <article class="card tappable week-card" x-show="week.length" @click="$store.nav.go('calendar')">
+          <div class="card-head">
+            <h2>This Week</h2>
+            <div class="legend">
+              <span><i class="dot green"></i>Home</span>
+              <span><i class="dot orange"></i>Out</span>
+              <span><i class="dot grey"></i>Away</span>
+            </div>
+          </div>
+          <div class="week">
+            <template x-for="d in week">
+              <div class="week-day" :class="[d.state, { today: d.today }]" :style="`--f:${d.fade}`" :title="d.note">
+                <span class="week-name" x-text="d.weekday"></span>
+                <span class="week-num" x-text="d.day"></span>
+              </div>
+            </template>
+          </div>
+        </article>
 
         <!-- Energy Usage -->
         <article class="card tappable" @click="$store.nav.go('forecast')">
@@ -118,6 +139,39 @@
               <div class="muted" x-text="tile.label"></div>
             </div>
           </template>
+        </div>
+      </section>
+
+      <!-- ============================== CALENDAR ============================== -->
+      <section x-data="calendarScreen" x-show="$store.nav.screen === 'calendar'">
+        <header class="topbar left cal-top">
+          <button class="back" @click="$store.nav.go('home')" aria-label="Back to Home"><span x-html="$icon('chevron')"></span></button>
+          <div><h1>Calendar</h1><p class="muted cal-today" x-text="todayLabel"></p></div>
+        </header>
+
+        <div class="card cal">
+          <div class="cal-nav">
+            <button @click="step(-1)" class="prev" aria-label="Previous month"><span x-html="$icon('chevron')"></span></button>
+            <h2 x-text="title"></h2>
+            <button @click="step(1)" aria-label="Next month"><span x-html="$icon('chevron')"></span></button>
+          </div>
+          <div class="cal-grid head">
+            <template x-for="w in weekdays"><span x-text="w"></span></template>
+          </div>
+          <div class="cal-grid">
+            <template x-for="c in cells">
+              <button class="cal-cell" :class="[c.state, { out: !c.inMonth, today: c.today, selected: selected && selected.date === c.date }]"
+                :style="`--f:${c.fade}`" @click="selected = c; $store.day.show(c)">
+                <span class="cal-num" x-text="c.day"></span>
+                <span class="cal-label" x-text="c.label"></span>
+              </button>
+            </template>
+          </div>
+          <div class="legend bottom cal-legend">
+            <span><i class="dot green"></i><span x-text="`Home ${summary.home}`"></span></span>
+            <span><i class="dot orange"></i><span x-text="`Out ${summary.partly}`"></span></span>
+            <span><i class="dot grey"></i><span x-text="`Away ${summary.away}`"></span></span>
+          </div>
         </div>
       </section>
 
@@ -259,6 +313,29 @@
             </div>
           </div>
         </template>
+      </div>
+    </div>
+
+    <!-- All entries of the tapped calendar day -->
+    <div class="sheet-backdrop" x-data x-show="$store.day.cell" x-transition.opacity @click.self="$store.day.close()">
+      <div class="sheet day-sheet" x-show="$store.day.cell" x-transition:enter="sheet-in" x-transition:enter-start="sheet-from">
+        <div class="day-head">
+          <div>
+            <h2 x-text="$store.day.title"></h2>
+            <p class="muted" x-text="$store.day.cell?.note"></p>
+          </div>
+          <button class="day-close" @click="$store.day.close()" aria-label="Close">&times;</button>
+        </div>
+        <ul class="day-events">
+          <template x-for="e in $store.day.events">
+            <li :class="$store.day.group(e)">
+              <span class="ev-time" x-text="e.time"></span>
+              <span class="ev-title" x-text="e.title"></span>
+              <span class="ev-loc muted" x-show="e.location" x-text="e.location"></span>
+            </li>
+          </template>
+          <li class="empty muted" x-show="!$store.day.events.length">Nothing in the calendar</li>
+        </ul>
       </div>
     </div>
 
