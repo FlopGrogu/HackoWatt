@@ -1,10 +1,10 @@
 """Shared inputs for the forecast: consumption history, weather forecast, tariff, thermostat reading."""
 import csv
-import json
 from datetime import datetime
 from functools import lru_cache
 
 from .ishome import distance_m, load_positions
+from . import wrap
 from .paths import ROOT
 
 APPLIANCES = ["fridge", "heat_pump_space_heating", "heat_pump_hot_water", "kettle", "coffee_machine", "oven",
@@ -18,23 +18,26 @@ def _ts(s):
     return datetime.fromisoformat(s[:16])
 
 
-@lru_cache(maxsize=None)
 def history():
-    """All metered hours: {timestamp: {appliance: kWh}} (callers only use hours before the forecast start)."""
+    """Metered hours of the last 30 days before "now" (see wrap.set_window): {timestamp: {appliance: kWh}}."""
+    return wrap.windowed(_history_all())
+
+
+@lru_cache(maxsize=None)
+def _history_all():
     out = {}
     with open(ROOT / "data" / "consumption" / "hourly_consumption.csv") as f:
         for r in csv.DictReader(f):
             out[_ts(r["timestamp"])] = {a: float(r[f"{a}_kwh"]) for a in APPLIANCES}
-    return out
+    return wrap.extend(out, back_days=32)           # December in front of January: the year wraps around
 
 
 @lru_cache(maxsize=None)
 def weather_forecast():
-    """Open-Meteo forecast (retrieved 28 Sep, covers 20 Sep – 12 Oct): {timestamp: {temp, rad}}."""
-    d = json.loads((ROOT / "data" / "weather" / "openmeteo_forecast.json").read_text())
-    h = d["hourly"]
-    return {datetime.fromisoformat(t): dict(temp=h["temperature_2m"][i], rad=h["shortwave_radiation"][i])
-            for i, t in enumerate(h["time"])}
+    """Weather forecast as it was issued (Open-Meteo Historical Forecast API, whole year): {timestamp: {temp, rad}}."""
+    with open(ROOT / "data" / "weather" / "weather_forecast_hourly.csv") as f:
+        out = {_ts(r["timestamp"]): dict(temp=float(r["temp_out_c"]), rad=float(r["shortwave_radiation_wm2"])) for r in csv.DictReader(f)}
+    return wrap.extend(out, back_days=32, forward_days=10)
 
 
 def price(ts):
@@ -45,7 +48,7 @@ def price(ts):
 @lru_cache(maxsize=None)
 def _thermostat():
     with open(ROOT / "data" / "consumption" / "simulation_ground_truth.csv") as f:
-        return {_ts(r["timestamp"]): float(r["indoor_temp_c"]) for r in csv.DictReader(f)}
+        return wrap.extend({_ts(r["timestamp"]): float(r["indoor_temp_c"]) for r in csv.DictReader(f)}, back_days=32, forward_days=10)
 
 
 def thermostat_reading(ts):
@@ -61,3 +64,9 @@ def home_hours_observed():
     for ts, lat, lon in load_positions():
         acc.setdefault(ts.replace(minute=0), []).append(distance_m(lat, lon) < 150)
     return {k: sum(v) / len(v) >= 0.5 for k, v in acc.items()}
+
+
+def set_now(now):
+    """Restrict everything the forecast reads to the 30 days before `now` (year wraps around, see wrap.py)."""
+    wrap.set_window(now)
+    home_hours_observed.cache_clear()

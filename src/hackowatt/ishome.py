@@ -11,9 +11,11 @@ Absences (away score >= 85 in a row, from the LLM intervals): departure, return,
 """
 import csv
 import math
+from functools import lru_cache
 from collections import defaultdict
 from datetime import datetime, timedelta
 
+from . import wrap
 from .llm_ishome import cached_results
 from .paths import ROOT
 
@@ -28,12 +30,16 @@ def load_llm_results():
     return cached_results()
 
 
-def load_positions():
-    rows = []
+@lru_cache(maxsize=None)
+def _positions_all():
     with open(ROOT / "data" / "geolocation" / "positions.csv") as f:
-        for r in csv.DictReader(f):
-            rows.append((datetime.fromisoformat(r["timestamp"][:16]), float(r["lat"]), float(r["lon"])))
-    return rows
+        rows = {datetime.fromisoformat(r["timestamp"][:16]): (float(r["lat"]), float(r["lon"])) for r in csv.DictReader(f)}
+    return wrap.extend(rows, back_days=32)
+
+
+def load_positions():
+    """Phone positions of the last 30 days before "now" (see wrap.set_window), oldest first."""
+    return [(ts, lat, lon) for ts, (lat, lon) in sorted(wrap.windowed(_positions_all()).items())]
 
 
 def distance_m(lat, lon):

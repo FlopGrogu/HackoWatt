@@ -1,2 +1,3 @@
 anthropic>=1.9
-icalendar>=5
+numpy>=1.26
+matplotlib>=3.8   # optional: figures of the data generation report

@@ -1,48 +1,19 @@
-"""Read aleksandra_calendar.ics into calendar entries grouped per day (recurring events expanded)."""
+"""Read the generated calendar (data/calendar/aleksandra_calendar_<year>.ics) into calendar entries grouped per day."""
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
-import icalendar
-
+from .datagen.ics import read_ics
 from .paths import ROOT
 
-ICS = ROOT / "aleksandra_calendar_full.ics"      # 1 Sep 2025 – 12 Oct 2026 (src/generate_calendar_year.py)
-WEEKDAYS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
-
-
-def _occurrences(ev):
-    """Start datetimes/dates of an event, expanding simple weekly RRULEs (BYDAY, INTERVAL, UNTIL)."""
-    start = ev.decoded("DTSTART")
-    rule = ev.get("RRULE")
-    if not rule:
-        return [start]
-    until = rule["UNTIL"][0]
-    until = until.replace(tzinfo=None) if isinstance(until, datetime) else datetime.combine(until, datetime.max.time())
-    interval = int(rule.get("INTERVAL", [1])[0])
-    days = {WEEKDAYS.index(d) for d in rule.get("BYDAY", [WEEKDAYS[start.weekday()]])}
-    week0 = start.date() - timedelta(days=start.weekday())
-    out, cur = [], start
-    while cur.replace(tzinfo=None) <= until:
-        week = ((cur.date() - timedelta(days=cur.weekday())) - week0).days // 7
-        if cur.weekday() in days and week % interval == 0:
-            out.append(cur)
-        cur += timedelta(days=1)
-    return out
+ICS = ROOT / "data" / "calendar" / "aleksandra_calendar_2026.ics"      # src/generate_all.py
 
 
 def load_entries():
     """All calendar entries as dicts: summary, location, description, all_day, start, end (naive local time)."""
-    cal = icalendar.Calendar.from_ical(ICS.read_bytes())
     entries = []
-    for ev in cal.walk("VEVENT"):
-        dur = ev.decoded("DTEND") - ev.decoded("DTSTART")
-        for s in _occurrences(ev):
-            all_day = not isinstance(s, datetime)
-            if all_day:
-                s = datetime.combine(s, datetime.min.time())
-            s = s.replace(tzinfo=None)
-            entries.append(dict(summary=str(ev.get("SUMMARY", "")), location=str(ev.get("LOCATION", "")),
-                                description=str(ev.get("DESCRIPTION", "")), all_day=all_day, start=s, end=s + dur))
+    for e in read_ics(ICS):
+        s, en = (datetime.combine(e.start, datetime.min.time()), datetime.combine(e.end, datetime.min.time())) if e.all_day else (e.start, e.end)
+        entries.append(dict(summary=e.summary, location=e.location, description=e.desc, all_day=e.all_day, start=s, end=en))
     return sorted(entries, key=lambda e: (e["start"], not e["all_day"]))
 
 

@@ -3,31 +3,26 @@
 Same keys as the app's demo data (app/js/data/demo.js): meta, user, now, overview, peak, home, usage
 (24h / 3d / 7d). Not included (not computed by the forecast): humidity and the device list.
 
-HOW TO GENERATE A NEW FORECAST
-1. Environment (once): Python >= 3.10, e.g.
-       conda create -n hackowatt python=3.10 && conda activate hackowatt
-       pip install -r requirements.txt
-2. Pick the moment "now" the app should show. Everything before "now" counts as the past (metered data),
-   everything after it is forecast. It must be on the hour and between 2026-09-20T00:00 and 2026-10-05T23:00:
-   the weather forecast in data/weather/ covers 20 Sep – 12 Oct and the 7-day view needs 7 days after "now".
-3. Run
-       python src/export_app_data.py 2026-10-04T09:00
-   -> overwrites data/app/forecast.json (use --out other/file.json to write somewhere else).
-   Without an argument "now" is 2026-09-28T17:00 (the version currently in the repository).
-4. Only needed if the calendar (aleksandra_calendar.ics) changed: first let the LLM read the changed days,
-       python src/interpret_calendar.py
-   (Gemini key as API_KEY=... in the git-ignored .secret file). Unchanged days come from data/llm_cache/
-   and cost nothing. If a day has no LLM result, the forecast falls back to her habits for that day.
+HOW TO GENERATE
+1. Environment (once): Python >= 3.10, `pip install -r requirements.txt`; the year of data comes from `python src/generate_all.py`.
+2. Everything the forecast reads is limited to the 30 days before "now"; a date in any year maps to the same month/day of 2026
+   and the year wraps around (see hackowatt/wrap.py). Forecasts are precomputed for 00/06/12/18 h of every day:
+       python src/export_app_data.py --all        # -> data/app/forecast/<date>.json (365 files, the app reads these)
+       python src/export_app_data.py 2026-10-04T09:00   # one moment -> data/app/forecast.json (--out to change)
+3. Only needed if the calendar changed: first let the LLM read the changed days (python src/interpret_calendar.py, Gemini key as
+   API_KEY=... in the git-ignored .secret). Without LLM results the forecast falls back to her habits.
 
 Usage:  python src/export_app_data.py [now] [--out file.json]
 """
 import argparse
 import json
+import os
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from hackowatt.data import history, price
+from hackowatt.data import history, price, set_now
+from hackowatt.wrap import WINDOW_DAYS, YEAR
 from hackowatt.forecast import explain, forecast, reminders_and_tips
 from hackowatt.ishome import load_llm_results
 from hackowatt.llm_ishome import MODEL, PROVIDER
@@ -241,14 +236,14 @@ def label_indexes(rows, size, name):
     return [i // size for i in range(0, len(rows), 24)]
 
 
-FIRST_NOW, LAST_NOW = datetime(2026, 9, 20, 0, 0), datetime(2026, 10, 5, 23, 0)
+SLOT_HOURS = (0, 6, 12, 18)                       # forecasts are precomputed for these hours of every day
+DAY_DIR = ROOT / "data" / "app" / "forecast"      # one file per day: {"slots": {"00": {...}, "06": {...}, ...}}
 
 
-def main(now, out=OUT):
-    if not FIRST_NOW <= now <= LAST_NOW or now.minute:
-        raise SystemExit(f"'now' must be on the hour between {FIRST_NOW:%Y-%m-%dT%H:%M} and {LAST_NOW:%Y-%m-%dT%H:%M} "
-                         f"(weather forecast data covers 20 Sep – 12 Oct), got {now:%Y-%m-%dT%H:%M}")
-    llm = load_llm_results()
+def build(now, llm=None):
+    """The forecast JSON (as a dict) for the moment `now`, using only the 30 days before it (year wraps around)."""
+    set_now(now)
+    llm = load_llm_results() if llm is None else llm
     usage = {}
     for name, (hours, size, subtitle) in RANGES.items():
         rows, runs, trips = forecast(now, hours, llm=llm)
@@ -266,9 +261,9 @@ def main(now, out=OUT):
             indoor = rows[0]["indoor_temp_c"]
         if name == "7d":
             week_runs = runs
-    data = {
-        "meta": {"generated": datetime.now().isoformat(timespec="seconds"), "now": now.isoformat(timespec="minutes"),
-                 "llm": f"{PROVIDER}:{MODEL}", "llm_days": len(llm), "price_now": price(now)},
+    return {
+        "meta": {"now": now.isoformat(timespec="minutes"), "llm": f"{PROVIDER}:{MODEL}", "llm_days": len(llm),
+                 "price_now": price(now), "window_days": WINDOW_DAYS},
         "user": USER,
         "now": {"hour": now.hour + now.minute / 60},
         "overview": overview(now),
@@ -277,14 +272,52 @@ def main(now, out=OUT):
         "usage": usage,
         "shifts": shifts(now, week_runs),
     }
+
+
+def check(now):
+    if now.year != YEAR or now.minute:
+        raise SystemExit(f"'now' must be on the hour in {YEAR} (the generated year), got {now:%Y-%m-%dT%H:%M}")
+
+
+def main(now, out=OUT):
+    check(now)
+    data = build(now)
+    data["meta"]["generated"] = datetime.now().isoformat(timespec="seconds")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-    print(f"wrote {out}  (now {now:%a %d %b %H:%M}, LLM {PROVIDER}:{MODEL}, {len(llm)} days)")
+    print(f"wrote {out}  (now {now:%a %d %b %H:%M}, LLM {PROVIDER}:{MODEL}, {data['meta']['llm_days']} days)")
+
+
+def export_day(day):
+    """All slots of one day -> data/app/forecast/<day>.json (compact)."""
+    llm = load_llm_results()
+    slots = {f"{h:02d}": build(datetime(day.year, day.month, day.day, h), llm) for h in SLOT_HOURS}
+    (DAY_DIR / f"{day.isoformat()}.json").write_text(json.dumps({"slots": slots}, separators=(",", ":"), ensure_ascii=False))
+    return day
+
+
+def export_all(workers):
+    """The whole year: 365 days x 4 slots (about 10 min single-core; runs in parallel)."""
+    from multiprocessing import Pool
+    DAY_DIR.mkdir(parents=True, exist_ok=True)
+    for old in DAY_DIR.glob("*.json"):
+        old.unlink()
+    days = [date(YEAR, 1, 1) + timedelta(days=i) for i in range(365)]
+    with Pool(workers) as pool:
+        for i, day in enumerate(pool.imap_unordered(export_day, days), 1):
+            if i % 30 == 0 or i == len(days):
+                print(f"  {i}/{len(days)} days", flush=True)
+    print(f"wrote {len(days)} day files to {DAY_DIR}")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Export the forecast as JSON for the app.")
     ap.add_argument("now", nargs="?", default="2026-09-28T17:00", help="forecast start, local time on the hour")
     ap.add_argument("--out", type=Path, default=OUT, help=f"output file (default {OUT.relative_to(ROOT)})")
+    ap.add_argument("--all", action="store_true", help=f"precompute every day of {YEAR} at {SLOT_HOURS} h -> {DAY_DIR.relative_to(ROOT)}/")
+    ap.add_argument("--workers", type=int, default=os.cpu_count() or 2)
     args = ap.parse_args()
-    main(datetime.fromisoformat(args.now), args.out.resolve())
+    if args.all:
+        export_all(args.workers)
+    else:
+        main(datetime.fromisoformat(args.now), args.out.resolve())

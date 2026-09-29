@@ -4,15 +4,31 @@ document.addEventListener('alpine:init', () => {
   const hh = (h) => String(h % 24).padStart(2, '0');
 
   Alpine.data('homeScreen', () => ({
-    user: {}, tariff: [], overview: null, peak: null, tiles: [], fade: { left: false, right: true },
+    user: {}, presence: null, week: [], tariff: [], overview: null, peak: null, tiles: [], fade: { left: false, right: true },
 
     async init() {
       [this.user, this.tariff, this.overview, this.peak, this.tiles] = await Promise.all([
         HW.api.getUser(), HW.api.getTariff(), HW.api.getOverview(),
         HW.api.getPeakHours(), HW.api.getHomeTiles(null),
       ]);
+      [this.presence, this.week] = await Promise.all([HW.api.getPresence(), HW.api.getWeekPlan()]);
       this.$watch(() => JSON.stringify(Alpine.store('profile').location), () => this.refreshWeather());
       this.refreshWeather();
+    },
+
+    // --- greeting follows the distance between the phone and home ---
+    get greeting() {
+      const km = this.presence?.km ?? 0;
+      if (!this.presence || this.presence.home) return 'Welcome home,';
+      return km < 5 ? 'Hello,' : km < 50 ? 'Enjoy your day,' : 'Safe travels,';
+    },
+    get statusLine() {
+      if (!this.presence || this.presence.home) return this.user.status;
+      const km = this.presence.km;
+      return `${km < 1 ? `${Math.round(km * 1000)} m` : km < 10 ? `${km.toFixed(1)} km` : `${Math.round(km)} km`} from home`;
+    },
+    get away() {
+      return !!this.presence && !this.presence.home;
     },
 
     // --- status tiles: fade the edge(s) that have more content to scroll to ---
@@ -25,7 +41,7 @@ document.addEventListener('alpine:init', () => {
       const { lat, lon } = Alpine.store('profile').location;
       let weather = null;
       try {
-        weather = await HW.api.getWeather({ lat, lon });
+        weather = await HW.api.getWeather({ ...Alpine.store('profile').location, lat, lon });
       } catch (err) {
         console.warn('Weather unavailable', err);
       }
