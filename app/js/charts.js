@@ -20,13 +20,15 @@
   };
 
   // Vertical cursor on the profile chart at the moment the devices list is showing: options.plugins.hwCursor =
-  // { time: () => ms, startMs, step: hours per point, count }. Drawn above the data, only inside the chart's range.
+  // { startMs, step: hours per point, count }; the moment shown is Alpine.store('focus').time (else the clock). Drawn above the data, only inside the chart's range.
   Chart.register({
     id: 'hwCursor',
     afterDatasetsDraw(chart) {
       const o = chart.options.plugins.hwCursor;
       if (!o?.startMs) return;
-      const i = (o.time - o.startMs) / (o.step * 3600_000);       // `time` is scriptable: Chart.js already called it
+      // read live: Chart.js caches function-valued plugin options until the next update(), which made the line lag
+      const time = Alpine.store('focus').time ?? Alpine.store('clock').date.getTime();
+      const i = Math.round((time - o.startMs) / (o.step * 3600_000));   // snapped to the closest data point
       if (i < 0 || i > o.count - 1) return;
       const x = chart.scales.x.getPixelForValue(i);
       const { top, bottom } = chart.chartArea;
@@ -38,10 +40,6 @@
       ctx.moveTo(x, top);
       ctx.lineTo(x, bottom);
       ctx.stroke();
-      ctx.fillStyle = 'rgba(255, 255, 255, .9)';
-      ctx.beginPath();
-      ctx.arc(x, bottom, 3.5, 0, Math.PI * 2);
-      ctx.fill();
       ctx.restore();
     },
   });
@@ -117,7 +115,7 @@
      * the line is `values` plus the deltas of the confirmed shifts; pending (not yet confirmed) shifts are drawn
      * as a dashed green alternative line with a clickable marker at the cheaper time (the forecast turns grey
      * while that alternative is on screen). `shifts` = { pending, confirmed }, `onPick(shift)` = marker clicked,
-     * `onFocus(blockIndex)` = the pointer is over that block (the devices list follows it).
+     * `onFocus(blockIndex)` = the closest data point to the pointer; the last position stays (the devices list follows it).
      */
     profile({ values, highlights, labels = [], labelIndexes }, { start, stepHours, shifts = {}, onPick, onFocus } = {}) {
       const t = theme();
@@ -225,16 +223,19 @@
                 ticks: { stepSize: 0.1, padding: 6, color: token('--muted'), font: { size: 11 }, callback: (v) => HW.fmt.money(v) },
               },
             },
-            onHover(_evt, elements) {
-              const el = elements.find((e) => e.datasetIndex === 0);
-              if (el) onFocus?.(el.index);
+            onHover(evt, _els, chart) {                      // the cursor line (and the devices list) follows the pointer
+              if (evt.type === 'mouseout' || evt.x == null) return;   // leaving keeps the last position
+              const { left, right } = chart.chartArea;
+              const f = chart.scales.x.getDecimalForPixel(Math.min(right, Math.max(left, evt.x)));
+              onFocus?.(Math.round(f * (count - 1)));       // snap to the closest data point
+              chart.draw();                                 // move the line right now (no waiting for a reactive update)
             },
             onClick(evt, _els, chart) {
               const marker = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true)
                 .find((e) => e.datasetIndex === 1 && markers.has(e.index));
               if (marker) onPick?.(markers.get(marker.index));
             },
-            plugins: { hwCursor: { startMs: start?.getTime(), step, count, time: () => Alpine.store('focus').time ?? Alpine.store('clock').date.getTime() },
+            plugins: { hwCursor: { startMs: start?.getTime(), step, count },
               legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
               title: (items) => {
                 const [item] = items;
