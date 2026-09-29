@@ -354,6 +354,7 @@ button, .tappable { transition: background-color .15s, color .15s, box-shadow .1
 
 /* ---------- solar potential (Home card + screen) ---------- */
 .square.sun { background: #ffd166; }
+.square.green { background: var(--green); }
 .square.muted-sq { background: #8d8a86; }
 .solar-card .icon-bubble { width: 34px; height: 34px; }
 .solar-headline { margin-top: 10px; font-size: 16px; font-weight: 600; line-height: 1.35; }

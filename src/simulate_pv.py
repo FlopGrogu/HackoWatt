@@ -1,4 +1,4 @@
-"""PV simulator – impact of a shared/community PV share (0–6 kWp) on Aleksandra's grid purchases, costs and payback,
+"""PV simulator – impact of a shared/community PV panel (0–6 kWp) on Aleksandra's grid purchases, costs and payback,
 without (A) and with (B) shifting washer, dishwasher and hot water to the best hours. Logic: src/hackowatt/pv.py.
 
 Writes data/app/pv_simulation.json (for the app) and prints a comparison table.
@@ -36,7 +36,7 @@ def main():
             pb = f"{x['payback_years']:.1f} y" if x["payback_years"] else "–"
             cells.append(f"{x['self_sufficiency']:>7.0%} {(-x['grid_reduction'] or 0.0):>8.0f} {x['saving']:>8.0f}€ {pb:>8}")
         print(f"{r['kwp']:>3} {r['investment']:>6.0f}€ {r['production']:>7.0f}kWh │ {cells[0]} │ {cells[1]}")
-    print(f"\ncovered = share of her consumption supplied by her PV share · grid kWh = change in kWh/year bought from the grid"
+    print(f"\ncovered = share of her consumption supplied by her PV panel · grid kWh = change in kWh/year bought from the grid"
           f"\nsaving/yr = vs. today, after the 1 % operating cost · wrote {OUT.relative_to(ROOT)}")
 
 

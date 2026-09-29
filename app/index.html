@@ -362,17 +362,17 @@
       <!-- ============================ SOLAR POTENTIAL ============================ -->
       <section x-data="solarScreen" x-show="$store.nav.screen === 'solar'">
         <header class="topbar left cal-top">
-          <button class="back" @click="history.length > 1 ? history.back() : $store.nav.go('home')" aria-label="Back"><span
-              x-html="$icon('chevron')"></span></button>
+          <button class="back" @click="history.length > 1 ? history.back() : $store.nav.go('home')"
+            aria-label="Back"><span x-html="$icon('chevron')"></span></button>
           <div>
             <h1>Solar Potential</h1>
-            <p class="muted cal-today">Your share of a community PV rooftop</p>
+            <p class="muted cal-today">Your panel on a community PV rooftop</p>
           </div>
         </header>
 
         <template x-if="s.ready">
           <div class="solar-body">
-            <p class="settings-title solar-label">Size of your share (kWp)</p>
+            <p class="settings-title solar-label">Size of your panel (kWp)</p>
             <div class="segmented" :style="`--i:${s.options.indexOf(s.kwp)};--n:${s.options.length}`">
               <span class="thumb"></span>
               <template x-for="k in s.options">
@@ -383,15 +383,16 @@
             <article class="card compare">
               <div class="compare-grid">
                 <span></span>
-                <span class="compare-head">Without solar</span>
-                <span class="compare-head">Currently</span>
-                <span class="compare-head accent">With shifting</span>
+                <span class="compare-head">No solar</span>
+                <span class="compare-head">Solar</span>
+                <span class="compare-head accent">Solar + shifting</span>
                 <template x-for="row in rows">
                   <div class="compare-row">
                     <div class="compare-label"><strong x-text="row.label"></strong><span x-text="row.hint"></span></div>
                     <div class="compare-now none" x-text="row.none"></div>
                     <div class="compare-now" x-text="row.now"></div>
-                    <div class="compare-shift"><span x-text="row.shift"></span><small x-show="row.gain" x-text="row.gain"></small></div>
+                    <div class="compare-shift"><span x-text="row.shift"></span><small x-show="row.gain"
+                        x-text="row.gain"></small></div>
                   </div>
                 </template>
               </div>
@@ -402,24 +403,29 @@
               <div class="card-head">
                 <h2>Your year with solar</h2>
               </div>
-              <div class="segmented mini" :style="`--i:${s.scenario === 'A' ? 0 : 1};--n:2`">
+              <div class="segmented mini" :style="`--i:${shifting ? 1 : 0};--n:2`">
                 <span class="thumb"></span>
-                <button :class="{ active: s.scenario === 'A' }" @click="s.scenario = 'A'">Currently</button>
-                <button :class="{ active: s.scenario === 'B' }" @click="s.scenario = 'B'">With shifting</button>
+                <button :class="{ active: !shifting }" @click="shifting = false">Without shifting</button>
+                <button :class="{ active: shifting }" @click="shifting = true">With shifting</button>
               </div>
               <p class="muted" x-text="summary"></p>
               <div class="chart solar-year"><canvas x-chart="monthlySpec"></canvas></div>
               <div class="legend bottom wrap">
                 <span><i class="square orange"></i>From your PV</span>
                 <span><i class="square grey"></i>From the grid</span>
+                <span x-show="shifting"><i class="square green"></i>Extra with shifting</span>
                 <span><i class="square sun"></i>PV production</span>
               </div>
+              <p class="muted hint"><strong>Shifting surplus:</strong> solar power you could use yourself if you run the
+                washer, dishwasher and hot water in the sunny hours. Without shifting it would go to the grid at 8¢;
+                with
+                shifting it replaces power you would otherwise buy.</p>
             </article>
 
             <article class="card">
-              <h2>Compare sizes</h2>
-              <p class="muted">Years until the share has paid for itself. Bigger shares mostly produce in summer, when you
-                use least – the surplus is exported for only €0.08.</p>
+              <h2>Break even</h2>
+              <p class="muted">Years until the panel has paid for itself. The
+                surplus is exported for 8¢.</p>
               <div class="chart solar-sizes"><canvas x-chart="sizesSpec"></canvas></div>
               <div class="legend bottom">
                 <span><i class="square muted-sq"></i>As you live now</span>

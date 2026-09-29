@@ -85,28 +85,34 @@
         label, data, borderColor: color, borderWidth: 3, tension: 0, cubicInterpolationMode: 'monotone',
         pointRadius: 0, pointHoverRadius: 6, pointHoverBackgroundColor: color, pointHoverBorderWidth: 0, ...extra,
       });
-      return { config: {
-        type: 'line',
-        data: {
-          labels: pointLabels ?? [...actual, ...forecast].map(() => ''),
-          datasets: [
-            dataset('Actual', [...actual, ...Array(forecast.length).fill(null)], t.accent, {
-              pointRadius: (c) => (c.dataIndex === last ? 8 : 0), pointBackgroundColor: t.accent,
-              pointBorderColor: 'rgba(255, 176, 102, .18)', pointBorderWidth: 5, pointHoverBorderWidth: 5,
-              pointHoverBorderColor: 'rgba(255, 176, 102, .18)',
-            }),
-            dataset('Forecast', [...nulls, actual[last], ...forecast], t.forecast, { borderDash: [5, 6] }),
-          ],
-        },
-        options: base(t, {
-          layout: { padding: { top: 8, bottom: 8, left: 8, right: 8 } },
-          scales: scales(t, { grace: '15%' }),
-          plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-            title: (items) => items[0].label || 'Average per day',
-            label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)} kWh`,
-          } } },
-        }),
-      } };
+      return {
+        config: {
+          type: 'line',
+          data: {
+            labels: pointLabels ?? [...actual, ...forecast].map(() => ''),
+            datasets: [
+              dataset('Actual', [...actual, ...Array(forecast.length).fill(null)], t.accent, {
+                pointRadius: (c) => (c.dataIndex === last ? 8 : 0), pointBackgroundColor: t.accent,
+                pointBorderColor: 'rgba(255, 176, 102, .18)', pointBorderWidth: 5, pointHoverBorderWidth: 5,
+                pointHoverBorderColor: 'rgba(255, 176, 102, .18)',
+              }),
+              dataset('Forecast', [...nulls, actual[last], ...forecast], t.forecast, { borderDash: [5, 6] }),
+            ],
+          },
+          options: base(t, {
+            layout: { padding: { top: 8, bottom: 8, left: 8, right: 8 } },
+            scales: scales(t, { grace: '15%' }),
+            plugins: {
+              legend: { display: false }, tooltip: {
+                ...tooltip(t), callbacks: {
+                  title: (items) => items[0].label || 'Average per day',
+                  label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)} kWh`,
+                }
+              }
+            },
+          }),
+        }
+      };
     },
 
     /**
@@ -181,26 +187,28 @@
         },
         config: {
           type: 'line',
-          data: { labels: values.map((_, i) => i), datasets: [{
-            data: main, borderColor: line, borderWidth: 3, cubicInterpolationMode: 'monotone',
-            pointRadius: (c) => (byIndex.has(c.dataIndex) ? 8 : 0),
-            pointHoverRadius: (c) => (byIndex.has(c.dataIndex) ? 9 : 5),
-            pointBackgroundColor: t.card,
-            pointHoverBackgroundColor: (c) => (byIndex.has(c.dataIndex) ? '#fff' : line),
-            pointBorderColor: line, pointBorderWidth: 2, pointHoverBorderColor: line, pointHoverBorderWidth: 2,
-          }, {
-            data: altData, borderColor: green, borderWidth: 2.5, borderDash: [6, 5], cubicInterpolationMode: 'monotone',
-            spanGaps: false, order: -1,
-            pointRadius: (c) => (markers.has(c.dataIndex) ? 9 : 0),
-            pointHitRadius: (c) => (markers.has(c.dataIndex) ? 18 : 0),
-            pointHoverRadius: (c) => (markers.has(c.dataIndex) ? 11 : 0),
-            pointBackgroundColor: t.card, pointHoverBackgroundColor: green,
-            pointBorderColor: green, pointBorderWidth: 3, pointHoverBorderColor: green,
-          }, {
-            data: prices ?? values.map(() => null), yAxisID: 'price', stepped: 'after', fill: 'origin', order: 10,
-            borderColor: 'rgba(255, 255, 255, .16)', borderWidth: 1.5, backgroundColor: 'rgba(255, 255, 255, .045)',
-            pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0,
-          }] },
+          data: {
+            labels: values.map((_, i) => i), datasets: [{
+              data: main, borderColor: line, borderWidth: 3, cubicInterpolationMode: 'monotone',
+              pointRadius: (c) => (byIndex.has(c.dataIndex) ? 8 : 0),
+              pointHoverRadius: (c) => (byIndex.has(c.dataIndex) ? 9 : 5),
+              pointBackgroundColor: t.card,
+              pointHoverBackgroundColor: (c) => (byIndex.has(c.dataIndex) ? '#fff' : line),
+              pointBorderColor: line, pointBorderWidth: 2, pointHoverBorderColor: line, pointHoverBorderWidth: 2,
+            }, {
+              data: altData, borderColor: green, borderWidth: 2.5, borderDash: [6, 5], cubicInterpolationMode: 'monotone',
+              spanGaps: false, order: -1,
+              pointRadius: (c) => (markers.has(c.dataIndex) ? 9 : 0),
+              pointHitRadius: (c) => (markers.has(c.dataIndex) ? 18 : 0),
+              pointHoverRadius: (c) => (markers.has(c.dataIndex) ? 11 : 0),
+              pointBackgroundColor: t.card, pointHoverBackgroundColor: green,
+              pointBorderColor: green, pointBorderWidth: 3, pointHoverBorderColor: green,
+            }, {
+              data: prices ?? values.map(() => null), yAxisID: 'price', stepped: 'after', fill: 'origin', order: 10,
+              borderColor: 'rgba(255, 255, 255, .16)', borderWidth: 1.5, backgroundColor: 'rgba(255, 255, 255, .045)',
+              pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0,
+            }]
+          },
           options: base(t, {
             layout: { padding: 0 },
             interaction: { mode: 'hw', intersect: false },
@@ -208,13 +216,17 @@
               ...scales(t, {
                 min: 0, grace: 0,                                   // nice steps, the line uses the full height
                 // left-hand legend: the kWh values of the forecast line
-                ticks: { display: true, count: undefined, maxTicksLimit: 5, padding: 6, color: line,   // same color as the forecast line
-                         font: { size: 11 }, callback: (v) => v.toFixed(v < 10 ? 1 : 0) },
+                ticks: {
+                  display: true, count: undefined, maxTicksLimit: 5, padding: 6, color: line,   // same color as the forecast line
+                  font: { size: 11 }, callback: (v) => v.toFixed(v < 10 ? 1 : 0)
+                },
               }),
               x: {
                 display: true, grid: { display: false }, border: { display: false },
-                ticks: { autoSkip: false, maxRotation: 0, padding: 8, color: token('--muted'),
-                         font: { size: 12 }, callback: (_v, i) => labelAt.get(i) ?? '' },
+                ticks: {
+                  autoSkip: false, maxRotation: 0, padding: 8, color: token('--muted'),
+                  font: { size: 12 }, callback: (_v, i) => labelAt.get(i) ?? ''
+                },
               },
               // right-hand price axis, 0–50 ct: markers show what the step background means
               price: {
@@ -235,26 +247,30 @@
                 .find((e) => e.datasetIndex === 1 && markers.has(e.index));
               if (marker) onPick?.(markers.get(marker.index));
             },
-            plugins: { hwCursor: { startMs: start?.getTime(), step, count },
-              legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-              title: (items) => {
-                const [item] = items;
-                if (item.datasetIndex === 1) return `Shift ${markers.get(item.dataIndex).device}`;
-                return byIndex.get(item.dataIndex)?.title ?? when(item.dataIndex);
-              },
-              label: (item) => {
-                if (item.datasetIndex === 1) {
-                  const sh = markers.get(item.dataIndex);
-                  return [`Run at ${at(sh.ideal)} instead of ${at(sh.usual)}`,
-                          `Saves ≈ ${HW.fmt.money(sh.saving)} · tap to schedule`];
+            plugins: {
+              hwCursor: { startMs: start?.getTime(), step, count },
+              legend: { display: false }, tooltip: {
+                ...tooltip(t), callbacks: {
+                  title: (items) => {
+                    const [item] = items;
+                    if (item.datasetIndex === 1) return `Shift ${markers.get(item.dataIndex).device}`;
+                    return byIndex.get(item.dataIndex)?.title ?? when(item.dataIndex);
+                  },
+                  label: (item) => {
+                    if (item.datasetIndex === 1) {
+                      const sh = markers.get(item.dataIndex);
+                      return [`Run at ${at(sh.ideal)} instead of ${at(sh.usual)}`,
+                      `Saves ≈ ${HW.fmt.money(sh.saving)} · tap to schedule`];
+                    }
+                    const h = byIndex.get(item.dataIndex);
+                    const lines = h ? [h.detail, ...(h.explain || []).flatMap((l) => wrap(l))]
+                      : [`${item.parsed.y.toFixed(2)} kWh`];
+                    if (prices) lines.push(`Price: ${HW.fmt.money(prices[item.dataIndex])}/kWh`);
+                    return lines;
+                  },
                 }
-                const h = byIndex.get(item.dataIndex);
-                const lines = h ? [h.detail, ...(h.explain || []).flatMap((l) => wrap(l))]
-                  : [`${item.parsed.y.toFixed(2)} kWh`];
-                if (prices) lines.push(`Price: ${HW.fmt.money(prices[item.dataIndex])}/kWh`);
-                return lines;
-              },
-            } } },
+              }
+            },
           }),
         },
       };
@@ -265,65 +281,98 @@
       const t = theme();
       const hot = (c) => c.dataIndex >= from && c.dataIndex <= to;
       const hh = (h) => String(h % 24).padStart(2, '0');
-      return { config: {
-        type: 'bar',
-        data: { labels: hours.map((_, h) => h), datasets: [{
-          data: [...hours], barPercentage: .8, categoryPercentage: 1,
-          borderRadius: { topLeft: 5, topRight: 5, bottomLeft: 3, bottomRight: 3 }, borderSkipped: false,
-          backgroundColor: (c) => (hot(c) ? t.accent : t.bar),
-          hoverBackgroundColor: (c) => (hot(c) ? '#ffc48f' : t.barHover),
-        }] },
-        options: base(t, {
-          layout: { padding: 0 },
-          scales: { x: { display: false }, y: { display: false, min: 0 } },
-          plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-            title: (items) => `${hh(items[0].dataIndex)}:00–${hh(items[0].dataIndex + 1)}:00`,
-            label: (item) => `${item.parsed.y.toFixed(2)} kWh${hot(item) ? ' · peak' : ''}`,
-          } } },
-        }),
-      } };
+      return {
+        config: {
+          type: 'bar',
+          data: {
+            labels: hours.map((_, h) => h), datasets: [{
+              data: [...hours], barPercentage: .8, categoryPercentage: 1,
+              borderRadius: { topLeft: 5, topRight: 5, bottomLeft: 3, bottomRight: 3 }, borderSkipped: false,
+              backgroundColor: (c) => (hot(c) ? t.accent : t.bar),
+              hoverBackgroundColor: (c) => (hot(c) ? '#ffc48f' : t.barHover),
+            }]
+          },
+          options: base(t, {
+            layout: { padding: 0 },
+            scales: { x: { display: false }, y: { display: false, min: 0 } },
+            plugins: {
+              legend: { display: false }, tooltip: {
+                ...tooltip(t), callbacks: {
+                  title: (items) => `${hh(items[0].dataIndex)}:00–${hh(items[0].dataIndex + 1)}:00`,
+                  label: (item) => `${item.parsed.y.toFixed(2)} kWh${hot(item) ? ' · peak' : ''}`,
+                }
+              }
+            },
+          }),
+        }
+      };
     },
 
     /**
-     * Solar: the year per month – her consumption split into what her PV share covers (accent) and what still comes
+     * Solar: the year per month – her consumption split into what her PV panel covers (accent) and what still comes
      * from the grid (grey), with the PV production as a line. `months` = pv_simulation.json monthly rows.
      */
-    solarMonthly(months, { compact = false } = {}) {
+    solarMonthly(months, { compact = false, shifted = null, showShift = true } = {}) {
       const t = theme();
       const sun = '#ffd166';
       const names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const kwh = (v) => `${Math.round(v)} kWh`;
+      // extra own PV use per month when she shifts (scenario B minus A), a green segment between own PV and grid (the grid share shrinks by the same amount)
+      const surplus = shifted ? months.map((m, i) => (showShift ? Math.max(0, shifted[i].used - m.used) : 0)) : null;
+      const green = token('--green');
       return {
-        id: `solar-monthly-${compact}`,
+        id: `solar-monthly-${compact}-${!!shifted}`,   // stays the same when toggling showShift, so the chart animates
         config: {
           type: 'bar',
-          data: { labels: names, datasets: [
-            { label: 'From your PV', data: months.map((m) => m.used), backgroundColor: t.accent, stack: 'use',
-              borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2 },
-            { label: 'From the grid', data: months.map((m) => m.grid), backgroundColor: t.bar, stack: 'use',
-              borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2 },
-            { label: 'PV production', data: months.map((m) => m.production), type: 'line', borderColor: sun,
-              borderWidth: 2.5, borderDash: [5, 5], pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: sun,
-              cubicInterpolationMode: 'monotone', order: 1 },
-          ] },
+          data: {
+            labels: names, datasets: [
+              {
+                label: 'From your PV', data: months.map((m) => m.used), backgroundColor: t.accent, stack: 'use',
+                borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2
+              },
+              ...(surplus ? [{
+                label: 'Extra with shifting', data: surplus, backgroundColor: green, stack: 'use',
+                borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2
+              }] : []),
+              {
+                label: 'From the grid', data: months.map((m, i) => Math.max(0, m.grid - (surplus?.[i] ?? 0))), backgroundColor: t.bar, stack: 'use',
+                borderRadius: 3, barPercentage: .72, categoryPercentage: .9, order: 2
+              },
+              {
+                label: 'PV production', data: months.map((m) => m.production), type: 'line', borderColor: sun,
+                borderWidth: 2.5, borderDash: [5, 5], pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: sun,
+                cubicInterpolationMode: 'monotone', order: 1
+              },
+            ]
+          },
           options: base(t, {
             interaction: { mode: 'index', intersect: false },
             layout: { padding: { top: 6 } },
             scales: {
-              x: { stacked: true, display: !compact, grid: { display: false }, border: { display: false },
-                   ticks: { color: token('--muted'), font: { size: 11 }, maxRotation: 0, autoSkip: false,
-                            callback: (_v, i) => names[i][0] } },
-              y: { stacked: true, display: !compact, beginAtZero: true, grid: { color: t.line, drawTicks: false },
-                   border: { display: false }, ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4 } },
-            },
-            plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-              title: (items) => names[items[0].dataIndex],
-              label: (item) => `${item.dataset.label}: ${kwh(item.parsed.y)}`,
-              afterBody: (items) => {
-                const m = months[items[0].dataIndex];
-                return m.demand ? [`Covered: ${Math.round((m.used / m.demand) * 100)} % · exported ${kwh(m.export)}`] : [];
+              x: {
+                stacked: true, display: !compact, grid: { display: false }, border: { display: false },
+                ticks: {
+                  color: token('--muted'), font: { size: 11 }, maxRotation: 0, autoSkip: false,
+                  callback: (_v, i) => names[i][0]
+                }
               },
-            } } },
+              y: {
+                stacked: true, display: !compact, beginAtZero: true, grid: { color: t.line, drawTicks: false },
+                border: { display: false }, ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4 }
+              },
+            },
+            plugins: {
+              legend: { display: false }, tooltip: {
+                ...tooltip(t), callbacks: {
+                  title: (items) => names[items[0].dataIndex],
+                  label: (item) => `${item.dataset.label}: ${kwh(item.parsed.y)}`,
+                  afterBody: (items) => {
+                    const m = months[items[0].dataIndex];
+                    return m.demand ? [`Covered: ${Math.round((m.used / m.demand) * 100)} % · exported ${kwh(m.export)}`] : [];
+                  },
+                }
+              }
+            },
           }),
         },
       };
@@ -339,24 +388,38 @@
         id: 'solar-sizes',
         config: {
           type: 'bar',
-          data: { labels: rows.map((r) => `${r.kwp} kWp`), datasets: [
-            { label: 'Currently', data: rows.map((r) => r.A.payback_years), borderRadius: 4,
-              backgroundColor: rows.map((r) => alpha('#8d8a86', r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7 },
-            { label: 'With shifting', data: rows.map((r) => r.B.payback_years), borderRadius: 4,
-              backgroundColor: rows.map((r) => alpha(t.accent, r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7 },
-          ] },
+          data: {
+            labels: rows.map((r) => `${r.kwp} kWp`), datasets: [
+              {
+                label: 'Without shifting', data: rows.map((r) => r.A.payback_years), borderRadius: 4,
+                backgroundColor: rows.map((r) => alpha('#8d8a86', r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7
+              },
+              {
+                label: 'With shifting', data: rows.map((r) => r.B.payback_years), borderRadius: 4,
+                backgroundColor: rows.map((r) => alpha(t.accent, r.kwp === kwp)), barPercentage: .8, categoryPercentage: .7
+              },
+            ]
+          },
           options: base(t, {
             interaction: { mode: 'index', intersect: false },
             scales: {
-              x: { grid: { display: false }, border: { display: false },
-                   ticks: { color: token('--muted'), font: { size: 11 }, maxRotation: 0 } },
-              y: { beginAtZero: true, grid: { color: t.line, drawTicks: false }, border: { display: false },
-                   ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4, callback: (v) => `${v} y` } },
+              x: {
+                grid: { display: false }, border: { display: false },
+                ticks: { color: token('--muted'), font: { size: 11 }, maxRotation: 0 }
+              },
+              y: {
+                beginAtZero: true, grid: { color: t.line, drawTicks: false }, border: { display: false },
+                ticks: { color: token('--muted'), font: { size: 11 }, padding: 6, maxTicksLimit: 4, callback: (v) => `${v} y` }
+              },
             },
-            plugins: { legend: { display: false }, tooltip: { ...tooltip(t), callbacks: {
-              title: (items) => `${rows[items[0].dataIndex].kwp} kWp · €${rows[items[0].dataIndex].investment.toLocaleString('en-US')}`,
-              label: (item) => `${item.dataset.label}: ${years(item.parsed.y)}`,
-            } } },
+            plugins: {
+              legend: { display: false }, tooltip: {
+                ...tooltip(t), callbacks: {
+                  title: (items) => `${rows[items[0].dataIndex].kwp} kWp · €${rows[items[0].dataIndex].investment.toLocaleString('en-US')}`,
+                  label: (item) => `${item.dataset.label}: ${years(item.parsed.y)}`,
+                }
+              }
+            },
           }),
         },
       };
@@ -372,7 +435,13 @@
       effect(() => get((proxied) => {
         const spec = proxied && Alpine.raw(proxied);       // Alpine wraps getter results in reactive proxies
         if (chart && spec?.id && spec.id === id) {         // same chart, new numbers: animate to them
-          chart.data = spec.config.data;
+          // merge into the existing dataset objects: replacing them makes Chart.js rebuild every bar from zero
+          const next = spec.config.data;
+          const same = chart.data.datasets.length === next.datasets.length;
+          if (same) {
+            chart.data.labels = next.labels;
+            next.datasets.forEach((d, i) => Object.assign(chart.data.datasets[i], d));
+          } else chart.data = next;
           chart.options = spec.config.options;
           chart.update();
           return;
